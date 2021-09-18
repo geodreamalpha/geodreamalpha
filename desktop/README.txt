@@ -1,0 +1,1 @@
+directory path to gain access to a unity component: "Unity\Assets\<name of component>" -Tyler Anderson

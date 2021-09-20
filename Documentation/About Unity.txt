@@ -1,0 +1,21 @@
+Installation version:
+Unity 3D 2020.3.17f1 (latest version of Unity as of 9/17/2021)
+
+How To Use Unity In github:
+Here is a good tutorial explaining how to use Unity with Github 
+(some of these steps have already been done such as creating a repository):
+https://www.youtube.com/watch?v=WH7qDUYHGK8
+
+Links to learn C# by The New Boston Youtube channel
+(best collection of programming tutorials I know of):
+
+https://www.youtube.com/watch?v=x_9lfHjYtVg&list=PL0EE421AE8BCEBA4A
+
+Basic tutorials of Unity by Sebastian Lague (understanding unity; this is a cool dude)
+the videos are from 2016, but a quality set of tutorials that should still apply:
+
+https://www.youtube.com/watch?v=_cCGBMmMOFw&list=PLFt_AvWsXl0fnA91TcmkRyhhixX9CO3Lw
+
+Learn about Unity from their website:
+
+https://learn.unity.com/search?k=%5B%22tag%3A5814655a090915001868ebec%22%2C%22sl%3Abeginner%22%2C%22sl%3Aintermediate%22%5D&ob=starts

@@ -1,3 +1,5 @@
+DESKTOP-------------------------------------------------------------------------
+
 Installation version:
 Unity 2021.1.21f1 (latest version of Unity as of recently)
 
@@ -42,3 +44,15 @@ https://www.youtube.com/watch?v=_cCGBMmMOFw&list=PLFt_AvWsXl0fnA91TcmkRyhhixX9CO
 Learn about Unity from their website:
 
 https://learn.unity.com/search?k=%5B%22tag%3A5814655a090915001868ebec%22%2C%22sl%3Abeginner%22%2C%22sl%3Aintermediate%22%5D&ob=starts
+
+MOBILE-------------------------------------------------------------------------
+
+Download link for Android Studio:
+
+https://developer.android.com/studio
+
+Click "Download Android Studio" and follow the instructions of the installer.
+
+Here is a tutorial playlist for how to build an android app:
+
+https://www.youtube.com/watch?v=Ob4vSoWud9k&list=PLt72zDbwBnAX9UeFwoh-lSZb5c_XrOOf7&index=1

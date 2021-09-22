@@ -14,6 +14,15 @@ windows 10.  But just in case, make sure your IDE is "Visual Studio" and more im
 support" selected.  These things may not be checked automatically if you are a mac user.
 You may need to explicitely check "windows build support" in that case.  In addition, Unity should allow you
 to make a windows build support game on a mac without issue.
+NOTE: if you do not have visual studio, unity should guide you through that installation process as well.  But if not, 
+here is the link to download the visual studio IDE:
+
+https://visualstudio.microsoft.com/
+
+Install the above link if Unity did not install visual studio for you.  Make sure to download "visual studio" 
+(not "visual studio code").  You will want to download the latest "community" version.  Its the free version.  It will
+prompt you to download the visual studio installer.  From the installer, you should be able to download visual studio community.  As of this data, the latest version shold be visual studio 2019.  It should be compatible with the latest version of Unity.
+
 
 How To Use Unity In github:
 Here is a good tutorial explaining how to use Unity with Github 

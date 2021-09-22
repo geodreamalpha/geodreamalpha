@@ -1,5 +1,19 @@
 Installation version:
-Unity 3D 2020.3.17f1 (latest version of Unity as of 9/17/2021)
+Unity 2021.1.21f1 (latest version of Unity as of recently)
+
+Installation page for Unity:
+Go to this link:
+
+https://unity3d.com/get-unity/update
+
+1) from the above link, install Unity Hub if you have not already downloaded it.
+2) after installing Unity Hub, click "Install Version from Unity Hub" which should be located
+on the same webpage.  It may take a few moments but unity hub will open.  Follow the installation
+instructions.  You shouldn't need to change any of the default settings for
+windows 10.  But just in case, make sure your IDE is "Visual Studio" and more importantly, you have "windows build
+support" selected.  These things may not be checked automatically if you are a mac user.
+You may need to explicitely check "windows build support" in that case.  In addition, Unity should allow you
+to make a windows build support game on a mac without issue.
 
 How To Use Unity In github:
 Here is a good tutorial explaining how to use Unity with Github 

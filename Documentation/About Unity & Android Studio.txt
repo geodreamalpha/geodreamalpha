@@ -25,6 +25,13 @@ Install the above link if Unity did not install visual studio for you.  Make sur
 (not "visual studio code").  You will want to download the latest "community" version.  Its the free version.  It will
 prompt you to download the visual studio installer.  From the installer, you should be able to download visual studio community.  As of this data, the latest version shold be visual studio 2019.  It should be compatible with the latest version of Unity.
 
+Naming Conventions for Unity:
+we are using "pascal case" (upper camel case) for types (classes, structs, enums) and methods, and "lower camal case" for fields and properties, for example:
+Type (classes, structs, enums) and Method examples: DataSystemLibrary, GetDataAs, SetDataAs
+field and property examples: playerPositionX, getWorldPosition
+
+Here is a link to help explain this:
+https://techterms.com/definition/pascalcase
 
 How To Use Unity In github:
 Here is a good tutorial explaining how to use Unity with Github 

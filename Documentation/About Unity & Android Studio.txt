@@ -52,6 +52,10 @@ Learn about Unity from their website:
 
 https://learn.unity.com/search?k=%5B%22tag%3A5814655a090915001868ebec%22%2C%22sl%3Abeginner%22%2C%22sl%3Aintermediate%22%5D&ob=starts
 
+How to use Unity wih Firebase:
+
+https://www.youtube.com/watch?v=A6du3DUTIPI&list=PLl-K7zZEsYLmnCN-bgE-OYPTfbDKM9t1y
+
 MOBILE-------------------------------------------------------------------------
 
 Download link for Android Studio:
@@ -63,3 +67,7 @@ Click "Download Android Studio" and follow the instructions of the installer.
 Here is a tutorial playlist for how to build an android app:
 
 https://www.youtube.com/watch?v=Ob4vSoWud9k&list=PLt72zDbwBnAX9UeFwoh-lSZb5c_XrOOf7&index=1
+
+How to use Android Studio with Firebase
+
+https://www.youtube.com/watch?v=SV9pJqR41KI&t=288s

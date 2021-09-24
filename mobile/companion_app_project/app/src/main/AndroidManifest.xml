@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GACompanion">
+        <activity android:name=".UserHomepageActivity"></activity>
+        <activity android:name=".WalkingChallengeActivity" />
+        <activity android:name=".StrengthMinigameActivity" />
+        <activity android:name=".LogInActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

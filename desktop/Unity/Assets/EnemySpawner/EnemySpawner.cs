@@ -18,5 +18,10 @@ namespace EnemySpawnerComponent
         {
 
         }
+
+        public string Hello()
+        {
+            return "Hello from Enemy Spawner Component";
+        }
     }
 }

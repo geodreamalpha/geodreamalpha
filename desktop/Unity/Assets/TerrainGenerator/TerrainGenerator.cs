@@ -11,13 +11,18 @@ namespace TerrainGeneratorComponent
         void Start()
         {
 
-        }
+        }//
 
         // Update is called once per frame
         void Update()
         {
 
-        }
-    }
-}
+        }//
+
+        public string Hello()
+        {
+            return "Hello from Terrain Generator Component";
+        }//
+    }//
+}//
 

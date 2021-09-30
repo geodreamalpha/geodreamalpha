@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace CombatSystemComponent {
+
     //Jake Aldridge 
     public class CombatSystem : MonoBehaviour
     {

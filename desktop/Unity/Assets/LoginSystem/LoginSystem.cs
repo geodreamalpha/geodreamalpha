@@ -7,16 +7,12 @@ namespace LoginSystemComponent
     //Nick Preston
     public class LoginSystem : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
+        /// <summary>
+        /// Returns a string that introduces the component.
+        /// </summary>
+        /// <returns>String introducing the component.</returns>
+        string Hello() {
+            return "Hello from Component LoginSystem";
         }
     }
 }

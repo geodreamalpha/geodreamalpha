@@ -26,9 +26,15 @@ public class HelloPrinter : MonoBehaviour
     void Start()
     {
         text = GetComponentInChildren<Text>();
-        text.text = terrainGenerator.Hello() + "\n" + enemySpawner.Hello() + "\n";
+        text.text = terrainGenerator.Hello() + "\n" + enemySpawner.Hello() + "\n" + loginSystem.Hello() + "\n" + firebaseConnector.Hello() + "\n" + dataManager.Hello() + "\n" + combatSystem.Hello() + "\n" + playerMovement.Hello();
 
-        Debug.Log(text.text);
+        Debug.Log(terrainGenerator.Hello());
+        Debug.Log(enemySpawner.Hello());
+        Debug.Log(loginSystem.Hello());
+        Debug.Log(firebaseConnector.Hello());
+        Debug.Log(dataManager.Hello());
+        Debug.Log(combatSystem.Hello());
+        Debug.Log(playerMovement.Hello());
     }//
 
     // Update is called once per frame

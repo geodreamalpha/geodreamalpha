@@ -38,7 +38,6 @@ namespace TerrainGeneratorComponent
 
 		}//
 
-		bool trueOnFirstFrame = true;
 
 		//when play ventures too far from the map, the maps data will be recalculated and will re-align the map's center with players position
 		//the maps data will be loaded asynchronously.

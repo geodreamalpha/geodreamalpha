@@ -55,7 +55,7 @@ namespace TerrainGeneratorComponent
         /// <returns> A string that introduces this component </returns>
         public string Hello()
         {
-            return "Hello from Terrain Generator Component";
+            return "Hello from Component TerrainGenerator";
         }
     }
 }

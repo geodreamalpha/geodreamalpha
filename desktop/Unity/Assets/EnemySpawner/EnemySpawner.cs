@@ -47,7 +47,7 @@ namespace EnemySpawnerComponent
         /// <returns> A string that introduces this component </returns>
         public string Hello()
         {
-            return "Hello from Enemy Spawner Component";
+            return "Hello from Component EnemySpawner";
         }
     }
 }

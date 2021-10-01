@@ -28,7 +28,7 @@ namespace PlayerMovementComponent
         /// <returns>String introducing the component.</returns>
         public string Hello()
         {
-            return "Hello from Component Player Movement"; 
+            return "Hello from Component PlayerMovement"; 
         }
 
         /// <summary>

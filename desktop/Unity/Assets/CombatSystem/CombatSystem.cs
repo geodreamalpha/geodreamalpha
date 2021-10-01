@@ -28,7 +28,7 @@ namespace CombatSystemComponent {
         /// Returns a string that introduces the component. 
         /// </summary>
         /// <returns>String introducing the component.</returns>
-        string Hello()
+        public string Hello()
         {
             return "Hello from Component CombatSystem"; 
         }

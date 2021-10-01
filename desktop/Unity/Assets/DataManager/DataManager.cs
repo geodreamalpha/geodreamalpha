@@ -18,6 +18,15 @@ namespace DataManagerComponent
         {
 
         }
+
+        /// <summary>
+        /// Gets the "Hello from" string of this component
+        /// </summary>
+        /// <returns> A string that introduces this component </returns>
+        public string Hello()
+        {
+            return "Hello from Component DataManager";
+        }
     }//
 }//
 

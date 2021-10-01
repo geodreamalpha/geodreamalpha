@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CombatSystemComponent; 
 
 namespace PlayerMovementComponent
 {
@@ -21,6 +22,10 @@ namespace PlayerMovementComponent
 
         }
 
+        /// <summary>
+        /// Returns a string that introduces the component. 
+        /// </summary>
+        /// <returns>String introducing the component.</returns>
         public string Hello()
         {
             return "Hello from Component Player Movement"; 

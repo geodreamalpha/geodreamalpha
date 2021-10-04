@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GACompanion</string>
+    <string name="navigate_login">Navigate to LogInActivity</string>
+    <string name="navigate_user_homepage">Navigate to UserHomepageActivity</string>
+    <string name="navigate_str_minigame">Navigate to StrengthMinigameActivity</string>
+    <string name="navigate_walk_challenge">Navigate to WalkingChallengeActivity</string>
 </resources>

@@ -27,6 +27,18 @@ namespace DataManagerComponent
         {
             return "Hello from Component DataManager";
         }
+        
+        void saveGame () {
+			
+		}
+		
+		void checkSaveStatus () {
+			
+		}
+		
+		void loadGame () {
+			
+		}
     }//
 }//
 

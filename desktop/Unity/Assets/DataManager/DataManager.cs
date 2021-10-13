@@ -51,14 +51,6 @@ namespace DataManagerComponent
         }
 
         /// <summary>
-        /// Gets the player's max health based on current level
-        /// </summary>
-        /// <returns>Player's max health as an integer</returns>
-        public int GetMaxHealth() {
-            return 0;
-        }
-
-        /// <summary>
         /// Get's the player's last known strength value from Firebase
         /// </summary>
         /// <returns>Player's strength value as an integer</returns>
@@ -75,26 +67,10 @@ namespace DataManagerComponent
         }
 
         /// <summary>
-        /// Get's the player's max stamina based on current level
-        /// </summary>
-        /// <returns>Player's max stamina value as an integer</returns>
-        public int GetMaxStamina() {
-            return 0;
-        }
-
-        /// <summary>
         /// Get's the player's last saved XP value from Firebase
         /// </summary>
         /// <returns>Player's XP value as an integer</returns>
         public int GetXP() {
-            return 0;
-        }
-
-        /// <summary>
-        /// Get's the player's level based on current XP
-        /// </summary>
-        /// <returns>Player's level value as an integer</returns>
-        public int GetLevel() {
             return 0;
         }
     }//

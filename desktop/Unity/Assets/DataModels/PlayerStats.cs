@@ -8,4 +8,5 @@ public class PlayerStats : Stats
     protected int CurrentHealth { get; set; }
     protected int MaxStamina { get; set; }
     protected int CurrentStamina { get; set; }
+    protected int XP { get; set; }
 }

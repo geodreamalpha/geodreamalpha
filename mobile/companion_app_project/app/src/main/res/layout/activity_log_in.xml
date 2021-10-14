@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".LogInActivity">
 
+    <include
+        layout="@layout/toolbar_main"
+        android:id="@+id/toolbar"
+        />
+
     <ImageView
         android:id="@+id/logo_image"
         android:layout_width="match_parent"
@@ -13,7 +18,7 @@
         android:src="@drawable/geodream_alpha_companion_app_logo__white_"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toTopOf="@id/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -34,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textColor="@color/white"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@id/password"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textColor="@color/white"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,6 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
+        android:onClick="signIn"
         app:layout_constraintTop_toBottomOf="@id/password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -88,6 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_up_instead"
+        android:onClick="sendToAboutPage"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

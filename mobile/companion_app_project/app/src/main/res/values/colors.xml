@@ -8,6 +8,7 @@
     <color name="dark_teal">#FF053E6E</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#FF4A4C4D</color>
 
 
 </resources>

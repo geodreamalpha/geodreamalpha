@@ -12,6 +12,8 @@
     <string name="login">Login</string>
     <string name="sign_in_instead">Sign In Instead</string>
     <string name="sign_up_instead">Learn How To Sign-Up</string>
-
     <string name="new_user_label">New to GeoDream Alpha?</string>
+
+    <string name="about_text">Temp About Text</string>
+
 </resources>

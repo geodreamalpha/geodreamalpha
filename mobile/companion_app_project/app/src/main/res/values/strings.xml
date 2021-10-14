@@ -1,7 +1,17 @@
 <resources>
-    <string name="app_name">GACompanion</string>
+    <string name="app_name">GeoDream Alpha Companion App</string>
     <string name="navigate_login">Navigate to LogInActivity</string>
     <string name="navigate_user_homepage">Navigate to UserHomepageActivity</string>
     <string name="navigate_str_minigame">Navigate to StrengthMinigameActivity</string>
     <string name="navigate_walk_challenge">Navigate to WalkingChallengeActivity</string>
+
+    <string name="email">Email</string>
+    <string name="password_label">Password</string>
+    <string name="confirm_password_label">Confirm Password</string>
+    <string name="logout">Logout</string>
+    <string name="login">Login</string>
+    <string name="sign_in_instead">Sign In Instead</string>
+    <string name="sign_up_instead">Learn How To Sign-Up</string>
+
+    <string name="new_user_label">New to GeoDream Alpha?</string>
 </resources>

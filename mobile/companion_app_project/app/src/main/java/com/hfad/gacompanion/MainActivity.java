@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager("x", "y");
         TextView userManagerTextView = findViewById(R.id.userManagerHelloText);
         userManagerTextView.setText(userManager.hello());
 

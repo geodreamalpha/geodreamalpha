@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.View;
 
 public class AboutGeoDreamActivity extends AppCompatActivity {
 
@@ -14,5 +15,9 @@ public class AboutGeoDreamActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    public void goBack(View view){
+        finish();
     }
 }

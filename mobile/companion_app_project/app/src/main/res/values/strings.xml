@@ -1,7 +1,31 @@
 <resources>
-    <string name="app_name">GACompanion</string>
+    <string name="app_name">GeoDream Alpha Companion App</string>
     <string name="navigate_login">Navigate to LogInActivity</string>
     <string name="navigate_user_homepage">Navigate to UserHomepageActivity</string>
     <string name="navigate_str_minigame">Navigate to StrengthMinigameActivity</string>
     <string name="navigate_walk_challenge">Navigate to WalkingChallengeActivity</string>
+
+    <string name="email">Email</string>
+    <string name="password_label">Password</string>
+    <string name="confirm_password_label">Confirm Password</string>
+    <string name="logout">Logout</string>
+    <string name="login">Login</string>
+    <string name="sign_in_instead">Sign In Instead</string>
+    <string name="sign_up_instead">Learn How To Sign-Up</string>
+    <string name="new_user_label">New to GeoDream Alpha?</string>
+    <string name="goBack">Go Back</string>
+
+    <string name="about_text">GeoDream Alpha is an action-RPG available now on your desktop PC!\n
+        \n
+        Fight challenging enemies, gain experience, and level up alongside your companion, as you
+        fight to survive for as long as possible. Once you\'ve made an account on the desktop game,
+        come back here to log-in, after which you can start leveling up your companion character to
+        make them stronger! There is no way to level up your companion in the desktop game, so make
+        sure you come back to train them here!\n
+        \n
+        GeoDream Alpha (Desktop Game) is currently available on [Steam].
+    </string>
+
+    <string name="homepage_temp_text">Welcome! This is where the user homepage will go!</string>
+
 </resources>

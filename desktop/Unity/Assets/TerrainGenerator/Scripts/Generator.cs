@@ -111,7 +111,6 @@ namespace TerrainGeneratorComponent
                         }
                         #endregion
 
-
                         //only places trees and grass if they are above sea level
                         if (heightmap[y, x] * chunkSize.y > Chunk.seaLevel)
                         {
@@ -136,7 +135,7 @@ namespace TerrainGeneratorComponent
                                 if (bioIndex > -1)
                                 {
                                     instance.prototypeIndex = bioIndex;
-                                    instance.position = new Vector3(bioX / chunkSize.x, 0f, bioY / chunkSize.z);
+                                    instance.position = new Vector3((float)x / Chunk.faceLength, 0f, (float)y / Chunk.faceLength);
                                     instances.Add(instance);
                                     break;
                                 }

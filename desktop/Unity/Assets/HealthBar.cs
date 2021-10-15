@@ -24,6 +24,10 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            fb.GetValue("health");
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             this.health += 10;

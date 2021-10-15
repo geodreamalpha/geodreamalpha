@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DataManagerComponent
 {
-    //name goes here
+    //Nick Preston
     public class DataManager : MonoBehaviour
     {
 
@@ -14,13 +14,13 @@ namespace DataManagerComponent
         // Code to sync from Firebase here at startup
         void Start()
         {
-
+            
         }
 
         // Update HUD every frame
         void Update()
         {
-
+            
         }
 
         /// <summary>
@@ -38,7 +38,8 @@ namespace DataManagerComponent
         /// </summary>
         /// <param name="index"></param>
         /// <returns>Seed in string form</returns>
-        public string GetSeed(int index) {
+        public string GetSeed(int index)
+        {
             return "";
         }
 
@@ -46,7 +47,8 @@ namespace DataManagerComponent
         /// Gets the player's last known health from Firebase
         /// </summary>
         /// <returns>Player's health as an integer</returns>
-        public int GetHealth() {
+        public int GetHealth()
+        {
             return 0;
         }
 
@@ -54,7 +56,8 @@ namespace DataManagerComponent
         /// Get's the player's last known strength value from Firebase
         /// </summary>
         /// <returns>Player's strength value as an integer</returns>
-        public int GetStrength() {
+        public int GetStrength()
+        {
             return 0;
         }
 
@@ -62,7 +65,8 @@ namespace DataManagerComponent
         /// Get's the player's last known speed value from Firebase
         /// </summary>
         /// <returns>Player's speed value as an integer</returns>
-        public int GetSpeed() {
+        public int GetSpeed()
+        {
             return 0;
         }
 
@@ -70,7 +74,8 @@ namespace DataManagerComponent
         /// Get's the player's last saved XP value from Firebase
         /// </summary>
         /// <returns>Player's XP value as an integer</returns>
-        public int GetXP() {
+        public int GetXP()
+        {
             return 0;
         }
     }//

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/HelloScene.unity
-    guid: 1311e8ee7df994a57ad167b69018d1cc
+    path: Assets/TerrainGenerator/Scene/MenuScene.unity
+    guid: 2c7b75d1e8d91db4184053c0d0b17aa0
+  - enabled: 1
+    path: Assets/TerrainGenerator/Scene/GameScene.unity
+    guid: 6695b0f98d1c21445a2c7d9873533bad
   m_configObjects: {}

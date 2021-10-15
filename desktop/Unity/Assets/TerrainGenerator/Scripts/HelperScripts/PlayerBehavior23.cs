@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBehavior : MonoBehaviour
+public class PlayerBehavior23 : MonoBehaviour
 {
     Camera mainCamera;
     CharacterController controller;

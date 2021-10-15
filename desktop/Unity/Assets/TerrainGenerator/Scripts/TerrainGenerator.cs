@@ -21,6 +21,8 @@ namespace TerrainGeneratorComponent
 
         GameObject exitMenu;
 
+        int firstUpdate = 0;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -37,12 +39,19 @@ namespace TerrainGeneratorComponent
             isPaused = false;
 
             generator = new Generator();
-            SetPlayerPositionFromString();
+            firstUpdate = 0;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (firstUpdate < 20)
+            {
+                SetPlayerPositionFromString();
+                firstUpdate++;
+            }               
+
+            Debug.Log(player.position.x.ToString() + "   " + player.position.z.ToString());
             chunkManager.Refresh(player.position, assets, generator.Generate);
 
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -59,6 +68,7 @@ namespace TerrainGeneratorComponent
             int x = int.Parse(s[0]);
             int z = int.Parse(s[1]);
             player.position = new Vector3(x, player.position.y, z);
+            Debug.Log(player.position.x.ToString() + "   " + player.position.z.ToString());
         }//
 
         /// <summary>

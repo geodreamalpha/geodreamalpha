@@ -84,7 +84,7 @@ namespace TerrainGeneratorComponent
         {
             loadScreen.SetActive(true);
 
-            Resources.UnloadUnusedAssets();
+            //Resources.UnloadUnusedAssets();
             AsyncOperation gameScene = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
 
             while (!gameScene.isDone)

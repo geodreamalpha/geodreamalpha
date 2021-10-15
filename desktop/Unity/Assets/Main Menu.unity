@@ -953,6 +953,7 @@ GameObject:
   - component: {fileID: 989098275}
   - component: {fileID: 989098274}
   - component: {fileID: 989098273}
+  - component: {fileID: 989098276}
   m_Layer: 5
   m_Name: Log In Button
   m_TagString: Untagged
@@ -1023,7 +1024,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 989098274}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1339642700}
+        m_TargetAssemblyTypeName: SplashInterface, Assembly-CSharp
+        m_MethodName: Login
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Login
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &989098274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,6 +1075,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989098271}
   m_CullTransparentMesh: 1
+--- !u!114 &989098276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989098271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d7e3a52843344651a12330b0bce0db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1054190957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,6 +1420,7 @@ GameObject:
   - component: {fileID: 1339642697}
   - component: {fileID: 1339642699}
   - component: {fileID: 1339642698}
+  - component: {fileID: 1339642700}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1465,6 +1491,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339642696}
   m_CullTransparentMesh: 1
+--- !u!114 &1339642700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339642696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d7e3a52843344651a12330b0bce0db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1355732590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,7 +1748,7 @@ GameObject:
   - component: {fileID: 1665743051}
   - component: {fileID: 1665743050}
   m_Layer: 5
-  m_Name: Welcome Label
+  m_Name: WelcomeLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

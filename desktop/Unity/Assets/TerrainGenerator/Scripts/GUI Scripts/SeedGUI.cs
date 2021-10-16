@@ -66,7 +66,7 @@ namespace TerrainGeneratorComponent
             if (seedInputIsInCorrectFormat && Mathf.Abs(int.Parse(integers[0])) < 50001 && Mathf.Abs(int.Parse(integers[1])) < 50001)
             {
                 currentSeed = seedInput.text;
-                Debug.Log(currentSeed);
+                //Debug.Log(currentSeed);
                 StartCoroutine(LoadGameLevelAsync());
             }
             else
@@ -84,7 +84,7 @@ namespace TerrainGeneratorComponent
         {
             loadScreen.SetActive(true);
 
-            //Resources.UnloadUnusedAssets();
+            Resources.UnloadUnusedAssets();
             AsyncOperation gameScene = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
 
             while (!gameScene.isDone)

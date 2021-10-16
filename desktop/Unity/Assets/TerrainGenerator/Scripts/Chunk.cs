@@ -9,6 +9,8 @@ namespace TerrainGeneratorComponent
 {
 	public class Chunk
 	{
+		public const int layer = 3;
+
 		public const float seaLevel = 77f;
 		GameObject waterObject;
 
@@ -37,7 +39,7 @@ namespace TerrainGeneratorComponent
 		//the world size of the terrain divided by four.
 
 
-		public async void Generate(int indexX, int indexY, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate)
+		public async void LoadAsync(CharacterController playerController, int indexX, int indexY, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate, bool playerIsOnChunk)
 		{
 			#region Initialize Water Object
 			//waterObject = GameObject.Find("Water");
@@ -56,6 +58,8 @@ namespace TerrainGeneratorComponent
 			data.wavingGrassStrength = 0.5f;
 
 			terrainObject = Terrain.CreateTerrainGameObject(data);
+			terrainObject.layer = layer;
+			terrainObject.isStatic = false;
 			terrain = terrainObject.GetComponent<Terrain>();
 			terrain.detailObjectDistance = 180f;
 			terrain.treeBillboardDistance = 100f;
@@ -73,7 +77,8 @@ namespace TerrainGeneratorComponent
 			trees.Clear();
 
 			//async
-			var task2 = await Task.Run(() => {
+			var task2 = await Task.Run(() =>
+			{
 				Generate(indexX * faceLength, indexY * faceLength, heightmap, alphamapLayers, detailLayers, trees, size);
 				return 0;
 			});
@@ -93,5 +98,15 @@ namespace TerrainGeneratorComponent
         {
 			GameObject.Destroy(terrainObject);
         }
+
+		public static void Snap(CharacterController controller)
+		{
+			RaycastHit hit;
+			controller.Move(Vector3.up * 9999f);
+			Vector3 newPosition = controller.transform.position;
+			Physics.Raycast(newPosition, Vector3.down, out hit, float.PositiveInfinity, layer);
+			newPosition.y = hit.point.y;
+			controller.Move(-controller.transform.position + newPosition);
+		}//
 	}
 }

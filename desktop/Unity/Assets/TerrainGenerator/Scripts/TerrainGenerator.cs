@@ -8,7 +8,7 @@ namespace TerrainGeneratorComponent
     public class TerrainGenerator : MonoBehaviour
     {
         [SerializeField]
-        Transform player;
+        CharacterController playerController;
 
         Generator generator;
 
@@ -21,7 +21,7 @@ namespace TerrainGeneratorComponent
 
         GameObject exitMenu;
 
-        int firstUpdate = 0;
+        int snapCount = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -39,27 +39,27 @@ namespace TerrainGeneratorComponent
             isPaused = false;
 
             generator = new Generator();
-            firstUpdate = 0;
+
+            SetPlayerPositionFromString();
+            snapCount = 0;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (firstUpdate < 20)
-            {
-                SetPlayerPositionFromString();
-                firstUpdate++;
-            }               
-
-            Debug.Log(player.position.x.ToString() + "   " + player.position.z.ToString());
-            chunkManager.Refresh(player.position, assets, generator.Generate);
+            chunkManager.Refresh(playerController, assets, generator.Generate);
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 exitMenu.SetActive(true);
                 isPaused = true;
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.P) || snapCount < 3)
+            {
+                Chunk.Snap(playerController);
+                snapCount++;
+            }
         }
 
         public void SetPlayerPositionFromString()
@@ -67,8 +67,8 @@ namespace TerrainGeneratorComponent
             string[] s = SeedGUI.currentSeed.Split('_');
             int x = int.Parse(s[0]);
             int z = int.Parse(s[1]);
-            player.position = new Vector3(x, player.position.y, z);
-            Debug.Log(player.position.x.ToString() + "   " + player.position.z.ToString());
+            playerController.Move(-playerController.transform.position);
+            playerController.Move(new Vector3(x, 1203f, z));
         }//
 
         /// <summary>

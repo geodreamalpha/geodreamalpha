@@ -17,10 +17,11 @@ namespace TerrainGeneratorComponent
         List<(int, int)> newKeys = new List<(int, int)>();
 
 
-        public void Refresh(Vector3 playerPosition, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate)
+        public void Refresh(CharacterController playerController, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate)
         {
-            indexX = (int)(playerPosition.x / Chunk.faceLength);
-            indexY = (int)(playerPosition.z / Chunk.faceLength);
+            //may need to use raycast
+            indexX = Mathf.RoundToInt(playerController.transform.position.x / Chunk.faceLength);
+            indexY = Mathf.RoundToInt(playerController.transform.position.z / Chunk.faceLength);
 
             oldKeys = newKeys;
             newKeys = new List<(int, int)>();
@@ -32,9 +33,8 @@ namespace TerrainGeneratorComponent
                     if (!chunks.ContainsKey((x, y)))
                     {
                         Chunk chunk = new Chunk();
-                        chunk.Generate(x, y, assets, Generate);
+                        chunk.LoadAsync(playerController, x, y, assets, Generate, x == indexX && y == indexY);
                         chunks.Add((x, y), chunk);
-                        
                     }
                     newKeys.Add((x, y));
                 }
@@ -44,8 +44,8 @@ namespace TerrainGeneratorComponent
             {
                 if (!newKeys.Contains(key))
                 {
-                    chunks[key].Destroy();
-                    chunks.Remove(key);
+                    //chunks[key].Destroy();
+                    //chunks.Remove(key);
                 }
             }
         }//

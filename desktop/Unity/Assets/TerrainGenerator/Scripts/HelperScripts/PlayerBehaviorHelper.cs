@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBehavior23 : MonoBehaviour
+public class PlayerBehaviorHelper : MonoBehaviour
 {
     Camera mainCamera;
     CharacterController controller;
@@ -37,5 +37,5 @@ public class PlayerBehavior23 : MonoBehaviour
             //add gravity
             controller.Move(gravity * Time.deltaTime);
         } 
-    }//
+    }
 }

@@ -36,10 +36,10 @@ namespace TerrainGeneratorComponent
 		public static Vector3 size = new Vector3(32, 1200, 32);
 		//the face count of the terrain
 		public static int faceLength = 512;
-		//the world size of the terrain divided by four.
+		//the world size of the terrain divided by 2.
+		public static int halfFaceLength = faceLength / 2;
 
-
-		public async void LoadAsync(CharacterController playerController, int indexX, int indexY, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate, bool playerIsOnChunk)
+		public async void LoadAsync(int indexX, int indexY, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate)
 		{
 			#region Initialize Water Object
 			//waterObject = GameObject.Find("Water");
@@ -56,26 +56,14 @@ namespace TerrainGeneratorComponent
 			data.SetDetailResolution(faceLength, 8);
 			data.wavingGrassAmount = 0.2f;
 			data.wavingGrassStrength = 0.5f;
-
-			terrainObject = Terrain.CreateTerrainGameObject(data);
-			terrainObject.layer = layer;
-			terrainObject.isStatic = false;
-			terrain = terrainObject.GetComponent<Terrain>();
-			terrain.detailObjectDistance = 180f;
-			terrain.treeBillboardDistance = 100f;
-			terrain.treeCrossFadeLength = 50f;
-
-			terrainObject.transform.position = new Vector3(indexX * faceLength, 0f, indexY * faceLength);
-
+			
 			detailLayers = new int[data.detailPrototypes.Length][,];
 			trees = new List<TreeInstance> { };
-
 			heightmap = new float[lineLength, lineLength];
 			alphamapLayers = new float[faceLength, faceLength, data.terrainLayers.Length];
 			for (int i = 0; i < detailLayers.Length; i++)
 				detailLayers[i] = new int[faceLength, faceLength];
 			trees.Clear();
-
 			//async
 			var task2 = await Task.Run(() =>
 			{
@@ -88,10 +76,22 @@ namespace TerrainGeneratorComponent
 			data.SetHeights(0, 0, heightmap);
 			data.SetAlphamaps(0, 0, alphamapLayers);
 			for (int i = 0; i < detailLayers.Length; i++)
+            {
 				data.SetDetailLayer(0, 0, i, detailLayers[i]);
-			data.SetTreeInstances(trees.ToArray(), true);
-			terrain.Flush();
+			}
+			data.SetTreeInstances(trees.ToArray(), true);			
 			#endregion
+
+			terrainObject = Terrain.CreateTerrainGameObject(data);
+			terrainObject.layer = layer;
+			terrainObject.isStatic = true;
+
+			terrain = terrainObject.GetComponent<Terrain>();
+			terrain.detailObjectDistance = 180f;
+			terrain.treeBillboardDistance = 100f;
+			terrain.treeCrossFadeLength = 50f;
+			SetCenterPosition(new Vector3(indexX * faceLength, 0f, indexY * faceLength));
+			terrain.Flush();
 		}//
 
 		public void Destroy()
@@ -99,10 +99,21 @@ namespace TerrainGeneratorComponent
 			GameObject.Destroy(terrainObject);
         }
 
+		public Vector3 GetCenterPosition()
+        {
+			Vector3 pos = terrainObject.transform.position;
+			return new Vector3(pos.x + halfFaceLength, pos.y, pos.z + halfFaceLength);
+        }//
+
+		public void SetCenterPosition(Vector3 pos)
+		{
+			terrainObject.transform.position = new Vector3(pos.x - halfFaceLength, pos.y, pos.z - halfFaceLength);
+		}//
+
 		public static void Snap(CharacterController controller)
 		{
 			RaycastHit hit;
-			controller.Move(Vector3.up * 9999f);
+			controller.Move(Vector3.up * 1300);
 			Vector3 newPosition = controller.transform.position;
 			Physics.Raycast(newPosition, Vector3.down, out hit, float.PositiveInfinity, layer);
 			newPosition.y = hit.point.y;

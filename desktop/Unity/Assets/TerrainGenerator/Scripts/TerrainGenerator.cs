@@ -21,7 +21,7 @@ namespace TerrainGeneratorComponent
 
         GameObject exitMenu;
 
-        int snapCount = 0;
+        bool playerIsInitiallyGrounded = false;
 
         // Start is called before the first frame update
         void Start()
@@ -41,7 +41,7 @@ namespace TerrainGeneratorComponent
             generator = new Generator();
 
             SetPlayerPositionFromString();
-            snapCount = 0;
+            playerIsInitiallyGrounded = false;
         }
 
         // Update is called once per frame
@@ -55,10 +55,15 @@ namespace TerrainGeneratorComponent
                 isPaused = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.P) || snapCount < 3)
+            if (Input.GetKeyDown(KeyCode.P) || !playerIsInitiallyGrounded)
             {
                 Chunk.Snap(playerController);
-                snapCount++;
+                if (playerController.isGrounded)
+                {
+                    playerIsInitiallyGrounded = true;
+                    Debug.Log("grounded");
+                }
+                    
             }
         }
 

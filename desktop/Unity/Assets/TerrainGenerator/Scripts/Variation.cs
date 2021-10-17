@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Variation
 {
-    const float maxDegree = 90f;
-
+    int startIndex;
+    int endIndex;
     AnimationCurve curve;
-    
-    int detail;
-    float scale;
+    int prototypeCount;
+    int detailCount;
     float abundance;
-    float sensitivity;
     float startDegree;
     float degreeInterval;
 
-    public Variation(int startIndex, int count, int detail, float abundance, float sensitivity, float startDegree, float degreeInterval)
+    public Variation(int startIndex, int prototypeCount, int detailCount, float abundance, float startDegree, float degreeInterval)
     {
-        curve = new AnimationCurve(new Keyframe(-0.2f, startIndex), new Keyframe(1.2f, startIndex + count - detail));
-        this.detail = detail;
+        this.startIndex = startIndex;
+        this.endIndex = startIndex + prototypeCount - 1;
+        curve = new AnimationCurve(new Keyframe(-0.2f, startIndex), new Keyframe(1.2f, endIndex));
+        this.prototypeCount = prototypeCount;
+        this.detailCount = detailCount;
         this.abundance = abundance;
-        this.sensitivity = sensitivity;
         this.startDegree = startDegree;
         this.degreeInterval = degreeInterval;       
     }//
@@ -29,9 +29,9 @@ public class Variation
     {
         float minimum = 0f;
         int index = -1;
-        int start = (int)curve.Evaluate(value);
+        int start = Mathf.RoundToInt(curve.Evaluate(value));  
 
-        for (int i = 0; i < detail; i++)
+        for (int i = 0; i < detailCount; i++)
         {
             minimum = startDegree + (i * degreeInterval);
             if (slope >= minimum && slope < minimum + (degreeInterval * abundance))
@@ -39,7 +39,10 @@ public class Variation
                 index = start;              
                 break;
             }
+            start -= startIndex;
             start++;
+            start = start % prototypeCount;
+            start += startIndex;
         }
         return index;
     }//

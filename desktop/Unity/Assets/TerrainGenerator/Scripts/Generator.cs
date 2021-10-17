@@ -13,13 +13,13 @@ namespace TerrainGeneratorComponent
         AnimationCurve eAmplitude = new AnimationCurve(new Keyframe(-0.2f, 0.2f), new Keyframe(1.2f, 0.8f)); //------
         AnimationCurve frequency = new AnimationCurve(new Keyframe(-0.2f, 0.6f), new Keyframe(1.2f, 0.602f));
 
-        Variation[] layerVariations = new Variation[3] { new Variation(0, 5, 1, 1f, 0f, 0f, 10f), 
-                                                         new Variation(5, 1, 1, 1f, 0f, 10f, 26f), 
-                                                         new Variation(6, 6, 3, 1f, 0f, 36f, 18f) };
+        Variation[] layerVariations = new Variation[3] { new Variation(0, 5, 1, 1f, 0f, 10f), 
+                                                         new Variation(5, 1, 1, 1f, 10f, 26f), 
+                                                         new Variation(6, 6, 3, 1f, 36f, 18f) };
 
-        Variation[] detailVariations = new Variation[1] { new Variation(0, 9, 4, 1f, 0f, 10f, 7f) };
+        Variation[] detailVariations = new Variation[1] { new Variation(0, 9, 4, 1f, 10f, 7f) };
 
-        Variation[] treeVariations = new Variation[1] { new Variation(0, 5, 3, 0.0005f, 0f, 0f, 20f) };
+        Variation[] treeVariations = new Variation[1] { new Variation(0, 5, 3, 0.0005f, 0f, 20f) };
 
         public void Generate(float worldX, float worldY, float[,] heightmap, float[,,] alphamap, int[][,] detailLayer, List<TreeInstance> instances, Vector3 chunkSize)
         {

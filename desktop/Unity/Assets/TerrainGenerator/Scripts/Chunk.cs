@@ -11,7 +11,7 @@ namespace TerrainGeneratorComponent
 	{
 		public const int layer = 3;
 
-		public const float seaLevel = 77f;
+		public const float seaLevel = 30f;
 		GameObject waterObject;
 
 		//stores the height for each y,x vertex of the terrain
@@ -81,8 +81,9 @@ namespace TerrainGeneratorComponent
 			}
 			data.SetTreeInstances(trees.ToArray(), true);			
 			#endregion
-
+			
 			terrainObject = Terrain.CreateTerrainGameObject(data);
+			SetCenterPosition(new Vector3(indexX * faceLength, 0f, indexY * faceLength));
 			terrainObject.layer = layer;
 			terrainObject.isStatic = true;
 
@@ -90,8 +91,8 @@ namespace TerrainGeneratorComponent
 			terrain.detailObjectDistance = 180f;
 			terrain.treeBillboardDistance = 100f;
 			terrain.treeCrossFadeLength = 50f;
-			SetCenterPosition(new Vector3(indexX * faceLength, 0f, indexY * faceLength));
-			terrain.Flush();
+			
+			data.RefreshPrototypes();
 		}//
 
 		public void Destroy()

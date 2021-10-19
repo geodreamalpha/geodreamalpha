@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections.ObjectModel;
 
-
 namespace TerrainGeneratorComponent
 {
+    //this class stores the foilage prototypes that will be used for the terrain generator.
+    //
     [System.Serializable]
     public class MapAssets
     {
         [SerializeField]
-        List<TerrainLayer> layers = new List<TerrainLayer> { };
+        List<TerrainLayer> layers = new List<TerrainLayer> { }; //layers/ map textures
 
         [SerializeField]
-        List<Texture2D> detailTextures = new List<Texture2D> { };
+        List<UserDetailPrototype> detailTextures = new List<UserDetailPrototype> { }; //grass
 
         [SerializeField]
-        List<GameObject> detailMeshes = new List<GameObject> { };
+        List<GameObject> detailMeshes = new List<GameObject> { }; //grass
 
         [SerializeField]
-        List<GameObject> trees = new List<GameObject> { };
+        List<UserTreePrototype> trees = new List<UserTreePrototype> { }; //trees
 
         public TerrainLayer[] GetLayers()
         {
@@ -32,14 +33,7 @@ namespace TerrainGeneratorComponent
 
             for (int i = 0; i < detailTextures.Count; i++)
             {
-                detailPrototypes[i] = new DetailPrototype();
-                detailPrototypes[i].minWidth = 0.5f;
-                detailPrototypes[i].minHeight = 0.5f;
-                detailPrototypes[i].maxWidth = 0.5f;
-                detailPrototypes[i].maxHeight = 0.5f;
-                detailPrototypes[i].healthyColor = Color.white;
-                detailPrototypes[i].dryColor = Color.white;
-                detailPrototypes[i].prototypeTexture = detailTextures[i];
+                detailPrototypes[i] = detailTextures[i].GetDetailTexture();
             }
             return detailPrototypes;
         }
@@ -50,12 +44,54 @@ namespace TerrainGeneratorComponent
 
             for (int i = 0; i < trees.Count; i++)
             {
-                treePrototypes[i] = new TreePrototype();
-                treePrototypes[i].prefab = trees[i];
+                treePrototypes[i] = trees[i].GetTreePrototype();
 
             }
             return treePrototypes;
         }
 
+        //custom class to hold settings for each individual detail
+        [System.Serializable]
+        public struct UserDetailPrototype
+        {
+            [SerializeField]
+            Texture2D detailTexture;
+            [SerializeField]
+            float minWidth;
+            [SerializeField]
+            float maxWidth;
+            [SerializeField]
+            float minHeight;
+            [SerializeField]
+            float maxHeight;
+
+            public DetailPrototype GetDetailTexture()
+            {
+                DetailPrototype detailPrototype = new DetailPrototype();
+                detailPrototype.prototypeTexture = detailTexture;
+                detailPrototype.minWidth = minWidth;             
+                detailPrototype.maxWidth = maxWidth;
+                detailPrototype.minHeight = minHeight;
+                detailPrototype.maxHeight = maxHeight;
+                detailPrototype.healthyColor = Color.white;
+                detailPrototype.dryColor = Color.white;               
+                return detailPrototype;
+            }
+        }
+
+        //custom class to hold settings for each individual tree
+        [System.Serializable]
+        public struct UserTreePrototype
+        {
+            [SerializeField]
+            GameObject tree;
+
+            public TreePrototype GetTreePrototype()
+            {
+                TreePrototype treePrototype = new TreePrototype();
+                treePrototype.prefab = tree;
+                return treePrototype;
+            }//
+        }
     }
 }

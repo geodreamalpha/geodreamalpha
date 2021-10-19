@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace TerrainGeneratorComponent
 {
+    //the generator class is the procedural algorithm.
+    //this class is responsible for the algorithm that decides how hills, mountains etc. are expressed as well as grass, trees and map textures.
     class Generator
     {
         AnimationCurve smoother = new AnimationCurve(new Keyframe(-0.2f, 3f), new Keyframe(1.2f, 0.8f));
@@ -17,13 +21,16 @@ namespace TerrainGeneratorComponent
                                                          new Variation(5, 1, 1, 1f, 10f, 26f), 
                                                          new Variation(6, 6, 3, 1f, 36f, 18f) };
 
-        Variation[] detailVariations = new Variation[1] { new Variation(0, 9, 4, 1f, 10f, 7f) };
+        Variation[] detailVariations = new Variation[2] { new Variation(0, 4, 2, 1f, 10f, 7f),
+                                                          new Variation(4, 10, 3, 1f, 24f, 4f)};
 
         Variation[] treeVariations = new Variation[1] { new Variation(0, 5, 3, 0.0005f, 0f, 20f) };
 
         public void Generate(float worldX, float worldY, float[,] heightmap, float[,,] alphamap, int[][,] detailLayer, List<TreeInstance> instances, Vector3 chunkSize)
         {
             #region Initialize Local Vars
+            //these vars are initialized in this method because several of these methods will run async at the same time.
+            //this local declaration will prevent multiple async methods from manipulating the same vars.
             float result;
             float posX;
             float posY;
@@ -54,13 +61,19 @@ namespace TerrainGeneratorComponent
             for (int y = 0; y < Chunk.lineLength; y++)
                 for (int x = 0; x < Chunk.lineLength; x++)
                 {
-                    #region Set In-Loop Vars                 
+                    #region Set In-Loop Vars    
+                    //result holds the height data at a given coordinate
+                    //world x/y is the location of this chunk.
+                    //x/y is the local position of each coordinate
                     result = 0;
                     posX = worldX + x;
                     posY = worldY + y;
                     #endregion
 
                     #region Initialize Height Fields
+                    //these dictate what data will be placed where.
+                    //most of these curves are used for hightmap data (mountains, valleys, hills)
+                    //this is also used to describe how types of trees, grass and textures/ layers change over distances
                     lValue = Mathf.PerlinNoise(posX * 0.6f * 0.01f, posY * 0.6f * 0.01f);
                     lElevation = Mathf.PerlinNoise(posX * 0.0001f, posY * 0.0001f);                  
                     lSmoother = smoother.Evaluate(lElevation);
@@ -72,6 +85,9 @@ namespace TerrainGeneratorComponent
 
                     //begin calculate height
                     #region Calculate Height
+                    //this uses iteration from a noisemap calculator to decide heightmap data.  This works similar to how
+                    //trees are made using recursion, or how fractal patterns are made.  Data is calculated repeatedly,
+                    //each time, changing it values in a certain way, thus adding smaller and smaller details to the heightmap.
                     for (int i = 0; i < 10; i++)
                     {
                         result += Mathf.PerlinNoise(posX * lFrequency * 0.01f, posY * lFrequency * 0.01f) * lAmplitude;
@@ -85,12 +101,18 @@ namespace TerrainGeneratorComponent
                     if (x > 0 && y > 0)
                     {
                         #region Calculate Slope
-                        gradientX = Mathf.Atan(Mathf.Abs((heightmap[y, x] - heightmap[y, x - 1]) * Chunk.size.y)) * Mathf.Rad2Deg;
-                        gradientY = Mathf.Atan(Mathf.Abs((heightmap[y, x] - heightmap[y - 1, x]) * Chunk.size.y)) * Mathf.Rad2Deg;
+                        //calculates the slope using trigonometric functions which returns a radian value.
+                        //this radian value is then converted into a degree.
+                        //slope is calculated for both the x and y axis.
+                        //only the axis with the greatest (steepest) slope is used.
+                        gradientX = Mathf.Atan(Mathf.Abs((heightmap[y, x] - heightmap[y, x - 1]) * Chunk.correctSize.y)) * Mathf.Rad2Deg;
+                        gradientY = Mathf.Atan(Mathf.Abs((heightmap[y, x] - heightmap[y - 1, x]) * Chunk.correctSize.y)) * Mathf.Rad2Deg;
                         slope = Mathf.Max(gradientX, gradientY);
                         #endregion
 
                         #region Initialize Position
+                        //positions are recalculated for the faces of the terrain (as opposed to vertices)
+                        //recall that a plane's length will always have 1 less face than its lines.
                         posX = x + worldX - 1;
                         posY = y + worldY - 1;
                         bioX = x - 1;
@@ -99,6 +121,7 @@ namespace TerrainGeneratorComponent
 
                         //begin calculate foilage
                         #region Calculate Layers (map textures)
+                        //decides where to place map textures/ layers
                         bioIndex = -1;
                         foreach (Variation layer in layerVariations)
                         {
@@ -115,6 +138,7 @@ namespace TerrainGeneratorComponent
                         if (heightmap[y, x] * chunkSize.y > Chunk.seaLevel)
                         {
                             #region Calculate details (grass/ flowers/ small plants)
+                            //decides where to place details
                             bioIndex = -1;
                             foreach (Variation detail in detailVariations)
                             {
@@ -128,6 +152,7 @@ namespace TerrainGeneratorComponent
                             #endregion
 
                             #region Calculate Trees (trees/ bushes/ bolders/ giant objects)
+                            //decides where to place trees
                             bioIndex = -1;
                             foreach (Variation tree in treeVariations)
                             {
@@ -145,7 +170,7 @@ namespace TerrainGeneratorComponent
                         //end calculate foilage
                     }
                 }
-            
+           
         }
     }
 }

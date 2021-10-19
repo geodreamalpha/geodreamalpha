@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Music : MonoBehaviour
 {
+    //this class manages the ambience and music files that play during execution
+    //this class is currently not in use but will be
     [SerializeField]
     List<AudioClip> audioClips = new List<AudioClip> { };
     [SerializeField]
     List<AudioClip> ambienceClips = new List<AudioClip> { };
     AudioSource[] audioSource;
-    int musicIndex = 0;
+    //int musicIndex = 0;
 
     // Start is called before the first frame update
     void Start()

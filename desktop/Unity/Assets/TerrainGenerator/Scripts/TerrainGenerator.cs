@@ -5,41 +5,38 @@ using UnityEngine;
 namespace TerrainGeneratorComponent
 {
     //Tyler Anderson
+    //the facade class that other components will interact with
     public class TerrainGenerator : MonoBehaviour
     {
         [SerializeField]
-        CharacterController playerController;
-
-        Generator generator;
-
-        ChunkManager chunkManager;
+        CharacterController playerController;   
 
         [SerializeField]
         MapAssets assets;
-
-        public static bool isPaused { get; set; } = false;
+        Generator generator;
+        ChunkManager chunkManager;
 
         GameObject exitMenu;
-
+        public static bool isPaused { get; set; } = false;
         bool playerIsInitiallyGrounded = false;
 
         // Start is called before the first frame update
         void Start()
         {
+            #region Initialize Fog Settings
             RenderSettings.fog = true;
             RenderSettings.fogColor = new Color(60f / 255f, 87f / 255f, 113f / 255f);
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
             RenderSettings.fogDensity = 0.0035f;
+            #endregion
 
+            generator = new Generator();
             chunkManager = new ChunkManager();
 
             exitMenu = GameObject.Find("Exit Menu");
             exitMenu.SetActive(false);
 
             isPaused = false;
-
-            generator = new Generator();
-
             SetPlayerPositionFromString();
             playerIsInitiallyGrounded = false;
         }
@@ -49,12 +46,17 @@ namespace TerrainGeneratorComponent
         {
             chunkManager.Refresh(playerController, assets, generator.Generate);
 
+            #region Display Exit Menu if Escape Key is Pressed
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 exitMenu.SetActive(true);
                 isPaused = true;
             }
+            #endregion
 
+            #region Attempt to Snap Player to Appropriate Map Height Each Frame Until Player Is Grounded
+            //unity's terrain component takes an arbitrary amount of frames to completely instantiate terrain chunks
+            //this method appripriates as much time as it needs by delaying gameplay an arbitrary amount of frames until player is properly grounded to the active terrain chunk
             if (Input.GetKeyDown(KeyCode.P) || !playerIsInitiallyGrounded)
             {
                 Chunk.Snap(playerController);
@@ -65,10 +67,12 @@ namespace TerrainGeneratorComponent
                 }
                     
             }
+            #endregion
         }
 
         public void SetPlayerPositionFromString()
         {
+            //takes map seed and converts it into the initial position of the player
             string[] s = SeedGUI.currentSeed.Split('_');
             int x = int.Parse(s[0]);
             int z = int.Parse(s[1]);

@@ -26,39 +26,47 @@ public class SplashInterface : MonoBehaviour
         }
         
         public void Login () {
-			 
-			Debug.Log("Login");
-			// firebaseConnector.sendLogin(); 
-			// return "Hello from Login";
+			Debug.Log("Implementing Login. ");
+			self.fireBaseSendLogin(); 
 			return;
 		}
 		
 		public void Register () {
-			 
-			Debug.Log("Register");
-			// Firebaseconnector.sendRegister(); 
-			// return "Hello from Register";
+			Debug.Log("Implementing registration. ");
+			self.fireBaseSendRegister(); 
 			return;
 		}
 		
 		public void ForgotPassword () {
 			// return "Hello from Forgotpassword"; 
-			Debug.Log("Register");
+			Debug.Log("Implementing forgotPassword. ");
+			self.fireBaseSendPassword(); 
 			return;
 		}
 
+		// Rest API calls, for firebase connector. 
 
 		protected void fireBaseSendLogin() {
+			Debug.Log("API call to send login through firebaseSendLogin()");
 			return; 
 			// Rest API calls. 
 		}
 
 		protected void fireBaseSendRegister() {
+			Debug.Log("API call to send login through firebaseSendRegister()");
+			
 			return; 
 		}
 
 		protected void fireBaseSendPassword() {
+			Debug.Log("API call to send login through firebaseSendPassword()");
 			return; 
+
+		}
+		
+		protected void failedLogin() {
+			Debug.Log("Login failed, cleaing fields. ");
+			return; 			
 		}
 
 

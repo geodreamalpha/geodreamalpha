@@ -82,11 +82,19 @@ public string Hello() {
 		Debug.Log("Implementing registration. ");
 		bool registrationToken = fireBaseSendRegister();
 
-		if (registrationToken == false) {
-			MessageBox.text = "Registration failed.";
+		if (EmailText.text == "" || PasswordText.text == "")
+		{
+			MessageBox.text = "Sorry, but you must enter an email and a password to register.";
 		}
 		else {
-			MessageBox.text = "Registration succeeded";
+			if (registrationToken == false) {
+				MessageBox.text = "Registration failed - email already registered. Please try again.";
+			}
+			else {
+				MessageBox.text = "Registration succeeded";
+				// SceneManager.LoadScene("Game");
+				FadeStartMenu();
+			}
 		}
 		return;
 	}
@@ -97,10 +105,10 @@ public string Hello() {
 		bool passwordToken = fireBaseSendPassword();
 
 		if (passwordToken == false) {
-			MessageBox.text = "Could not reset password.";
+			MessageBox.text = "Could not reset password. Email does not exist.";
 		}
 		else {
-			MessageBox.text = "Password reset successfully.";
+			MessageBox.text = "An email has been sent to reset your password.";
 		}
 	return;
 	}
@@ -124,9 +132,22 @@ public string Hello() {
 		return true; 
 
 	}
-		
-	protected void failedLogin() {
-		Debug.Log("Login failed, cleaing fields. ");
-		return; 			
-	}
+
+
+	// Allows a clean fade from the login screen to a loading splash page for registration, etc. 
+	public void FadeStartMenu ()
+    {
+		StartCoroutine(DoFade());
+    }
+
+	IEnumerator DoFade()
+    {
+		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+		while (canvasGroup.alpha > 0 ) {
+			canvasGroup.alpha -= Time.deltaTime / 2;
+			yield return null;
+		}
+		canvasGroup.interactable = false;
+		yield return null;
+    }
 }

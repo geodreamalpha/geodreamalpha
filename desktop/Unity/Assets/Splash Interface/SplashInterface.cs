@@ -1,77 +1,110 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement; 
 
 public class SplashInterface : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public Text MessageBox;
+	public InputField EmailText;
+	public InputField PasswordText;
 
-    // Update is called once per frame
-    void Update()
-    {
+	// Start is called before the first frame update
+	void Start() {
+		MessageBox = GameObject.Find("Panel/MessageBox").GetComponent<Text>();
+		EmailText = GameObject.Find("Panel/EmailForm").GetComponent<InputField>();
+		PasswordText = GameObject.Find("Panel/PasswordField").GetComponent<InputField>();
+	}
+
+	// Update is called once per frame
+	void Update() {
 		// Debug.Log("Testing from update in Splashinterface.");
     }
 
-        /// <summary>
-        /// Gets the "Hello from" string of this component
-        /// </summary>
-        /// <returns> A string that introduces this component </returns>
-        public string Hello()
-        {
-            return "Hello from Component SplashScreen";
-        }
+    public string Hello() {
+        return "Hello from Component SplashScreen";
+    }
         
-        public void Login () {
-			Debug.Log("Implementing Login. ");
-			self.fireBaseSendLogin(); 
-			return;
-		}
-		
-		public void Register () {
-			Debug.Log("Implementing registration. ");
-			self.fireBaseSendRegister(); 
-			return;
-		}
-		
-		public void ForgotPassword () {
-			// return "Hello from Forgotpassword"; 
-			Debug.Log("Implementing forgotPassword. ");
-			self.fireBaseSendPassword(); 
-			return;
-		}
+    public void Login () {
+		Debug.Log("Implementing Login. ");
+		bool loginToken = fireBaseSendLogin(); 
 
-		// Rest API calls, for firebase connector. 
-
-		protected void fireBaseSendLogin() {
-			Debug.Log("API call to send login through firebaseSendLogin()");
-			return; 
-			// Rest API calls. 
-		}
-
-		protected void fireBaseSendRegister() {
-			Debug.Log("API call to send login through firebaseSendRegister()");
+		if (EmailText.text == "" || PasswordText.text == "")
+        {
+			MessageBox.text = "Please enter an email and password to log in.";
+        }
+		else
+		{
+			// If the login succeeds, we change the scene. 
+			if (loginToken == true)
+			{
+				Debug.Log("Login succeeded.");
+				MessageBox.text = "Login Success"; 
+				SceneManager.LoadScene("Game");
+			} 
 			
-			return; 
+			// In the event of a login failure, we display a message and prompt the user to try again. 
+			else
+			{
+				Debug.Log("Login failed");
+				MessageBox.text = "Login Failed"; 
+				return; 
+			}
 		}
 
-		protected void fireBaseSendPassword() {
-			Debug.Log("API call to send login through firebaseSendPassword()");
-			return; 
-
-		}
+		return;	
+	}
 		
-		protected void failedLogin() {
-			Debug.Log("Login failed, cleaing fields. ");
-			return; 			
+	public void Register () {
+		Debug.Log("Implementing registration. ");
+		bool registrationToken = fireBaseSendRegister();
+
+		if (registrationToken == false) {
+			MessageBox.text = "Registration failed.";
 		}
+		else {
+			MessageBox.text = "Registration succeeded";
+		}
+		return;
+	}
+		
+	public void ForgotPassword () {
+		// return "Hello from Forgotpassword"; 
+		Debug.Log("Implementing forgotPassword. ");
+		bool passwordToken = fireBaseSendPassword();
 
+		if (passwordToken == false) {
+			MessageBox.text = "Could not reset password.";
+		}
+		else {
+			MessageBox.text = "Password reset successfully.";
+		}
+	return;
+	}
 
+	// Rest API calls, for firebase connector. 
 
+	protected bool fireBaseSendLogin() {
+		Debug.Log("API call to send login through firebaseSendLogin()");
+		return true; 
+		// Rest API calls. 
+	}
+
+	protected bool fireBaseSendRegister() {
+		Debug.Log("API call to send login through firebaseSendRegister()");
+			
+		return true; 
+	}
+
+	protected bool fireBaseSendPassword() {
+		Debug.Log("API call to send login through firebaseSendPassword()");
+		return true; 
+
+	}
+		
+	protected void failedLogin() {
+		Debug.Log("Login failed, cleaing fields. ");
+		return; 			
+	}
 }
-
-
-

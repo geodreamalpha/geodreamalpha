@@ -2,27 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class SplashInterface : MonoBehaviour
 {
 	public Text MessageBox;
 	public InputField EmailText;
 	public InputField PasswordText;
+	protected EventSystem system; 
 
 	// Start is called before the first frame update
 	void Start() {
 		MessageBox = GameObject.Find("Panel/MessageBox").GetComponent<Text>();
 		EmailText = GameObject.Find("Panel/EmailForm").GetComponent<InputField>();
 		PasswordText = GameObject.Find("Panel/PasswordField").GetComponent<InputField>();
+		system = EventSystem.current;
 	}
 
 	// Update is called once per frame
 	void Update() {
-		// Debug.Log("Testing from update in Splashinterface.");
-    }
 
-    public string Hello() {
+		// This is necessary to allow users to tab between inputs.
+		// Source: https://forum.unity.com/threads/tab-between-input-fields.263779/
+
+		if (Input.GetKeyDown(KeyCode.Tab))
+		{
+			Selectable next = system.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
+
+			if (next != null)
+			{
+
+				InputField inputfield = next.GetComponent<InputField>();
+				if (inputfield != null)
+					inputfield.OnPointerClick(new PointerEventData(system));  //if it's an input field, also set the text caret
+
+				system.SetSelectedGameObject(next.gameObject, new BaseEventData(system));
+			}
+			//else Debug.Log("next nagivation element not found");
+
+		}
+}
+
+public string Hello() {
         return "Hello from Component SplashScreen";
     }
         

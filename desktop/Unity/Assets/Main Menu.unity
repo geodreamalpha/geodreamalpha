@@ -479,8 +479,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.057, y: -35}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 20.675, y: -30.982885}
+  m_SizeDelta: {x: 432.78, y: 26.4462}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276830399
 MonoBehaviour:
@@ -1167,6 +1167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MessageBox: {fileID: 0}
+  EmailText: {fileID: 0}
+  PasswordText: {fileID: 0}
 --- !u!1 &1054190957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,7 +1251,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1054190960}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1339642700}
+        m_TargetAssemblyTypeName: SplashInterface, Assembly-CSharp
+        m_MethodName: Register
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1054190960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1585,6 +1599,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MessageBox: {fileID: 0}
+  EmailText: {fileID: 0}
+  PasswordText: {fileID: 0}
 --- !u!1 &1355732590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2191,7 +2207,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1865483762}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1339642700}
+        m_TargetAssemblyTypeName: SplashInterface, Assembly-CSharp
+        m_MethodName: ForgotPassword
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1865483762
 MonoBehaviour:
   m_ObjectHideFlags: 0

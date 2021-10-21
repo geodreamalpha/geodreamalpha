@@ -27,5 +27,12 @@
     </string>
 
     <string name="homepage_temp_text">Welcome! This is where the user homepage will go!</string>
+    <string name="username_display">username</string>
+    <string name="companion_name">companion name</string>
+    <string name="str"><u><b>STR</b></u></string>
+    <string name="spd"><u><b>SPD</b></u></string>
+    <string name="strength"><u><b>STRENGTH</b></u></string>
+    <string name="speed"><u><b>SPEED</b></u></string>
+    <string name="temp_value">666</string>
 
 </resources>

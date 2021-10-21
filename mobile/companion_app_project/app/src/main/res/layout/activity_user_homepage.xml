@@ -14,7 +14,7 @@
         />
 
     <TextView
-        android:id="@+id/homepage_temp_text"
+        android:id="@+id/username_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -24,5 +24,80 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+    <ImageView
+        android:id="@+id/companion_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="150dp"
+        android:maxHeight="150dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/temp_wolf"
+        app:layout_constraintTop_toTopOf="@id/strength_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/speed_label"
+        app:layout_constraintBottom_toBottomOf="@id/speed"/>
+
+    <TextView
+        android:id="@+id/companion_name_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/companion_name"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/companion_image"
+        app:layout_constraintEnd_toEndOf="@id/companion_image"
+        app:layout_constraintTop_toBottomOf="@id/companion_image"/>
+
+    <TextView
+        android:id="@+id/strength_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strength"
+        android:layout_marginTop="50dp"
+
+        app:layout_constraintStart_toEndOf="@id/companion_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username_display"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/strength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/temp_value"
+        android:textSize="40sp"
+        app:layout_constraintStart_toEndOf="@id/companion_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/strength_label"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/speed_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/speed"
+        app:layout_constraintStart_toEndOf="@id/companion_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/strength"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/temp_value"
+        android:textSize="40sp"
+        app:layout_constraintStart_toEndOf="@id/companion_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/speed_label"
+        app:layout_constraintVertical_chainStyle="packed"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

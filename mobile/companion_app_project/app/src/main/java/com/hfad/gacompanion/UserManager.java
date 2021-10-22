@@ -2,11 +2,14 @@ package com.hfad.gacompanion;
 
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseUser;
+
 //Aaron Schwartz
 public class UserManager {
 
     private String username;
     private String password;
+    private FirebaseUser currentUser;
     private Companion userCompanion;
 
     public UserManager(String username, String password){
@@ -17,6 +20,10 @@ public class UserManager {
     public String hello(){
         return "Hello from UserManager!";
     }
+
+    public void logInWithUsernamePassword(){
+
+    };
 
     public String getUsername() {
         return username;

@@ -91,7 +91,7 @@ namespace TerrainGeneratorComponent
         IEnumerator LoadGameLevelAsync()
         {
             loadScreen.SetActive(true);
-
+            
             Resources.UnloadUnusedAssets();
             AsyncOperation gameScene = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
 

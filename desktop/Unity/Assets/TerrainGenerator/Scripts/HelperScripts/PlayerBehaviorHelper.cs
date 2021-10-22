@@ -2,40 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBehaviorHelper : MonoBehaviour
+namespace CombatSystemComponent
 {
-    Camera mainCamera;
-    CharacterController controller;
-    Vector3 gravity;
-    float speed;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        mainCamera = Camera.main;
-        controller = this.GetComponent<CharacterController>();
-        speed = 5;
-        gravity = new Vector3(0, -9.8f, 0);
-    }//
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!TerrainGeneratorComponent.TerrainGenerator.isPaused)
+    public class PlayerBehaviorHelper : CalculationManager
+    {               
+        protected override void Start()
         {
-            if (Input.GetKey(KeyCode.W))
-            {
-                controller.Move(mainCamera.transform.forward * Time.deltaTime * speed);
-                mainCamera.GetComponent<CameraBehavior>().Oscillate();
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                controller.Move(-mainCamera.transform.forward * Time.deltaTime * speed);
-                mainCamera.GetComponent<CameraBehavior>().Oscillate();
-            }
+            base.Start();
 
-            //add gravity
-            controller.Move(gravity * Time.deltaTime);
-        } 
+            forwardEvent =   (() => Input.GetKey(KeyCode.W), 
+                              () => SetMove(transform.forward, Camera.main.transform.forward, "isWalking"));
+
+            backEvent =      (() => Input.GetKey(KeyCode.S),
+                              () => SetMove(transform.forward, -Camera.main.transform.forward, "isWalking"));
+
+            leftEvent =      (() => Input.GetKey(KeyCode.A),
+                              () => SetMove(transform.forward, -Camera.main.transform.right, "isWalking"));
+
+            rightEvent =     (() => Input.GetKey(KeyCode.D),
+                              () => SetMove(transform.forward, Camera.main.transform.right, "isWalking"));
+
+            attackEvents.Add((() => Input.GetMouseButtonDown(0),
+                              () => animator.SetTrigger("isFirstAttack")));
+
+            attackEvents.Add((() => Input.GetMouseButtonDown(0),
+                              () => animator.SetTrigger("isSecondAttack")));
+
+            attackEvents.Add((() => Input.GetMouseButtonDown(0),
+                              () => animator.SetTrigger("isThirdAttack")));
+        }//
     }
 }

@@ -13,8 +13,9 @@ public class CameraBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        viewDistance = new Vector3(0, 1, 0);
+        viewDistance = new Vector3(0, 3, -5);
         sensitivity = 2f;
+        transform.position = subject.transform.position + viewDistance;
     }//
 
     // Update is called once per frame
@@ -22,18 +23,22 @@ public class CameraBehavior : MonoBehaviour
     {
         if (!TerrainGeneratorComponent.TerrainGenerator.isPaused)
         {
-            transform.position = subject.transform.position + viewDistance;
+            Vector3 cameraPosition = transform.position;
+            cameraPosition.y = subject.transform.position.y;
+            transform.position = cameraPosition;
 
             float rotateHorizontal = Input.GetAxis("Mouse Y");
             float rotateVertical = Input.GetAxis("Mouse X");
 
-            rotation.x += -rotateHorizontal * sensitivity;
-            rotation.y += rotateVertical * sensitivity;
+            //rotation.x += -rotateHorizontal * sensitivity;
+            //rotation.y += rotateVertical * sensitivity;
 
-            rotation.x = Mathf.Repeat(rotation.x, 360);
-            rotation.y = Mathf.Repeat(rotation.y, 360);
+            //rotation.x = Mathf.Repeat(rotation.x, 360);
+            //rotation.y = Mathf.Repeat(rotation.y, 360);
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(rotation), 10f * Time.deltaTime);
+            transform.RotateAround(subject.transform.position, Vector3.up, rotateVertical * sensitivity);
+            //transform.Rotate(Vector3.up, rotateVertical * sensitivity);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(rotation), 10f * Time.deltaTime);
         }   
     }//
 

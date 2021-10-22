@@ -11,7 +11,7 @@ namespace TerrainGeneratorComponent
 	//
 	class Chunk
 	{
-		public const int layer = 3;
+		public const int layer = 6;
 
 		public const float seaLevel = 30f;
 		GameObject waterObject;

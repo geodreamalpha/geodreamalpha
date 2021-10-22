@@ -20,7 +20,7 @@ namespace DataManagerComponent
         // Update HUD every frame
         void Update()
         {
-            
+
         }
 
         /// <summary>

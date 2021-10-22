@@ -1,37 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using FullSerializer;
 using Proyecto26;
+using UnityEngine;
 
-public class Firebase : MonoBehaviour
+public class Firebase
 {
 
-    string baseURL = "https://firestore.googleapis.com/v1/";
-    string project_id = "foot-leprechauns";
-    string user = "uXkIuHksjSUBvP5Yp3xw";
-    string API_KEY = System.IO.File.ReadAllText("Assets/Firebase/apikey.0");
-    public HealthBar hb;
+    static string apiURL = "https://firestore.googleapis.com/v1/";
+    static string project_id = "foot-leprechauns";
+    static string API_KEY = System.IO.File.ReadAllText("Assets/Firebase/apikey.0");
 
-    public void GetValue(string field)
+    public delegate void GetUserCallback(User user);
+    /// <summary>
+    /// Retrieves a user from the Firebase Database, given their id
+    /// </summary>
+    /// <param name="userId"> Id of the user that we are looking for </param>
+    /// <param name="callback"> What to do after the user is downloaded successfully </param>
+    public static void GetUser(string userId)
     {
-        string data = "";
-        string look;
-        int intIdx;
-        int length = 0;
-        string requestURL = $"{baseURL}projects/{project_id}/databases/(default)/documents/users/{this.user}/?key={API_KEY}";
-        RestClient.Get(requestURL).Then(res =>
+        RestClient.Get("https://firestore.googleapis.com/v1/projects/foot-leprechauns/databases/(default)/documents/users/uXkIuHksjSUBvP5Yp3xw/?key=AIzaSyD3S-N_VOPv_zGVWOUgv2fPT0SgkSUzPaY").Then(res =>
         {
-            intIdx = res.Text.ToString().IndexOf("\"integerValue\": \"") +17;
-            look = res.Text.ToString().Substring(intIdx);
-            for(int i = 0; i<look.Length-1; i++)
-            {
-                length++;
-                if(look[i] == '"'){
-                    break;
-                }
-            }
-            data = res.Text.ToString().Substring(intIdx,length-1);
-            hb.SetHealth(int.Parse(data));
+            Debug.Log(res.Text);
         });
     }
 }

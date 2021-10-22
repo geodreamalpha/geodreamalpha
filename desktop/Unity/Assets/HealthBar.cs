@@ -9,7 +9,6 @@ public class HealthBar : MonoBehaviour
     //properties
     public Slider slider;
     public Text text;
-    public Firebase fb;
 
     int health = 1;
     int maxHealth;
@@ -19,20 +18,12 @@ public class HealthBar : MonoBehaviour
         // int hp = int.Parse(fb.GetValue("health"));
         SetMaxHealth(100);
         SetHealth(this.health);
-        fb.GetValue("health");
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            fb.GetValue("health");
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            this.health += 10;
-            SetHealth(this.health);
-            Debug.Log(this.health);
+        if(Input.GetKeyDown(KeyCode.Tab)){
+            Firebase.GetUser("uXkIuHksjSUBvP5Yp3xw");
         }
     }
 

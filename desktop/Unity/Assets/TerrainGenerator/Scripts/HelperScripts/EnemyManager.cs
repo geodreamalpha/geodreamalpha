@@ -20,7 +20,5 @@ namespace CombatSystemComponent
             attackEvents.Add((() => IsTargetWithinRange(3.9f, 4.001f),
                               () => animator.SetTrigger("isFirstAttack")));
         }
-
-        
     }
 }

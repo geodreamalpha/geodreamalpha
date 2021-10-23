@@ -10,16 +10,16 @@ namespace CombatSystemComponent
         {
             base.Start();
             speed = 5f;
-            forwardEvent = (() => Vector3.Distance(controller.transform.position, subject.position) > 2f,
-                            () => SetMove(transform.forward, subject.position - transform.position, "isWalking"));
+            forwardEvent = (() => Vector3.Distance(controller.transform.position, target.position) > 2f,
+                            () => SetMove(transform.forward, target.position - transform.position, "isWalking"));
         }
 
         protected override void Update()
         {
             base.Update();
 
-            if (Vector3.Distance(controller.transform.position, subject.position) > 20f)
-                controller.Move(-controller.transform.position + subject.position + new Vector3(2f, 0f, 0f));
+            if (Vector3.Distance(controller.transform.position, target.position) > 20f)
+                controller.Move(-controller.transform.position + target.position + new Vector3(2f, 0f, 0f));
         }
     }
 }

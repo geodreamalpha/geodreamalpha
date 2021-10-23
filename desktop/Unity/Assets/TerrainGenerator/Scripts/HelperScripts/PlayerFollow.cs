@@ -4,51 +4,50 @@ using UnityEngine;
 
 public class PlayerFollow : MonoBehaviour {
 
-    public Transform PlayerTransform;
-
+    public Transform subject;
     [SerializeField]
-    private Vector3 _cameraOffset;
+    Vector3 cameraOffset = new Vector3(0, 5, -5);
+    [SerializeField]
+    public float smoothFactor = 0.1f;
+    [SerializeField]
+    public float rotationsSpeed = 3.0f;
 
-    [Range(0.001f, 1.0f)]
-    public float SmoothFactor = 0.1f;
-
-    public bool LookAtPlayer = false;
-
-    public bool RotateAroundPlayer = true;
-
-    public float RotationsSpeed = 3.0f;
-
-	void Start () 
+    void LateUpdate()
     {
-        //_cameraOffset = transform.position - PlayerTransform.position;
-        _cameraOffset = new Vector3(0, 5, -5);
-	}
-	
-	void LateUpdate () 
-    {
-        Vector3 playerPosition = PlayerTransform.position;
+        #region Set cameraOffset
+        //camera offset represents the view distance the camera is from the subject (player).
+        //this can be adjusted using the Input.mouseScrollDelta.y (scroll wheel)
+        cameraOffset += transform.TransformDirection(new Vector3(0f, 0f, Input.mouseScrollDelta.y * 0.5f));
+        #endregion
 
-        _cameraOffset += transform.TransformDirection(new Vector3(0f, 0f, Input.mouseScrollDelta.y * 0.5f));
+        #region Set Camera's Horizontal Orientation Around Player by Getting Mouse Input For X Axis
+        //stores the camera's horizontal rotation around the player.  Determined by mouse movement along the screen.
+        Quaternion offsetHorizontal =
+            Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationsSpeed, Vector3.up);
+        #endregion
 
-        if(RotateAroundPlayer)
-        {
-            Quaternion offsetHorizontal =
-                Quaternion.AngleAxis(Input.GetAxis("Mouse X") * RotationsSpeed, Vector3.up);
+        #region Set Camera's Vertical Orientation Around Player by Getting Mouse Input For Y Axis
+        //stores the camera's vertical rotation around the player.  Determined by mouse movement along the screen.
+        Quaternion offsetVertical =
+            Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationsSpeed / 2, transform.right);
+        #endregion
 
-            Quaternion offsetVertical =
-                Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * RotationsSpeed / 2, transform.right);
+        #region Add Mouse Input Orientation To _cameraOffset
+        //adds the orientations calculated above to _cameraOffset (the distance between camera and player)
+        cameraOffset = offsetHorizontal * offsetVertical * cameraOffset;
+        #endregion
 
-            _cameraOffset = offsetHorizontal * offsetVertical * _cameraOffset;
-        }
+        #region Update Camera Position With the Newly Calculated _cameraOffset
+        //the Lerp() function is used to smoothly transform camera from previous position to new position (it happens over multiple frames)
+        //the smoothFactor controls the speed of this transition between the range of [0, 1].
+        //the newly calculated _cameraOffset AND player's position are added together to create camera's new position
+        transform.position = Vector3.Lerp(transform.position, subject.position + cameraOffset, smoothFactor);
+        #endregion
 
-        Vector3 newPos = playerPosition + _cameraOffset;
-
-        transform.position = Vector3.Lerp(transform.position, newPos, SmoothFactor);
-
-        if (LookAtPlayer || RotateAroundPlayer)
-        {
-            transform.LookAt(playerPosition);
-        }
-            
-	}
+        #region Update Camera Rotation Toward Player's Position
+        //previously, we have moved the camera's position around the player using input from the mouse.
+        //this method moves the camera's rotation to face the player
+        transform.LookAt(subject);
+        #endregion
+    }
 }

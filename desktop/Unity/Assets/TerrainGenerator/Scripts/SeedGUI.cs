@@ -102,7 +102,5 @@ namespace TerrainGeneratorComponent
                 yield return null;
             }          
         }
-
-       
     }
 }

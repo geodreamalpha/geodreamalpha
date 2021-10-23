@@ -15,7 +15,7 @@ namespace TerrainGeneratorComponent
         int indexY = 0;
 
         const int maxChunksFromPlayer = 3;
-        const int maxViewDistanceFromPlayer = 512;
+        const int maxViewDistanceFromPlayer = 768; //512
 
         Dictionary<(int, int), Chunk> chunks = new Dictionary<(int, int), Chunk>();
 

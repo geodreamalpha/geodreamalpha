@@ -25,7 +25,7 @@ namespace TerrainGeneratorComponent
         {
             #region Initialize Fog Settings
             RenderSettings.fog = true;
-            RenderSettings.fogColor = new Color(60f / 255f, 87f / 255f, 113f / 255f);
+            RenderSettings.fogColor = new Color(78f / 255f, 107f / 255f, 135f / 255f);  //new Color(60f / 255f, 87f / 255f, 113f / 255f)
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
             RenderSettings.fogDensity = 0.0035f;
             #endregion

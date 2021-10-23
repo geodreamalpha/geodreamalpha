@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.3065148, g: 0.4202517, b: 0.5283019, a: 1}
   m_FogMode: 2
   m_FogDensity: 0.01
@@ -1571,6 +1571,10 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 24708179}
+    - target: {fileID: 8203986344915423180, guid: 1f2aab2b8d050b54daeec8fdd4ca5fbb, type: 3}
+      propertyPath: assets.detailTextures.Array.data[2].detailTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: b4b2373c8469bce4898b3c86c908549b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f2aab2b8d050b54daeec8fdd4ca5fbb, type: 3}
 --- !u!1001 &6779447315624005134

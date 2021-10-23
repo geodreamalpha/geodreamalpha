@@ -15,7 +15,7 @@ namespace CombatSystemComponent
             controller.Move(-controller.transform.position + new Vector3(500f, 80f, 20f)); //---XXX
 
             forwardEvent =   (() => IsTargetWithinRange(4f, 20f),
-                              () => SetMove(transform.forward, getDirectionToTarget, "isWalking"));
+                              () => SetMove(getDirectionToTarget, transform.forward, "isWalking"));
 
             attackEvents.Add((() => IsTargetWithinRange(3.9f, 4.001f),
                               () => animator.SetTrigger("isFirstAttack")));

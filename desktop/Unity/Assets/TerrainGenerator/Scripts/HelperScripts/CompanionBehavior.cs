@@ -10,8 +10,8 @@ namespace CombatSystemComponent
         {
             base.Start();
             speed = 5f;
-            forwardEvent = (() => Vector3.Distance(controller.transform.position, target.position) > 2f,
-                            () => SetMove(getDirectionToTarget, transform.forward, "isWalking"));
+            events.Add((() => Vector3.Distance(controller.transform.position, target.position) > 2f,
+                            () => SetMove(getDirectionToTarget, transform.forward, "isWalking")));
         }
 
         protected override void Update()

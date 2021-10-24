@@ -8,13 +8,7 @@ namespace CombatSystemComponent
 {
     public abstract class ActionsManager : MonoBehaviour
     {
-        protected (Func<bool>, Action) forwardEvent;
-        protected (Func<bool>, Action) backEvent;
-        protected (Func<bool>, Action) leftEvent;
-        protected (Func<bool>, Action) rightEvent;
-        protected (Func<bool>, Action) sprintEvent;
-        protected (Func<bool>, Action) jumpEvent;
-        protected List<(Func<bool>, Action)> attackEvents;
+        protected List<(Func<bool>, Action)> events;
 
         /// <summary>
         /// the global speed that the character will move
@@ -55,17 +49,11 @@ namespace CombatSystemComponent
             gravity = new Vector3(0, -9.8f, 0);
             #endregion
 
-            #region Initialize Character Events
+            #region Initialize Character Events List
             //these events control almost everything needed: movement, rotation, direction, attacks, jumps, etc.
             //the trigger (first parameter) stores a function that takes no parameters and returns a bool.  It describes what triggers the event.
             //the action (second parameter) stores a method that takes no parameters.  It describes what happens during the event.
-            forwardEvent = (DefaultTrigger, DefaultAction);
-            backEvent = (DefaultTrigger, DefaultAction);
-            leftEvent = (DefaultTrigger, DefaultAction);
-            rightEvent = (DefaultTrigger, DefaultAction);
-            sprintEvent = (DefaultTrigger, DefaultAction);
-            jumpEvent = (DefaultTrigger, DefaultAction);
-            attackEvents = new List<(Func<bool>, Action)> { };
+            events = new List<(Func<bool>, Action)> { };
             #endregion
         }
 
@@ -89,27 +77,9 @@ namespace CombatSystemComponent
             animator.SetBool("isWalking", false);
             #endregion
 
-            if (forwardEvent.Item1())
-                forwardEvent.Item2();
-
-            else if (backEvent.Item1())
-                backEvent.Item2();
-
-            else if (leftEvent.Item1())
-                leftEvent.Item2();    
-            
-            else if (rightEvent.Item1())
-                rightEvent.Item2();
-
-            else if (sprintEvent.Item1())
-                sprintEvent.Item2();
-
-            else if (jumpEvent.Item1())
-                jumpEvent.Item2();
-            else
-                foreach ((Func<bool>, Action) attackEvent in attackEvents)
-                    if (attackEvent.Item1())
-                        attackEvent.Item2();
+            foreach ((Func<bool>, Action) eventElement in events)
+                if (eventElement.Item1())
+                    eventElement.Item2();
         }
 
         /// <summary>
@@ -158,13 +128,5 @@ namespace CombatSystemComponent
                 animator.SetBool(animationParameter, true);
             #endregion
         }
-
-        //DefaultTrigger() is assigned to events as a default state, thus preventing null reference exceptions.
-        //
-        bool DefaultTrigger() { return false; }
-
-        //DefaultAction() is assigned to events as a default state, thus preventing null reference exceptions.
-        //
-        void DefaultAction() { }
     }
 }

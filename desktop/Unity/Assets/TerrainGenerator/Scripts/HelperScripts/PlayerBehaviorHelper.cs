@@ -10,25 +10,25 @@ namespace CombatSystemComponent
         {
             base.Start();
 
-            forwardEvent =   (() => Input.GetKey(KeyCode.W),
-                              () => SetMove(Camera.main.transform.forward, transform.forward, "isWalking"));
+            events.Add((() => Input.GetKey(KeyCode.W),
+                              () => SetMove(Camera.main.transform.forward, transform.forward, "isWalking")));
 
-            backEvent =      (() => Input.GetKey(KeyCode.S),
-                              () => SetMove(-Camera.main.transform.forward, transform.forward, "isWalking"));
+            events.Add((() => Input.GetKey(KeyCode.S),
+                              () => SetMove(-Camera.main.transform.forward, transform.forward, "isWalking")));
 
-            leftEvent =      (() => Input.GetKey(KeyCode.A),
-                              () => SetMove(-Camera.main.transform.right, transform.forward, "isWalking"));
+            events.Add((() => Input.GetKey(KeyCode.A),
+                              () => SetMove(-Camera.main.transform.right, transform.forward, "isWalking")));
 
-            rightEvent =     (() => Input.GetKey(KeyCode.D),
-                              () => SetMove(Camera.main.transform.right, transform.forward, "isWalking"));
+            events.Add((() => Input.GetKey(KeyCode.D),
+                              () => SetMove(Camera.main.transform.right, transform.forward, "isWalking")));
 
-            attackEvents.Add((() => Input.GetMouseButtonDown(0),
+            events.Add((() => Input.GetMouseButtonDown(0),
                               () => animator.SetTrigger("isFirstAttack")));
 
-            attackEvents.Add((() => Input.GetMouseButtonDown(0),
+            events.Add((() => Input.GetMouseButtonDown(0),
                               () => animator.SetTrigger("isSecondAttack")));
 
-            attackEvents.Add((() => Input.GetMouseButtonDown(0),
+            events.Add((() => Input.GetMouseButtonDown(0),
                               () => animator.SetTrigger("isThirdAttack")));
         }//
     }

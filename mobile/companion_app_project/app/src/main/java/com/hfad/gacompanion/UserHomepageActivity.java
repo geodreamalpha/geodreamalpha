@@ -1,7 +1,10 @@
 package com.hfad.gacompanion;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,13 +12,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ActionMenuView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 //Aaron Schwartz
-public class UserHomepageActivity extends AppCompatActivity {
+public class UserHomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     public static final String FIRST_TIME = "first time";
@@ -36,6 +41,16 @@ public class UserHomepageActivity extends AppCompatActivity {
         Intent createdIntent = getIntent();
         this.first = createdIntent.getBooleanExtra(FIRST_TIME, false);
         Log.d(TAG, "first value" + first);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.nav_open_drawer, R.string.nav_close_drawer);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
     }
 
 //    @Override
@@ -78,11 +93,44 @@ public class UserHomepageActivity extends AppCompatActivity {
         }
     }
 
+    public boolean onNavigationItemSelected(MenuItem item){
+        Intent intent = null;
+        switch(item.getItemId()){
+            case R.id.logout:
+                this.signOut();
+                break;
+            case R.id.nav_str_minigame:
+                intent = new Intent(this, StrengthMinigameActivity.class);
+                break;
+            case R.id.nav_spd_challenge:
+                intent = new Intent(this, WalkingChallengeActivity.class);
+                break;
+        }
+
+        if(intent != null) startActivity(intent);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 
     public void signOut() {
         mAuth.signOut();
         Intent intent = new Intent(this, LogInActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed(){
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            //Do nothing; we do not want to automatically log user out
+        }
+    }
+
+
 
 }

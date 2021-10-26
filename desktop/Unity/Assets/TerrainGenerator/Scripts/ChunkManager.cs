@@ -16,8 +16,10 @@ namespace TerrainGeneratorComponent
 
         const int maxChunksFromPlayer = 3;
         const int maxViewDistanceFromPlayer = 768; //512
-
+        
         Dictionary<(int, int), Chunk> chunks = new Dictionary<(int, int), Chunk>();
+        List<(int, int)> keys = new List<(int, int)> { };
+        List<(int, int)> keysToRemove = new List<(int, int)> { };
 
         public void Refresh(CharacterController playerController, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate)
         {
@@ -34,30 +36,43 @@ namespace TerrainGeneratorComponent
                 for (int y = indexY - maxChunksFromPlayer; y <= indexY + maxChunksFromPlayer; y++)
                 {
                     //if chunk does not exist in-game but is within view distance of the player, then load chunk
-                    if (!chunks.ContainsKey((x, y)) && isWithinPlayerRange((x, y), playerController.transform.position))
+                    if (!chunks.ContainsKey((x, y)) && isWithinPlayerRange((x, y), playerController.transform.position, 0f))
                     {
                         #region Load Chunk
-                        Chunk chunk = new Chunk();
-                        chunk.LoadAsync(x, y, assets, Generate);
-                        chunks.Add((x, y), chunk);
-                        #endregion
-                    }
-                    //if chunk DOES exist in-game but is outside view distance of the player, then delete chunk
-                    else if (chunks.ContainsKey((x, y)) && !isWithinPlayerRange((x, y), playerController.transform.position))
-                    {
-                        #region Delete Chunk
-                        chunks[(x, y)].Destroy();
-                        chunks.Remove((x, y));
+                        keys.Add((x, y));
+                        chunks.Add((x, y), new Chunk());
+                        chunks[(x, y)].LoadAsync(x, y, assets, Generate);
                         #endregion
                     }
                 }
             }
+
+            #region Delete Chunks Outside of Player View Distance
+            //deleting chunks from the active keys ensures that chunks outside the bounds of the previous two loops will eventially be deleted
+            //before deletion, chunk must be instantiated after completing an asyncronous load.  This ensures all, known lose ends are accounted for before deletion
+            keysToRemove.Clear();
+            foreach ((int, int) key in keys)
+            {
+                //if chunk DOES exist in-game but is outside view distance of the player, then delete chunk
+                if (chunks[key].isInstantiated && !isWithinPlayerRange(key, playerController.transform.position, 64f))
+                {
+                    #region Delete Chunk
+                    chunks[key].Destroy();
+                    chunks.Remove(key);
+                    keysToRemove.Add(key);
+                    #endregion
+                }
+            }
+            //iterates through keys that need to be removed and removes them from "keys" list
+            foreach ((int, int) keyToRemove in keysToRemove)
+                keys.Remove(keyToRemove);
+            #endregion
         }
 
-        public bool isWithinPlayerRange((int, int) key, Vector3 pos)
+        public bool isWithinPlayerRange((int, int) key, Vector3 pos, float offsetDistance)
         {
             //returns the distance between two positions (chunk position and player position)
-            return Vector2.Distance(new Vector2(key.Item1 * Chunk.faceLength, key.Item2 * Chunk.faceLength), new Vector2(pos.x, pos.z)) < maxViewDistanceFromPlayer;
+            return Vector2.Distance(new Vector2(key.Item1 * Chunk.faceLength, key.Item2 * Chunk.faceLength), new Vector2(pos.x, pos.z)) < maxViewDistanceFromPlayer + offsetDistance;
         }
     }
 }

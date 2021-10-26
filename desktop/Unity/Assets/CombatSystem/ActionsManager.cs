@@ -8,6 +8,14 @@ namespace CombatSystemComponent
 {
     public abstract class ActionsManager : MonoBehaviour
     {
+        public const string grabWalking = "isWalking";
+        public const string grabRunning = "isRunning";
+        public const string grabAttacking = "isAttacking";
+        public const string grabJumping = "isJumping";
+
+        //will play a universal animation that is the same for every ability
+        //public const string grabAbility = "isAbility";
+
         protected List<(Func<bool>, Action)> events;
 
         /// <summary>
@@ -15,7 +23,7 @@ namespace CombatSystemComponent
         /// </summary>
         protected float speed = 5;
         /// <summary>
-        /// the speed at which the character rotates from one position
+        /// the speed at which the character rotates from one orientation to another
         /// </summary>
         protected float rotationLerp = 0.25f;
         /// <summary>
@@ -23,6 +31,8 @@ namespace CombatSystemComponent
         /// to pull the character down, specify a negative value for the y parameter
         /// </summary>
         protected Vector3 gravity;
+
+        Vector3 movementAccumulator = Vector3.zero;
 
         #region Declare Inpsector Fields
         [SerializeField]
@@ -57,7 +67,7 @@ namespace CombatSystemComponent
             #endregion
         }
 
-        protected virtual void Update() 
+        protected virtual void Update()
         {
             if (!TerrainGeneratorComponent.TerrainGenerator.isPaused)
             {
@@ -74,12 +84,19 @@ namespace CombatSystemComponent
         protected void ListenForEvents()
         {
             #region Reset Boolean Animation Parameters to False
-            animator.SetBool("isWalking", false);
+            movementAccumulator = Vector3.zero;
+            animator.SetBool(grabWalking, false);
             #endregion
 
             foreach ((Func<bool>, Action) eventElement in events)
                 if (eventElement.Item1())
                     eventElement.Item2();
+
+            #region Move Character in moveDirection At A Rate of Speed/Second
+            //move character
+            movementAccumulator = movementAccumulator.normalized;
+            controller.Move(movementAccumulator * speed * Time.deltaTime);
+            #endregion
         }
 
         /// <summary>
@@ -118,8 +135,9 @@ namespace CombatSystemComponent
             controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, Quaternion.Euler(rotation), rotationLerp);
             #endregion
 
-            #region Move Character in moveDirection At A Rate of Speed/Second.
-            controller.Move(moveDirection * speed * Time.deltaTime);
+            #region Accumulate Movement For Character.
+            movementAccumulator += moveDirection;
+            Debug.Log(movementAccumulator.ToString());
             #endregion
 
             #region if animationParameter is not an empty string, Update Animation parameter to trigger the specified animation
@@ -127,6 +145,11 @@ namespace CombatSystemComponent
             if (animationParameter != "")
                 animator.SetBool(animationParameter, true);
             #endregion
+        }
+
+        public void SetJump()
+        {
+
         }
     }
 }

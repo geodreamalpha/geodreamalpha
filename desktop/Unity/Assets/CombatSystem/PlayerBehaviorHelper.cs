@@ -11,16 +11,16 @@ namespace CombatSystemComponent
             base.Start();
 
             events.Add((() => Input.GetKey(KeyCode.W),
-                              () => SetMove(Camera.main.transform.forward, transform.forward, "isWalking")));
+                              () => SetMove(Camera.main.transform.forward, transform.forward, grabWalking)));
 
             events.Add((() => Input.GetKey(KeyCode.S),
-                              () => SetMove(-Camera.main.transform.forward, transform.forward, "isWalking")));
+                              () => SetMove(-Camera.main.transform.forward, transform.forward, grabWalking)));
 
             events.Add((() => Input.GetKey(KeyCode.A),
-                              () => SetMove(-Camera.main.transform.right, transform.forward, "isWalking")));
+                              () => SetMove(-Camera.main.transform.right, transform.forward, grabWalking)));
 
             events.Add((() => Input.GetKey(KeyCode.D),
-                              () => SetMove(Camera.main.transform.right, transform.forward, "isWalking")));
+                              () => SetMove(Camera.main.transform.right, transform.forward, grabWalking)));
 
             events.Add((() => Input.GetMouseButtonDown(0),
                               () => animator.SetTrigger("isFirstAttack")));

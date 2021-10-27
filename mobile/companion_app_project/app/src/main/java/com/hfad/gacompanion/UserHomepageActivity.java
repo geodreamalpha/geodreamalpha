@@ -1,5 +1,6 @@
 package com.hfad.gacompanion;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,11 +14,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ActionMenuView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.model.Document;
+
+import org.w3c.dom.Text;
 
 //Aaron Schwartz
 public class UserHomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,6 +40,9 @@ public class UserHomepageActivity extends AppCompatActivity implements Navigatio
     private static final String TAG = "UserHomepageActivity";
     private FirebaseAuth mAuth;
     private boolean first;
+
+    private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +67,55 @@ public class UserHomepageActivity extends AppCompatActivity implements Navigatio
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Log.d(TAG, mAuth.getCurrentUser().getUid());
+
+        DocumentReference compStats = mDb.collection("users")
+                .document(mAuth.getCurrentUser().getUid())
+                .collection("compStats")
+                .document("0");
+//        compStats.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot document) {
+//
+//                Log.d(TAG, "Successfully got into the onsuccess");
+//                if (document.exists()){
+//                    Log.d(TAG, "Successfully got companion document and stats");
+//                    final Companion companion = document.toObject(Companion.class);
+//                    updateUI(companion);
+//
+//                }
+//            }
+//        });
+
+        compStats.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    Log.d(TAG, "Successfully got into the onComplete");
+                    if (document.exists()){
+                        Log.d(TAG, "Successfully got companion document and stats");
+                        final Companion companion = document.toObject(Companion.class);
+                        updateUI(companion);
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+
+            }
+        });
+
     }
+
+    private void updateUI(Companion companion) {
+        TextView comp_str = (TextView) findViewById(R.id.strength);
+        comp_str.setText(companion.getStrength());
+        TextView comp_spd = (TextView) findViewById(R.id.speed);
+        comp_spd.setText(companion.getSpeed());
+    }
+
 
 //    @Override
 //    protected void onStart() {

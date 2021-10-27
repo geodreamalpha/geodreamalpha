@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CombatSystemComponent
 {
-    public class CompanionBehavior : ActionsManager
+    public class CompanionBehavior : ActionBase
     {
         protected override void Start()
         {

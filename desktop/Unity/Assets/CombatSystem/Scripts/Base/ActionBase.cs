@@ -6,18 +6,24 @@ using System;
 
 namespace CombatSystemComponent
 {
-    public abstract class ActionsManager : MonoBehaviour
+    /// <summary>
+    /// This class can only be inherited.  This class will handle all the actions of any character such as movement, rotation, and animations (including attack animations).
+    /// </summary>
+    public abstract class ActionBase : MonoBehaviour
     {
+        //animation constants represented as strings
         public const string grabWalking = "isWalking";
         public const string grabRunning = "isRunning";
-        public const string grabAttacking = "isAttacking";
-        public const string grabJumping = "isJumping";
-
-        //will play a universal animation that is the same for every ability
-        //public const string grabAbility = "isAbility";
-
+        public const string grabJump = "isJump";
+        public const string grabMelee = "isMelee";
+        public const string grabMagic = "isMagic";
+        public const string grabBlock = "isBlock";
+        public const string grabHit = "isHit";
+        public const string gradDead = "isDead";
+        /// <summary>
+        /// event list for each action and condition that sets off the action for character
+        /// </summary>
         protected List<(Func<bool>, Action)> events;
-
         /// <summary>
         /// the global speed that the character will move
         /// </summary>
@@ -31,8 +37,9 @@ namespace CombatSystemComponent
         /// to pull the character down, specify a negative value for the y parameter
         /// </summary>
         protected Vector3 gravity;
-
-        Vector3 movementAccumulator = Vector3.zero;
+        //direction accumulator gets all direction calculations for each framerate and is normalized
+        //to a single unit direction before movement is calculated.
+        Vector3 directionAccumulator = Vector3.zero;
 
         #region Declare Inpsector Fields
         [SerializeField]
@@ -84,8 +91,9 @@ namespace CombatSystemComponent
         protected void ListenForEvents()
         {
             #region Reset Boolean Animation Parameters to False
-            movementAccumulator = Vector3.zero;
+            directionAccumulator = Vector3.zero;
             animator.SetBool(grabWalking, false);
+            animator.SetBool(grabRunning, false);
             #endregion
 
             foreach ((Func<bool>, Action) eventElement in events)
@@ -94,8 +102,8 @@ namespace CombatSystemComponent
 
             #region Move Character in moveDirection At A Rate of Speed/Second
             //move character
-            movementAccumulator = movementAccumulator.normalized;
-            controller.Move(movementAccumulator * speed * Time.deltaTime);
+            directionAccumulator = directionAccumulator.normalized;
+            controller.Move(directionAccumulator * speed * Time.deltaTime);
             #endregion
         }
 
@@ -114,7 +122,7 @@ namespace CombatSystemComponent
         }
 
         /// <summary>
-        /// executes a variety of rotation, movement, and animation behaviors for the character.
+        /// executes a variety of movement, rotation and animation behaviors for the character.
         /// </summary>
         /// <param name="yAxisFacingDirection">the rotation the character will orient to.  only the y-axis rotation is set</param>
         /// <param name="moveDirection">the direction the character will move to</param>
@@ -135,15 +143,21 @@ namespace CombatSystemComponent
             controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, Quaternion.Euler(rotation), rotationLerp);
             #endregion
 
-            #region Accumulate Movement For Character.
-            movementAccumulator += moveDirection;
-            Debug.Log(movementAccumulator.ToString());
+            #region Accumulate moveDirections For Character.
+            directionAccumulator += moveDirection;
+            //Debug.Log(directionAccumulator.ToString());
             #endregion
 
             #region if animationParameter is not an empty string, Update Animation parameter to trigger the specified animation
-            //it plays an animation.  The animation is optional by entering "" for the animationParameter or leaving the animationParameter out of the function call.
+            //it plays an animation.  The animation is optional by entering "" for the animationParameter
+            //or leaving the animationParameter out of the function call.
+            //depending on whether the animationParameter name ends in "ing" will determin what type of parameter it is.
+            //Different animation parameter types behave differently.
             if (animationParameter != "")
-                animator.SetBool(animationParameter, true);
+                if (animationParameter.EndsWith("ing"))
+                    animator.SetBool(animationParameter, true);
+                else
+                    animator.SetTrigger(animationParameter);
             #endregion
         }
 

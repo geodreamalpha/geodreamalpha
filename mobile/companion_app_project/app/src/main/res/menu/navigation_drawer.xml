@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="@string/nav_account_header">
+        <menu>
+             <item
+                android:id="@+id/logout"
+                android:icon="@android:drawable/sym_call_outgoing"
+                android:title="@string/logout"/>
+
+            <item
+                android:id="@+id/navigate_to_user_homepage"
+                android:icon="@android:drawable/sym_action_email"
+                android:title="@string/nav_homepage" />
+        </menu>
+    </item>
+
+    <item android:title="@string/nav_games_header">
+        <menu>
+            <item
+                android:id="@+id/nav_str_minigame"
+                android:icon="@android:drawable/sym_call_outgoing"
+                android:title="@string/nav_str_minigame"/>
+
+            <item
+                android:id="@+id/nav_spd_challenge"
+                android:icon="@android:drawable/sym_action_email"
+                android:title="@string/nav_spd_challenge"/>
+        </menu>
+    </item>
+
+
+
+</menu>

@@ -21,7 +21,9 @@ public class HealthBar : MonoBehaviour
         // int hp = int.Parse(fb.GetValue("health"));
         SetMaxHealth(100);
         SetHealth(this.health);
-
+        fb.SignIn("nick@geodream.alpha", "1337h4x0r", res=>{
+            Debug.Log(res.Success);
+        });
     }
 
     void Update()

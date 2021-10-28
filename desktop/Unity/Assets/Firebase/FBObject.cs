@@ -54,7 +54,6 @@ public class SignInRes
     public string ExpiresIn;
 }
 
-
 public class SignInReq
 {
     public string email;

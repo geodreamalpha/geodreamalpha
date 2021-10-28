@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 24708177}
   controller: {fileID: 24708179}
-  target: {fileID: 0}
+  target: {fileID: 952933073}
 --- !u!4 &24708176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4532250632830336, guid: 60e8218091f83244c9bf9c8c2569a009, type: 3}
@@ -1306,6 +1306,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 4, z: 5}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!4 &952933073 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
+  m_PrefabInstance: {fileID: 952933067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1008066349 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1366592939916662, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}

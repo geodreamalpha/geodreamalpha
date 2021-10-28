@@ -5,29 +5,16 @@ using UnityEngine;
 namespace DataManagerComponent
 {
     //Nick Preston
-    public class DataManager : MonoBehaviour
+    public static class DataManager
     {
 
-        //Properties
-        Stats PlayerStats = new PlayerStats();
-
-        // Code to sync from Firebase here at startup
-        void Start()
-        {
-            
-        }
-
-        // Update HUD every frame
-        void Update()
-        {
-
-        }
+        static FBHook fbh = new FBHook();
 
         /// <summary>
         /// Gets the "Hello from" string of this component
         /// </summary>
         /// <returns> A string that introduces this component </returns>
-        public string Hello()
+        public static string Hello()
         {
             return "Hello from Component DataManager";
         }
@@ -38,45 +25,69 @@ namespace DataManagerComponent
         /// </summary>
         /// <param name="index"></param>
         /// <returns>Seed in string form</returns>
-        public string GetSeed(int index)
+        public static string GetSeed(int index)
         {
             return "";
         }
 
+
+        //Callback for stats
+        public delegate void GetStatCallback(int stat);
+
         /// <summary>
-        /// Gets the player's last known health from Firebase
+        /// Gets the player's last known current health from Firebase
         /// </summary>
-        /// <returns>Player's health as an integer</returns>
-        public int GetHealth()
+        public static void GetCurrHP(GetStatCallback callback)
         {
-            return 0;
+            fbh.GetStat("currHP", val=>{callback(val);});
+        }
+
+        /// <summary>
+        /// Gets the player's last known max health from Firebase
+        /// </summary>
+        public static void GetMaxHP(GetStatCallback callback)
+        {
+            fbh.GetStat("maxHP", val=>{callback(val);});
+        }
+
+        /// <summary>
+        /// Gets the player's last known current stamina from Firebase
+        /// </summary>
+        public static void GetCurrSTM(GetStatCallback callback)
+        {
+            fbh.GetStat("currSTM", val=>{callback(val);});
+        }
+
+        /// <summary>
+        /// Gets the player's last known max stamina from Firebase
+        /// </summary>
+        public static void GetMaxSTM(GetStatCallback callback)
+        {
+            fbh.GetStat("maxSTM", val=>{callback(val);});
         }
 
         /// <summary>
         /// Get's the player's last known strength value from Firebase
         /// </summary>
-        /// <returns>Player's strength value as an integer</returns>
-        public int GetStrength()
+        public static void GetStrength(GetStatCallback callback)
         {
-            return 0;
+            fbh.GetStat("strength", val=>{callback(val);});
         }
 
         /// <summary>
         /// Get's the player's last known speed value from Firebase
         /// </summary>
-        /// <returns>Player's speed value as an integer</returns>
-        public int GetSpeed()
+        public static void GetSpeed(GetStatCallback callback)
         {
-            return 0;
+            fbh.GetStat("speed", val=>{callback(val);});
         }
 
         /// <summary>
         /// Get's the player's last saved XP value from Firebase
         /// </summary>
-        /// <returns>Player's XP value as an integer</returns>
-        public int GetXP()
+        public static void GetXP(GetStatCallback callback)
         {
-            return 0;
+            fbh.GetStat("xp", val=>{callback(val);});
         }
     }//
 }//

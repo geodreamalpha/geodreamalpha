@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DataManagerComponent;
 
 //Nick Preston
 public class HealthBar : MonoBehaviour
@@ -13,17 +14,22 @@ public class HealthBar : MonoBehaviour
     int health = 1;
     int maxHealth;
 
+    Firebase fb = Firebase.GetInstance();
+
     void Start()
     {
         // int hp = int.Parse(fb.GetValue("health"));
         SetMaxHealth(100);
         SetHealth(this.health);
+        fb.SignIn("nick@geodream.alpha", "1337h4x0r", res=>{
+            Debug.Log(res.Success);
+        });
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tab)){
-            Firebase.GetUser("uXkIuHksjSUBvP5Yp3xw");
+            DataManager.GetXP(val=>{Debug.Log(val);});
         }
     }
 

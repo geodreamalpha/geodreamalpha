@@ -89,6 +89,12 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "jillejr.newtonsoft.json-for-unity": {
+      "version": "13.0.102",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity"
     "io.backtrace.unity": {
       "version": "3.7.0-preview.2",
       "depth": 0,

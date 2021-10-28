@@ -16,10 +16,10 @@ namespace CombatSystemComponent
                               () => controller.Move(-transform.position + target.position + new Vector3(50f, 10f, 50f))));
 
             events.Add((() => IsTargetWithinRange(4f, 20f),
-                              () => SetMove(getDirectionToTarget, transform.forward, "isWalking")));
+                              () => SetMove(getDirectionToTarget, transform.forward, grabWalking)));
 
             events.Add((() => IsTargetWithinRange(3.9f, 4.001f),
-                              () => animator.SetTrigger("isMelee")));
+                              () => animator.SetTrigger(grabMelee)));
         }
     }
 }

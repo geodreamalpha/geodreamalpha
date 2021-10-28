@@ -19,7 +19,7 @@ namespace CombatSystemComponent
             //
             if (gameObject.layer == thisLayer && other.gameObject.layer == otherLayer)
             {
-                animator.SetTrigger("isHit");
+                animator.SetTrigger(grabHit);
             }
         }
     }//

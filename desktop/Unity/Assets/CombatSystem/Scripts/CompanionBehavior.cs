@@ -11,7 +11,7 @@ namespace CombatSystemComponent
             base.Start();
             speed = 5f;
             events.Add((() => Vector3.Distance(controller.transform.position, target.position) > 2f,
-                            () => SetMove(getDirectionToTarget, transform.forward, "isWalking")));
+                            () => SetMove(getDirectionToTarget, transform.forward, grabWalking)));
         }
 
         protected override void Update()

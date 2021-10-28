@@ -41,6 +41,11 @@ namespace TerrainGeneratorComponent
 		//the world size of the terrain divided by 2.
 		public const int halfFaceLength = faceLength / 2;
 
+		public bool isInstantiated
+        {
+			get { return terrainObject != null; }
+        }
+
 		public async void LoadAsync(int indexX, int indexY, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate)
 		{
             #region Initialize Water Object

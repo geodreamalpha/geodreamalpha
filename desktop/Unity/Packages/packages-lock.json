@@ -95,6 +95,12 @@
       "source": "registry",
       "dependencies": {},
       "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity"
+    "io.backtrace.unity": {
+      "version": "3.7.0-preview.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

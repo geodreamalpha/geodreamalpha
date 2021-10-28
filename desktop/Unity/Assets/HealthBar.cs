@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DataManagerComponent;
 
 //Nick Preston
 public class HealthBar : MonoBehaviour
@@ -20,16 +21,13 @@ public class HealthBar : MonoBehaviour
         // int hp = int.Parse(fb.GetValue("health"));
         SetMaxHealth(100);
         SetHealth(this.health);
-        
+
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tab)){
-            fb.GetDoc("playerStats/0", res=>
-            {
-
-            });
+            DataManager.GetXP(val=>{Debug.Log(val);});
         }
     }
 

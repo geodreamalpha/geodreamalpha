@@ -30,40 +30,64 @@ namespace DataManagerComponent
             return "";
         }
 
+
+        //Callback for stats
+        public delegate void GetStatCallback(int stat);
+
         /// <summary>
-        /// Gets the player's last known health from Firebase
+        /// Gets the player's last known current health from Firebase
         /// </summary>
-        /// <returns>Player's health as an integer</returns>
-        public static int GetHealth()
+        public static void GetCurrHP(GetStatCallback callback)
         {
-            return 0;
+            fbh.GetStat("currHP", val=>{callback(val);});
+        }
+
+        /// <summary>
+        /// Gets the player's last known max health from Firebase
+        /// </summary>
+        public static void GetMaxHP(GetStatCallback callback)
+        {
+            fbh.GetStat("maxHP", val=>{callback(val);});
+        }
+
+        /// <summary>
+        /// Gets the player's last known current stamina from Firebase
+        /// </summary>
+        public static void GetCurrSTM(GetStatCallback callback)
+        {
+            fbh.GetStat("currSTM", val=>{callback(val);});
+        }
+
+        /// <summary>
+        /// Gets the player's last known max stamina from Firebase
+        /// </summary>
+        public static void GetMaxSTM(GetStatCallback callback)
+        {
+            fbh.GetStat("maxSTM", val=>{callback(val);});
         }
 
         /// <summary>
         /// Get's the player's last known strength value from Firebase
         /// </summary>
-        /// <returns>Player's strength value as an integer</returns>
-        public static int GetStrength()
+        public static void GetStrength(GetStatCallback callback)
         {
-            return 0;
+            fbh.GetStat("strength", val=>{callback(val);});
         }
 
         /// <summary>
         /// Get's the player's last known speed value from Firebase
         /// </summary>
-        /// <returns>Player's speed value as an integer</returns>
-        public static int GetSpeed()
+        public static void GetSpeed(GetStatCallback callback)
         {
-            return 0;
+            fbh.GetStat("speed", val=>{callback(val);});
         }
 
         /// <summary>
         /// Get's the player's last saved XP value from Firebase
         /// </summary>
-        /// <returns>Player's XP value as an integer</returns>
-        public static int GetXP()
+        public static void GetXP(GetStatCallback callback)
         {
-            return 0;
+            fbh.GetStat("xp", val=>{callback(val);});
         }
     }//
 }//

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Proyecto26;
 using UnityEngine;
-
+using Newtonsoft.Json;
 public class Firebase
 {
 
@@ -52,7 +52,8 @@ public class Firebase
         {
             RestClient.Get($"{this.FSBaseURL}{this.CurrUserId}/{docPath}").Then(res =>
             {
-                Debug.Log(res.Text);
+                Document doc = JsonConvert.DeserializeObject<Document>(res.Text);
+                callback(doc);
             });
         }
         

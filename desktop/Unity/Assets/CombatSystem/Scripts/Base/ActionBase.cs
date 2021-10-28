@@ -41,6 +41,14 @@ namespace CombatSystemComponent
         //to a single unit direction before movement is calculated.
         Vector3 directionAccumulator = Vector3.zero;
 
+        //Velocity 
+        protected Vector3 velocity = Vector3.zero;
+
+        //Used for for isGrounded check 
+        public float distanceToCheck = 0.1f;
+        public bool isGrounded;
+
+
         #region Declare Inpsector Fields
         [SerializeField]
         protected Animator animator;
@@ -80,8 +88,11 @@ namespace CombatSystemComponent
             {
                 ListenForEvents();
                 //pulls gameObject down at a rate of gravity meters/ second.
-                controller.Move(gravity * Time.deltaTime);
+                controller.Move((gravity + velocity) * Time.deltaTime);
             }
+
+            //For jump function 
+            velocity = Vector3.Lerp(velocity, Vector3.zero, 0.05f);    
         }
 
         /// <summary>
@@ -163,7 +174,8 @@ namespace CombatSystemComponent
 
         public void SetJump()
         {
-
+            velocity = -gravity * 5f;
+            animator.SetTrigger(grabJump);
         }
     }
 }

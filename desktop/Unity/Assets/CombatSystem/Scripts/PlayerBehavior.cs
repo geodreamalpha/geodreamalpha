@@ -30,6 +30,9 @@ namespace CombatSystemComponent
 
             events.Add((() => Input.GetMouseButtonDown(0),
                               () => animator.SetTrigger(grabMelee)));
+
+            events.Add((() => Input.GetKeyDown(KeyCode.Space),
+                              () => SetJump()));
         }//
     }
 }

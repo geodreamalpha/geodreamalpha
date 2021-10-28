@@ -5,29 +5,16 @@ using UnityEngine;
 namespace DataManagerComponent
 {
     //Nick Preston
-    public class DataManager : MonoBehaviour
+    public static class DataManager
     {
 
-        //Properties
-        Stats PlayerStats = new PlayerStats();
-
-        // Code to sync from Firebase here at startup
-        void Start()
-        {
-            
-        }
-
-        // Update HUD every frame
-        void Update()
-        {
-
-        }
+        static FBHook fbh = new FBHook();
 
         /// <summary>
         /// Gets the "Hello from" string of this component
         /// </summary>
         /// <returns> A string that introduces this component </returns>
-        public string Hello()
+        public static string Hello()
         {
             return "Hello from Component DataManager";
         }
@@ -38,7 +25,7 @@ namespace DataManagerComponent
         /// </summary>
         /// <param name="index"></param>
         /// <returns>Seed in string form</returns>
-        public string GetSeed(int index)
+        public static string GetSeed(int index)
         {
             return "";
         }
@@ -47,7 +34,7 @@ namespace DataManagerComponent
         /// Gets the player's last known health from Firebase
         /// </summary>
         /// <returns>Player's health as an integer</returns>
-        public int GetHealth()
+        public static int GetHealth()
         {
             return 0;
         }
@@ -56,7 +43,7 @@ namespace DataManagerComponent
         /// Get's the player's last known strength value from Firebase
         /// </summary>
         /// <returns>Player's strength value as an integer</returns>
-        public int GetStrength()
+        public static int GetStrength()
         {
             return 0;
         }
@@ -65,7 +52,7 @@ namespace DataManagerComponent
         /// Get's the player's last known speed value from Firebase
         /// </summary>
         /// <returns>Player's speed value as an integer</returns>
-        public int GetSpeed()
+        public static int GetSpeed()
         {
             return 0;
         }
@@ -74,7 +61,7 @@ namespace DataManagerComponent
         /// Get's the player's last saved XP value from Firebase
         /// </summary>
         /// <returns>Player's XP value as an integer</returns>
-        public int GetXP()
+        public static int GetXP()
         {
             return 0;
         }

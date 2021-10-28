@@ -12,7 +12,6 @@ using EnemySpawnerComponent;
 public class HelloPrinter : MonoBehaviour
 {
     Text text;
-    public DataManager dataManager;
     public CombatSystem combatSystem;
     public PlayerMovement playerMovement;
     public TerrainGenerator terrainGenerator;
@@ -22,11 +21,11 @@ public class HelloPrinter : MonoBehaviour
     void Start()
     {
         text = GetComponentInChildren<Text>();
-        text.text = terrainGenerator.Hello() + "\n" + enemySpawner.Hello() + "\n" + dataManager.Hello() + "\n" + combatSystem.Hello() + "\n" + playerMovement.Hello();
+        text.text = terrainGenerator.Hello() + "\n" + enemySpawner.Hello() + "\n" + DataManager.Hello() + "\n" + combatSystem.Hello() + "\n" + playerMovement.Hello();
 
         Debug.Log(terrainGenerator.Hello());
         Debug.Log(enemySpawner.Hello());
-        Debug.Log(dataManager.Hello());
+        Debug.Log(DataManager.Hello());
         Debug.Log(combatSystem.Hello());
         Debug.Log(playerMovement.Hello());
     }//

@@ -13,17 +13,23 @@ public class HealthBar : MonoBehaviour
     int health = 1;
     int maxHealth;
 
+    Firebase fb = Firebase.GetInstance();
+
     void Start()
     {
         // int hp = int.Parse(fb.GetValue("health"));
         SetMaxHealth(100);
         SetHealth(this.health);
+        
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tab)){
-            Firebase.GetUser("uXkIuHksjSUBvP5Yp3xw");
+            fb.GetDoc("playerStats/0", res=>
+            {
+
+            });
         }
     }
 

@@ -4,7 +4,6 @@ public class FBHook
     Firebase fb = Firebase.GetInstance();
 
     public delegate void GetIntCallback(int value);
-
     /// <summary>
     /// Blanket method to retrieve player stats as integers
     /// </summary>

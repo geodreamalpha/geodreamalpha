@@ -1181,6 +1181,9 @@ MonoBehaviour:
   MessageBox: {fileID: 0}
   EmailText: {fileID: 0}
   PasswordText: {fileID: 0}
+  signedIn: 0
+  uid: 
+  email: 
 --- !u!1 &1054190957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,6 +1618,9 @@ MonoBehaviour:
   MessageBox: {fileID: 0}
   EmailText: {fileID: 0}
   PasswordText: {fileID: 0}
+  signedIn: 0
+  uid: 
+  email: 
 --- !u!225 &1339642701
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2088,8 +2094,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1723252101}
   m_TextComponent: {fileID: 758669974}
   m_Placeholder: {fileID: 503691915}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0

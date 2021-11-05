@@ -1,0 +1,6 @@
+{
+    "name": "SplashTests",
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}

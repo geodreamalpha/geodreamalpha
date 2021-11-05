@@ -18,7 +18,11 @@ public class SplashInterface : MonoBehaviour
 	public Firebase fb;
 	protected int failedLoginsCount = 0;
 	protected int maxLoginAttempts = 10;
-	protected bool response_received = false; 
+	protected bool response_received = false;
+	protected bool reg_received = false;
+	public string reg_email;
+	public string reg_password;
+	public bool reg_success;
 
 	// Start is called before the first frame update
 	void Start()
@@ -55,10 +59,12 @@ public class SplashInterface : MonoBehaviour
 
 		}
 
-		if (response_received == true) {
-				
+		if (response_received == true)
+		{
+
 			// If the login succeeds, we change the scene. 
-			if (signedIn == true) {
+			if (signedIn == true)
+			{
 				Debug.Log("Login succeeded.");
 				MessageBox.text = "Login Success";
 				response_received = false;
@@ -81,6 +87,26 @@ public class SplashInterface : MonoBehaviour
 					Debug.Log("Login failed. Please check your email or password. ");
 					MessageBox.text = "Login Failed. Please check your email or password.";
 				}
+			}
+		}
+
+		if (reg_received == true)
+		{
+
+			// If the login succeeds, we change the scene. 
+			if (reg_success == true)
+			{
+				Debug.Log("Registration succeeded.");
+				MessageBox.text = "Registration Succeeded. Please type in your login details to and sign in.";
+				reg_received = true;
+				SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
+			}
+
+			else
+			{
+				Debug.Log("Registration failed. Are you sure this email isn't already registered? ");
+				MessageBox.text = "Registration failed. Are you sure this email isn't already registered?";
+
 			}
 		}
 
@@ -120,7 +146,6 @@ public class SplashInterface : MonoBehaviour
 	public void Register()
 	{
 		Debug.Log("Implementing registration. ");
-		bool registrationToken = fireBaseSendRegister();
 
 		if (EmailText.text == "" || PasswordText.text == "")
 		{
@@ -128,16 +153,10 @@ public class SplashInterface : MonoBehaviour
 		}
 		else
 		{
-			if (registrationToken == false)
-			{
-				MessageBox.text = "Registration failed - email already registered. Please try again.";
-			}
-			else
-			{
-				MessageBox.text = "Registration succeeded";
-				// SceneManager.LoadScene("Game");
-				FadeStartMenu();
-			}
+			fireBaseSendRegister(EmailText.text, PasswordText.text);
+			MessageBox.text = "Sending registration...";
+			// SceneManager.LoadScene("Game");
+			FadeStartMenu();
 		}
 		return;
 	}
@@ -169,9 +188,10 @@ public class SplashInterface : MonoBehaviour
 		fb.SignIn(email, password, res =>
 		{
 			signedIn = res.Success; // # true if login worked
+			Debug.Log($"Debug Res.success: {res.Success}");
 			uid = res.Uid; // # unique user id
 			email = res.Email; // # user's email
-			response_received = true; 
+			response_received = true;
 		});
 
 		return;
@@ -179,11 +199,16 @@ public class SplashInterface : MonoBehaviour
 		// Rest API calls. 
 	}
 
-	protected bool fireBaseSendRegister()
+	protected void fireBaseSendRegister(string email, string password)
 	{
 		Debug.Log("API call to send login through firebaseSendRegister()");
 
-		return true;
+		fb.SignUp(email, password, res =>
+		{
+			reg_success = res.Success;
+		});
+
+		return;
 	}
 
 	protected bool fireBaseSendPassword()

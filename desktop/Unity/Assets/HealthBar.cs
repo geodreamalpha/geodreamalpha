@@ -29,7 +29,9 @@ public class HealthBar : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tab)){
-            DataManager.GetXP(val=>{Debug.Log(val);});
+            DataManager.GetXP(val=>{
+                Debug.Log(val);
+            });
         }
     }
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Proyecto26;
 using UnityEngine;
 using Newtonsoft.Json;
-public class Firebase
+public class Firebase : MonoBehaviour
 {
 
     private static Firebase UniqueInstance;

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 // using Assets.Firebase.Firebase; 
+// using Firebase;
 
 public class SplashInterface : MonoBehaviour
 {
@@ -92,7 +93,7 @@ public class SplashInterface : MonoBehaviour
 
 		if (reg_received == true)
 		{
-
+			Debug.Log("Received registration...");
 			// If the login succeeds, we change the scene. 
 			if (reg_success == true)
 			{
@@ -108,6 +109,8 @@ public class SplashInterface : MonoBehaviour
 				MessageBox.text = "Registration failed. Are you sure this email isn't already registered?";
 
 			}
+
+			reg_received = false; // reset the flag so that we can process another attempt.
 		}
 
 	}
@@ -156,7 +159,7 @@ public class SplashInterface : MonoBehaviour
 			fireBaseSendRegister(EmailText.text, PasswordText.text);
 			MessageBox.text = "Sending registration...";
 			// SceneManager.LoadScene("Game");
-			FadeStartMenu();
+			// FadeStartMenu();
 		}
 		return;
 	}
@@ -195,17 +198,19 @@ public class SplashInterface : MonoBehaviour
 		});
 
 		return;
-		// return true; 
-		// Rest API calls. 
 	}
 
 	protected void fireBaseSendRegister(string email, string password)
 	{
-		Debug.Log("API call to send login through firebaseSendRegister()");
+		Debug.Log("API call to send login through fireBaseSendRegister()");
 
 		fb.SignUp(email, password, res =>
 		{
 			reg_success = res.Success;
+			reg_received = true;
+			if (res.Success == false) {
+				Debug.Log(res.ErrorMessage);
+			}
 		});
 
 		return;

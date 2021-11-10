@@ -73,19 +73,6 @@ public class UserHomepageActivity extends AppCompatActivity implements Navigatio
                 .document(mAuth.getCurrentUser().getUid())
                 .collection("compStats")
                 .document("0");
-//        compStats.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot document) {
-//
-//                Log.d(TAG, "Successfully got into the onsuccess");
-//                if (document.exists()){
-//                    Log.d(TAG, "Successfully got companion document and stats");
-//                    final Companion companion = document.toObject(Companion.class);
-//                    updateUI(companion);
-//
-//                }
-//            }
-//        });
 
         compStats.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

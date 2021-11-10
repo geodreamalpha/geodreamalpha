@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "TerrainGeneratorTestAssembly",
-        "NewAssembly"
+        "NewAssembly",
+        "FirebaseASM"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

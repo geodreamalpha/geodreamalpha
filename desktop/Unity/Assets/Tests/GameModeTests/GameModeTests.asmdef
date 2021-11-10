@@ -6,7 +6,12 @@
         "UnityEditor.TestRunner",
         "TerrainGeneratorTestAssembly",
         "NewAssembly",
-        "FirebaseASM"
+        "FirebaseASM",
+        "PlayerMovementASM",
+        "EnemySpawnerASM",
+        "DataModelsASM",
+        "CombatSystemASM",
+        "DataManagerASM"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

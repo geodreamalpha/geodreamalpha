@@ -1,0 +1,16 @@
+{
+    "name": "CombatSystemASM",
+    "rootNamespace": "",
+    "references": [
+        "GUID:68473b4f9efa371429a17208d7b7ad38"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

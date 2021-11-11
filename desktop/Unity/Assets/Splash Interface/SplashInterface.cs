@@ -18,7 +18,8 @@ public class SplashInterface : MonoBehaviour
 	public Firebase fb;
 	protected int failedLoginsCount = 0;
 	protected int maxLoginAttempts = 10;
-	protected bool response_received = false; 
+	public string objectName = "SplashInterface";
+	protected bool response_received = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -55,10 +56,12 @@ public class SplashInterface : MonoBehaviour
 
 		}
 
-		if (response_received == true) {
-				
+		if (response_received == true)
+		{
+
 			// If the login succeeds, we change the scene. 
-			if (signedIn == true) {
+			if (signedIn == true)
+			{
 				Debug.Log("Login succeeded.");
 				MessageBox.text = "Login Success";
 				response_received = false;
@@ -171,7 +174,7 @@ public class SplashInterface : MonoBehaviour
 			signedIn = res.Success; // # true if login worked
 			uid = res.Uid; // # unique user id
 			email = res.Email; // # user's email
-			response_received = true; 
+			response_received = true;
 		});
 
 		return;

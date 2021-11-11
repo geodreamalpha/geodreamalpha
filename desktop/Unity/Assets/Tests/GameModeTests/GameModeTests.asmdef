@@ -4,7 +4,14 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "TerrainGeneratorTestAssembly"
+        "TerrainGeneratorTestAssembly",
+        "NewAssembly",
+        "FirebaseASM",
+        "PlayerMovementASM",
+        "EnemySpawnerASM",
+        "DataModelsASM",
+        "CombatSystemASM",
+        "DataManagerASM"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

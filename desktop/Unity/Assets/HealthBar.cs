@@ -33,6 +33,9 @@ public class HealthBar : MonoBehaviour
                 Debug.Log(val);
             });
         }
+        else if(Input.GetKeyDown(KeyCode.W)){
+            fb.PatchDoc("playerStats/0", "currHP", 18, res=>{});
+        }
     }
 
     public void SetHealth(int health)

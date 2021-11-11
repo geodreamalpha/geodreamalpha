@@ -31,8 +31,8 @@ public class Firebase
     /// <summary>
     /// Retrieves a user from the Firebase Database, given their id
     /// </summary>
-    /// <param name="userId"> Id of the user that we are looking for </param>
-    /// <param name="callback"> What to do after the user is downloaded successfully </param>
+    /// <param name="docPath"> Path of the document to get </param>
+    /// <param name="callback"> What to do after the document is retrieved </param>
     public void GetDoc(string docPath, GetDocCallback callback)
     {
         if(IsAuthenticated())
@@ -43,15 +43,48 @@ public class Firebase
                 callback(doc);
             });
         }
-        
     }
+
+    // public delegate void PatchDocCallback(PatchDocRes res);
+    // /// <summary>
+    // /// Patches a document's given fields
+    // /// </summary>
+    // /// <param name="docPath"> Path of the document to patch </param>
+    // /// <param name="callback"> What to do after the document is patched </param>
+    // public void PatchDoc(string docPath, string fieldName, object value, GetDocCallback callback)
+    // {
+    //     if(IsAuthenticated())
+    //     {
+    //         string body = "";
+    //         if (value.GetType() == typeof(string))
+    //         {
+    //             body = "{\r\n\t\"fields\": {\r\n    \t\""+fieldName+"\": {\r\n          \"stringValue\": \""+(string) value+"\"\r\n        }\r\n    }\r\n}";
+    //         }
+    //         else if (value.GetType() == typeof(int))
+    //         {
+    //             body = "{\r\n\t\"fields\": {\r\n    \t\""+fieldName+"\": {\r\n          \"integerValue\": "+(int) value+"\r\n        }\r\n    }\r\n}";
+    //         }
+    //         RestClient.Request(new RequestHelper {
+    //             Uri = $"{FSBaseURL}MvmJmiCXlNNHn4pXOi8HRxjif9X2/{docPath}?updateMask.fieldPaths={fieldName}&key={this.API_KEY}",
+    //             Method = "PATCH",
+    //             Body = body
+    //         }).Then(res=>{
+    //             Debug.Log(res.Text);
+    //         }).Catch(err=>{
+    //             var error = err as RequestException;
+    //             Debug.Log(error.Response);
+    //         });
+    //         Debug.Log(body);
+    //     }
+    // }
 
     public delegate void GetSignInResCallback(SignInRes signInRes);
     /// <summary>
-    /// Retrieves a user from the Firebase Database, given their id
+    /// Authenticates a firebase user account with email and password
     /// </summary>
-    /// <param name="userId"> Id of the user that we are looking for </param>
-    /// <param name="callback"> What to do after the user is downloaded successfully </param>
+    /// <param name="userEmail"> Email of the user that we are signing into </param>
+    /// <param name="userPassword"> Password of the user that we are signing into </param>
+    /// <param name="callback"> What to do after we attempt to authenticate </param>
     public void SignIn(string userEmail, string userPassword, GetSignInResCallback callback)
     {
             //Create request body
@@ -84,10 +117,11 @@ public class Firebase
 
     public delegate void GetSignUpResCallback(SignUpRes signUpRes);
     /// <summary>
-    /// Retrieves a user from the Firebase Database, given their id
+    /// Registers a new user in firebase
     /// </summary>
-    /// <param name="userId"> Id of the user that we are looking for </param>
-    /// <param name="callback"> What to do after the user is downloaded successfully </param>
+    /// <param name="userEmail"> Email of the user that we want to register </param>
+    /// <param name="userPassword"> Chosen password of the user that we want to register </param>
+    /// <param name="callback"> What to do after registration is attempted </param>
     public void SignUp(string userEmail, string userPassword, GetSignUpResCallback callback)
     {
             //Create request body
@@ -104,6 +138,7 @@ public class Firebase
                 response.Uid = successResponse.localId;
                 response.Email = successResponse.email;
                 CreateUserData(response.Email, response.Uid);
+                this.CurrUserId = response.Uid;
                 callback(response);
             }).Catch(err=>{
                 var error = err as RequestException;
@@ -115,11 +150,75 @@ public class Firebase
             });
     }
 
+    /// <summary>
+    /// Creates the necessary user data structure within firestore for a given user
+    /// </summary>
+    /// <param name="userEmail"></param>
+    /// <param name="userId"></param>
     private void CreateUserData(string userEmail, string userId)
     {
-        string jsonReq = "{\r\n  \"writes\": [\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"userEmail\": {\r\n\t\t\t      \"stringValue\": \""+userEmail+"\"\r\n\t\t\t\t},\r\n              \t\"userId\": {\r\n                  \"stringValue\": \""+userId+"\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/playerStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"currHP\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"currSTM\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"level\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"maxHP\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"maxSTM\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"strength\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"xp\": {\r\n                  \"integerValue\": 0\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/compStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"level\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"strength\": {\r\n                  \"integerValue\": 0\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/worlds/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"seed\": {\r\n\t\t\t      \"stringValue\": \"\"\r\n\t\t\t\t}\r\n  \t\t\t}\r\n    \t}\r\n    }\r\n  ]\r\n}";
+        string jsonReq = "{\r\n  \"writes\": [\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"userEmail\": {\r\n\t\t\t      \"stringValue\": \""+userEmail+"\"\r\n\t\t\t\t},\r\n              \t\"userId\": {\r\n                  \"stringValue\": \""+userId+"\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/playerStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"currHP\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"currSTM\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"level\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"maxHP\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"maxSTM\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"strength\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"xp\": {\r\n                  \"integerValue\": 0\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/compStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"level\": {\r\n\t\t\t      \"integerValue\": 1\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"integerValue\": 1\r\n                },\r\n              \t\"strength\": {\r\n                  \"integerValue\": 1\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/worlds/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"seed\": {\r\n\t\t\t      \"stringValue\": \"\"\r\n\t\t\t\t}\r\n  \t\t\t}\r\n    \t}\r\n    }\r\n  ]\r\n}";
         RestClient.Post($"https://firestore.googleapis.com/v1/projects/{ProjectID}/databases/(default)/documents:commit/?key={this.API_KEY}", jsonReq).Then(res=>{
             // Debug.Log(res.Text);
+        });
+    }
+
+    public delegate void GetPasswordResetResCallback(PasswordResetRes PasswordResetRes);
+    /// <summary>
+    /// Requests a password reset code for the user
+    /// </summary>
+    /// <param name="userEmail"> Email of the user that needs a code </param>
+    /// <param name="callback"> What to do after the code is generated successfully </param>
+    public void PasswordReset(string userEmail, GetPasswordResetResCallback callback)
+    {
+        //Create request body
+        PasswordResetReq req = new PasswordResetReq();
+        req.email = userEmail;
+        req.requestType = "PASSWORD_RESET";
+ 
+        //Make HTTP Request
+        RestClient.Post($"{this.FSAuthURL}:sendOobCode?key={this.API_KEY}", req).Then(res =>
+        {
+            PasswordResetSuccessRes response = JsonConvert.DeserializeObject<PasswordResetSuccessRes>(res.Text);
+            PasswordResetRes fullResponse = new PasswordResetRes();
+            fullResponse.Success = true;
+ 
+            callback(fullResponse);
+        }).Catch(err => {
+            PasswordResetRes fullResponse = new PasswordResetRes();
+            fullResponse.Success = false;
+            callback(fullResponse);
+        });
+    }
+ 
+    // Deprecated: Firebase already handles this via web UI. 
+    public delegate void GetPasswordResetSubmitResCallback(PasswordResetSubmitRes PasswordResetSubmitRes);
+    /// <summary>
+    /// Sets a new password for the user that requests a reset code
+    /// </summary>
+    /// <param name="oobCode"> The password reset code </param>
+    /// <param name="newPassword"> The new password </param>
+    /// <param name="callback"> What to do after the user is downloaded successfully </param>
+    public void PasswordResetSubmit(string oobCode, string newPassword, GetPasswordResetSubmitResCallback callback)
+    {
+        //Create request body
+        PasswordResetSubmitReq req = new PasswordResetSubmitReq();
+        req.newPassword = newPassword;
+        req.oobCode = oobCode;
+        // req.requestType = "PASSWORD_RESET";
+ 
+        //Make HTTP Request
+        RestClient.Post($"{this.FSAuthURL}:resetPassword?key={this.API_KEY}", req).Then(res =>
+        {
+            PasswordResetSubmitSuccessRes response = JsonConvert.DeserializeObject<PasswordResetSubmitSuccessRes>(res.Text);
+            PasswordResetSubmitRes fullResponse = new PasswordResetSubmitRes();
+            fullResponse.Success = true;
+ 
+            callback(fullResponse);
+        }).Catch(err => {
+            PasswordResetSubmitRes fullResponse = new PasswordResetSubmitRes();
+            fullResponse.Success = false;
+            callback(fullResponse);
         });
     }
 }

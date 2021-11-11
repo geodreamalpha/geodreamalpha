@@ -9,9 +9,9 @@ public class FBObject
     public string updateTime;
 }
 
-public class User : FBObject {}
+public class User : FBObject { }
 
-public class Document : FBObject {}
+public class Document : FBObject { }
 
 public class SignInSuccessRes
 {

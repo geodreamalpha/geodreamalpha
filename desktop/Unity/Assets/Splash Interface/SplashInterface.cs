@@ -18,8 +18,8 @@ public class SplashInterface : MonoBehaviour
 	public Firebase fb;
 	protected int failedLoginsCount = 0;
 	protected int maxLoginAttempts = 10;
-	public string objectName = "SplashInterface";
 	protected bool response_received = false;
+	public string objectName = "SplashInterface"; // Unit testing
 
 	// Start is called before the first frame update
 	void Start()

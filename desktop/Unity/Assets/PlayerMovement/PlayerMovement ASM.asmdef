@@ -1,0 +1,17 @@
+{
+    "name": "PlayerMovementASM",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f0eddb9908fca4fbc9e9b80bab944050",
+        "GUID:88c890e92a0524225bb04f5f33f5afff"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

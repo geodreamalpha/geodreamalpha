@@ -1,0 +1,16 @@
+{
+    "name": "FirebaseASM",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d81aee432f1af48c38a5014779d1d5ed"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

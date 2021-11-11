@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 // using Assets.Firebase.Firebase; 
-// using Firebase;
 
 public class SplashInterface : MonoBehaviour
 {
@@ -20,12 +19,7 @@ public class SplashInterface : MonoBehaviour
 	protected int failedLoginsCount = 0;
 	protected int maxLoginAttempts = 10;
 	protected bool response_received = false;
-
-  public string objectName = "SplashInterface"; // Unit testing
-	protected bool reg_received = false;
-	public string reg_email;
-	public string reg_password;
-	public bool reg_success;
+	public string objectName = "SplashInterface"; // Unit testing
 
 	// Start is called before the first frame update
 	void Start()
@@ -62,12 +56,10 @@ public class SplashInterface : MonoBehaviour
 
 		}
 
-		if (response_received == true)
-		{
-
+		if (response_received == true) {
+				
 			// If the login succeeds, we change the scene. 
-			if (signedIn == true)
-			{
+			if (signedIn == true) {
 				Debug.Log("Login succeeded.");
 				MessageBox.text = "Login Success";
 				response_received = false;
@@ -91,28 +83,6 @@ public class SplashInterface : MonoBehaviour
 					MessageBox.text = "Login Failed. Please check your email or password.";
 				}
 			}
-		}
-
-		if (reg_received == true)
-		{
-			Debug.Log("Received registration...");
-			// If the login succeeds, we change the scene. 
-			if (reg_success == true)
-			{
-				Debug.Log("Registration succeeded.");
-				MessageBox.text = "Registration Succeeded. Please type in your login details to and sign in.";
-				reg_received = true;
-				SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
-			}
-
-			else
-			{
-				Debug.Log("Registration failed. Are you sure this email isn't already registered? ");
-				MessageBox.text = "Registration failed. Are you sure this email isn't already registered?";
-
-			}
-
-			reg_received = false; // reset the flag so that we can process another attempt.
 		}
 
 	}
@@ -151,6 +121,7 @@ public class SplashInterface : MonoBehaviour
 	public void Register()
 	{
 		Debug.Log("Implementing registration. ");
+		bool registrationToken = fireBaseSendRegister();
 
 		if (EmailText.text == "" || PasswordText.text == "")
 		{
@@ -158,10 +129,16 @@ public class SplashInterface : MonoBehaviour
 		}
 		else
 		{
-			fireBaseSendRegister(EmailText.text, PasswordText.text);
-			MessageBox.text = "Sending registration...";
-			// SceneManager.LoadScene("Game");
-			// FadeStartMenu();
+			if (registrationToken == false)
+			{
+				MessageBox.text = "Registration failed - email already registered. Please try again.";
+			}
+			else
+			{
+				MessageBox.text = "Registration succeeded";
+				// SceneManager.LoadScene("Game");
+				FadeStartMenu();
+			}
 		}
 		return;
 	}
@@ -193,29 +170,21 @@ public class SplashInterface : MonoBehaviour
 		fb.SignIn(email, password, res =>
 		{
 			signedIn = res.Success; // # true if login worked
-			Debug.Log($"Debug Res.success: {res.Success}");
 			uid = res.Uid; // # unique user id
 			email = res.Email; // # user's email
-			response_received = true;
+			response_received = true; 
 		});
 
 		return;
+		// return true; 
+		// Rest API calls. 
 	}
 
-	protected void fireBaseSendRegister(string email, string password)
+	protected bool fireBaseSendRegister()
 	{
-		Debug.Log("API call to send login through fireBaseSendRegister()");
+		Debug.Log("API call to send login through firebaseSendRegister()");
 
-		fb.SignUp(email, password, res =>
-		{
-			reg_success = res.Success;
-			reg_received = true;
-			if (res.Success == false) {
-				Debug.Log(res.ErrorMessage);
-			}
-		});
-
-		return;
+		return true;
 	}
 
 	protected bool fireBaseSendPassword()

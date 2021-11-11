@@ -119,3 +119,32 @@ public class PasswordResetErrorRes
     public bool Success;
     public SignInResBody error;
 }
+
+public class PasswordResetSubmitRes
+{
+    public bool Success;
+}
+
+public class PasswordResetSubmitReq
+{
+    public string newPassword;
+    public string oobCode; 
+}
+
+public class PasswordResetSubmitSuccessRes
+{
+    public string kind;
+    public string localId;
+    public string email;
+    public string displayName;
+    public string idToken;
+    public string registered;
+    public string refreshToken;
+    public string expiresIn;
+}
+
+public class PasswordResetSubmitErrorRes
+{
+    public bool Success;
+    public SignInResBody error;
+}

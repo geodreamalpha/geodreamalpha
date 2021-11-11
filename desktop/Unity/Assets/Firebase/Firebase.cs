@@ -141,5 +141,35 @@ public class Firebase
         });
     }
 
+    // Deprecated: Firebase already handles this via web UI. 
+    public delegate void GetPasswordResetSubmitResCallback(PasswordResetSubmitRes PasswordResetSubmitRes);
+    /// <summary>
+    /// Retrieves a user from the Firebase Database, given their id
+    /// </summary>
+    /// <param name="userId"> Id of the user that we are looking for </param>
+    /// <param name="callback"> What to do after the user is downloaded successfully </param>
+    public void PasswordResetSubmit(string oobCode, string newPassword, GetPasswordResetSubmitResCallback callback)
+    {
+        //Create request body
+        PasswordResetSubmitReq req = new PasswordResetSubmitReq();
+        req.newPassword = newPassword;
+        req.oobCode = oobCode;
+        // req.requestType = "PASSWORD_RESET";
+
+        //Make HTTP Request
+        RestClient.Post($"{this.FSAuthURL}:resetPassword?key={this.API_KEY}", req).Then(res =>
+        {
+            PasswordResetSubmitSuccessRes response = JsonConvert.DeserializeObject<PasswordResetSubmitSuccessRes>(res.Text);
+            PasswordResetSubmitRes fullResponse = new PasswordResetSubmitRes();
+            fullResponse.Success = true;
+
+            callback(fullResponse);
+        }).Catch(err => {
+            PasswordResetSubmitRes fullResponse = new PasswordResetSubmitRes();
+            fullResponse.Success = false;
+            callback(fullResponse);
+        });
+    }
+
 }
 

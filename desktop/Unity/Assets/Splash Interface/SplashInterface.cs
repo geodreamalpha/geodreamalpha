@@ -11,6 +11,8 @@ public class SplashInterface : MonoBehaviour
 	public Text MessageBox;
 	public InputField EmailText;
 	public InputField PasswordText;
+
+
 	protected EventSystem system;
 	public bool signedIn = false;
 	public string uid;
@@ -23,9 +25,22 @@ public class SplashInterface : MonoBehaviour
 	public string reg_email;
 	public string reg_password;
 	public bool pwd_received = false;
-	public bool reg_success;
-	public GameObject ResetPasswordPanel; 
+	public bool pwd_success = false; 
+	public bool reg_success; 
+	public bool pwd_submit_received = false;
+	public bool pwd_submit_success = false;
 	public string objectName = "SplashInterface";
+	
+
+	// Overlay
+	public InputField NewPassword;
+	public InputField oobCode;
+	public InputField NewPasswordConfirm;
+	public GameObject ResetPasswordPanel;
+	public Text MessageBoxPWD;
+
+	// Deprecated because Firebase already has a web API to handle this. 
+	public bool enablePasswordOverlay = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -118,15 +133,39 @@ public class SplashInterface : MonoBehaviour
 		{
 			// Send a password reset code. 
 			Debug.Log("Sent password reset code. Please check your email.");
-			MessageBox.text = "Sent password reset code. Please check your email.";
+			MessageBox.text = "Email sent. Please follow the link provided.";
 			pwd_received = false;
-			OpenPasswordResetPanel();
-		}
-		else
-        {
-			Debug.Log ("Could not find panel to open it.");
-        }
 
+			// Deprecated: Firebase handles UI stuff via built-in web interface. Link sent in email.
+			if (enablePasswordOverlay == true)
+			{ 
+				OpenPasswordResetPanel();
+			}
+		}
+
+		if (enablePasswordOverlay == true) {
+			// Check to see if the user requested a password reset. 
+			if (pwd_submit_received == true)
+			{
+				if (pwd_submit_success == true) {
+					// We've reset the password. Now we close the panel and display success.  
+					Debug.Log("Password successfully reset. Please log in.");
+
+					// Ordinarily, we display messages on the overlay, but if there is a success, we do so on the parent panel because the overlay will be closed. 
+					MessageBox.text = "Password successfully reset. Please log in.";
+					pwd_submit_received = false;
+
+					// Now, we close the overlay and allow them to log in. 
+					OpenPasswordResetPanel(false);
+				}
+				else
+				{
+					// We use a different messagebox for the overlay. If we aren't closing the overlay, we need to use this instead. 
+					setPwdMessage("Failed. Please try again.");
+					Debug.Log("Failed to reset password");
+				}
+			}
+		}
 	}
 
 	public string Hello()
@@ -184,24 +223,9 @@ public class SplashInterface : MonoBehaviour
 		Debug.Log("Implementing forgotPassword. ");
 		fireBaseSendPassword(EmailText.text);
 
-		/*
-		if (passwordToken == false)
-		{
-			MessageBox.text = "Could not reset password. Email does not exist.";
-		}
-		else
-		{
-			MessageBox.text = "An email has been sent to reset your password.";
-		}
-		return;
-		*/
 		return; 
 	}
 
-	public void ForgotPasswordSubmit ()
-    {
-		return;
-    }
 	// Rest API calls, for firebase connector. 
 
 	protected void fireBaseSendLogin(string email, string password)
@@ -227,7 +251,8 @@ public class SplashInterface : MonoBehaviour
 		fb.SignUp(email, password, res =>
 		{
 			reg_success = res.Success;
-			reg_received = true; 
+			reg_received = true;
+			
 		});
 
 		return;
@@ -237,18 +262,78 @@ public class SplashInterface : MonoBehaviour
 	{
 		Debug.Log("API call to send login through firebaseSendPassword()");
 
-		fb.PasswordReset(email, res =>
-		{
-			pwd_received = res.Success;
-			if (pwd_received == false) {
-
-            }
-		});
-
+		// First, we need to check and make sure that the user actually submitted an email. 
+		if (EmailText.text != "")
+        {
+			fb.PasswordReset(email, res =>
+			{
+				pwd_success = res.Success;
+				pwd_received = res.Success; 
+				if (pwd_success == false) {
+					Debug.Log("Failed to get password reset code");
+					MessageBox.text = "Failed to get password reset code";
+				}
+			});
+		}
+		else
+        {
+			// If the user did not submit an email, we must prompt them to do so.
+			MessageBox.text = "Please enter your email address and try again.";
+        }
 		return; 
-
 	}
 
+
+	// Deprecated: Firebase already handles this via a built-in web UI. 
+	public void ForgotPasswordSubmit()
+	{
+		Debug.Log("Front end UI for password submit, verifying data.");
+
+		// First, we grab data from our form. 
+		oobCode = GameObject.Find("Panel/ResetPasswordPanel/oobCode").GetComponent<InputField>();
+		NewPassword = GameObject.Find("Panel/ResetPasswordPanel/NewPassword").GetComponent<InputField>();
+		NewPasswordConfirm = GameObject.Find("Panel/ResetPasswordPanel/NewPasswordConfirm").GetComponent<InputField>();
+
+		// Now, we must check and make sure the passwords match, etc. 
+		if (NewPassword.text != NewPasswordConfirm.text)
+        {
+			Debug.Log("Passwords don't match");
+			setPwdMessage("Passwords don't match.");
+        }
+		else if (oobCode.text == "") {
+			Debug.Log ("Missing OOBcode");
+			setPwdMessage("You must enter a verification code");
+        }
+		else
+        {
+			// No errors, so we proceed to submit. 
+			processPasswordSubmit(oobCode.text, NewPassword.text);
+        }
+		return; 
+	}
+
+	// Deprecated: Firebase already handles this via built-in web UI. 
+	public bool processPasswordSubmit(string oobCode, string newPassword)
+	{
+		Debug.Log ("Backend password submit, attempting to change password via Firebase API call");
+		fb.PasswordResetSubmit(oobCode, newPassword, res =>
+		{
+			pwd_submit_success = res.Success;
+			pwd_submit_received = res.Success;
+
+			// For debug purposes, UI is handled in Update(); 
+			if (pwd_submit_success == false)
+			{
+				Debug.Log("failed to change password.");
+			}
+			else
+			{
+				Debug.Log("Successfully changed password");
+			}
+		});
+
+		return pwd_submit_received;
+	}
 
 	// Allows a clean fade from the login screen to a loading splash page for registration, etc. 
 	public void FadeStartMenu()
@@ -269,11 +354,17 @@ public class SplashInterface : MonoBehaviour
 	}
 
 	// Opens the password reset overlay. 
-	public void OpenPasswordResetPanel ()
+	public void OpenPasswordResetPanel (bool openAction = true)
     {
 		if (ResetPasswordPanel != null)
         {
-			ResetPasswordPanel.SetActive (true);
+			ResetPasswordPanel.SetActive (openAction); 
         }
     }
+
+	public void setPwdMessage (string message)
+    {
+		MessageBoxPWD = GameObject.Find("Panel/ResetPasswordPanel/MessageBoxPWD").GetComponent<Text>();
+		MessageBoxPWD.text = message;
+	}
 }

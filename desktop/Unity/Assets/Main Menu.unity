@@ -603,6 +603,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276830397}
   m_CullTransparentMesh: 1
+--- !u!1 &292048427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 292048428}
+  - component: {fileID: 292048430}
+  - component: {fileID: 292048429}
+  m_Layer: 5
+  m_Name: MessageBoxPwd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &292048428
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292048427}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1106151213}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.1872, y: -119.7}
+  m_SizeDelta: {x: 432.78, y: 26.4462}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &292048429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292048427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.3254717, b: 0.3254717, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &292048430
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292048427}
+  m_CullTransparentMesh: 1
 --- !u!1 &294318572
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,9 +968,17 @@ MonoBehaviour:
   reg_email: 
   reg_password: 
   pwd_received: 0
+  pwd_success: 0
   reg_success: 0
-  ResetPasswordPanel: {fileID: 0}
+  pwd_submit_received: 0
+  pwd_submit_success: 0
   objectName: SplashInterface
+  NewPassword: {fileID: 0}
+  oobCode: {fileID: 0}
+  NewPasswordConfirm: {fileID: 0}
+  ResetPasswordPanel: {fileID: 0}
+  MessageBoxPWD: {fileID: 0}
+  enablePasswordOverlay: 0
 --- !u!114 &396113234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1953,9 +2040,17 @@ MonoBehaviour:
   reg_email: 
   reg_password: 
   pwd_received: 0
+  pwd_success: 0
   reg_success: 0
-  ResetPasswordPanel: {fileID: 0}
+  pwd_submit_received: 0
+  pwd_submit_success: 0
   objectName: SplashInterface
+  NewPassword: {fileID: 0}
+  oobCode: {fileID: 0}
+  NewPasswordConfirm: {fileID: 0}
+  ResetPasswordPanel: {fileID: 0}
+  MessageBoxPWD: {fileID: 0}
+  enablePasswordOverlay: 0
 --- !u!1 &1054190957
 GameObject:
   m_ObjectHideFlags: 0
@@ -2100,7 +2195,6 @@ GameObject:
   - component: {fileID: 1106151213}
   - component: {fileID: 1106151215}
   - component: {fileID: 1106151214}
-  - component: {fileID: 1106151216}
   m_Layer: 5
   m_Name: ResetPasswordPanel
   m_TagString: Untagged
@@ -2124,13 +2218,14 @@ RectTransform:
   - {fileID: 1964064233}
   - {fileID: 294318573}
   - {fileID: 1307534101}
+  - {fileID: 292048428}
   m_Father: {fileID: 1339642697}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 9.271088, y: -25.044006}
-  m_SizeDelta: {x: -281.0337, y: -100.16}
+  m_AnchoredPosition: {x: 8.3089905, y: -25.044006}
+  m_SizeDelta: {x: -173.96, y: -100.16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1106151214
 MonoBehaviour:
@@ -2170,30 +2265,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106151212}
   m_CullTransparentMesh: 1
---- !u!114 &1106151216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1106151212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d7e3a52843344651a12330b0bce0db8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MessageBox: {fileID: 0}
-  EmailText: {fileID: 0}
-  PasswordText: {fileID: 0}
-  signedIn: 0
-  uid: 
-  email: 
-  reg_email: 
-  reg_password: 
-  pwd_received: 0
-  reg_success: 0
-  ResetPasswordPanel: {fileID: 1106151212}
-  objectName: SplashInterface
 --- !u!1 &1226913819
 GameObject:
   m_ObjectHideFlags: 0
@@ -2519,7 +2590,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0024414062, y: -0.0010070801}
+  m_AnchoredPosition: {x: 0.0025024414, y: -0.0009765625}
   m_SizeDelta: {x: 0.0050049, y: -0.0019531}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1339642698
@@ -2581,9 +2652,17 @@ MonoBehaviour:
   reg_email: 
   reg_password: 
   pwd_received: 0
+  pwd_success: 0
   reg_success: 0
-  ResetPasswordPanel: {fileID: 0}
+  pwd_submit_received: 0
+  pwd_submit_success: 0
   objectName: SplashInterface
+  NewPassword: {fileID: 0}
+  oobCode: {fileID: 0}
+  NewPasswordConfirm: {fileID: 0}
+  ResetPasswordPanel: {fileID: 1106151212}
+  MessageBoxPWD: {fileID: 0}
+  enablePasswordOverlay: 0
 --- !u!225 &1339642701
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3369,7 +3448,6 @@ GameObject:
   - component: {fileID: 1865483763}
   - component: {fileID: 1865483762}
   - component: {fileID: 1865483761}
-  - component: {fileID: 1865483764}
   m_Layer: 5
   m_Name: Reset Password Button
   m_TagString: Untagged
@@ -3491,30 +3569,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865483759}
   m_CullTransparentMesh: 1
---- !u!114 &1865483764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865483759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d7e3a52843344651a12330b0bce0db8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MessageBox: {fileID: 0}
-  EmailText: {fileID: 0}
-  PasswordText: {fileID: 0}
-  signedIn: 0
-  uid: 
-  email: 
-  reg_email: 
-  reg_password: 
-  pwd_received: 0
-  reg_success: 0
-  ResetPasswordPanel: {fileID: 1106151212}
-  objectName: SplashInterface
 --- !u!1 &1964064232
 GameObject:
   m_ObjectHideFlags: 0

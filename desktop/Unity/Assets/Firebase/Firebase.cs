@@ -124,9 +124,10 @@ public class Firebase
         //Create request body
         PasswordResetReq req = new PasswordResetReq();
         req.email = userEmail;
+        req.requestType = "PASSWORD_RESET";
 
         //Make HTTP Request
-        RestClient.Post($"{this.FSAuthURL}{this.API_KEY}", req).Then(res =>
+        RestClient.Post($"{this.FSAuthURL}:sendOobCode?key={this.API_KEY}", req).Then(res =>
         {
             PasswordResetSuccessRes response = JsonConvert.DeserializeObject<PasswordResetSuccessRes>(res.Text);
             PasswordResetRes fullResponse = new PasswordResetRes();

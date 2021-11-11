@@ -22,7 +22,9 @@ public class SplashInterface : MonoBehaviour
 	protected bool reg_received = false;
 	public string reg_email;
 	public string reg_password;
+	public bool pwd_received = false;
 	public bool reg_success;
+	public GameObject ResetPasswordPanel; 
 	public string objectName = "SplashInterface";
 
 	// Start is called before the first frame update
@@ -111,6 +113,20 @@ public class SplashInterface : MonoBehaviour
 			}
 		}
 
+		// Check to see if the user requested a password reset. 
+		if (pwd_received == true)
+		{
+			// Send a password reset code. 
+			Debug.Log("Sent password reset code. Please check your email.");
+			MessageBox.text = "Sent password reset code. Please check your email.";
+			pwd_received = false;
+			OpenPasswordResetPanel();
+		}
+		else
+        {
+			Debug.Log ("Could not find panel to open it.");
+        }
+
 	}
 
 	public string Hello()
@@ -166,8 +182,9 @@ public class SplashInterface : MonoBehaviour
 	{
 		// return "Hello from Forgotpassword"; 
 		Debug.Log("Implementing forgotPassword. ");
-		bool passwordToken = fireBaseSendPassword();
+		fireBaseSendPassword(EmailText.text);
 
+		/*
 		if (passwordToken == false)
 		{
 			MessageBox.text = "Could not reset password. Email does not exist.";
@@ -177,18 +194,23 @@ public class SplashInterface : MonoBehaviour
 			MessageBox.text = "An email has been sent to reset your password.";
 		}
 		return;
+		*/
+		return; 
 	}
 
+	public void ForgotPasswordSubmit ()
+    {
+		return;
+    }
 	// Rest API calls, for firebase connector. 
 
 	protected void fireBaseSendLogin(string email, string password)
 	{
 		Debug.Log("API call to send login through firebaseSendLogin()");
 
-		// This code goes your login method or code block
 		fb.SignIn(email, password, res =>
 		{
-			signedIn = res.Success; // # true if login worked
+			signedIn = res.Success; 
 			Debug.Log($"Debug Res.success: {res.Success}");
 			uid = res.Uid; // # unique user id
 			email = res.Email; // # user's email
@@ -196,8 +218,6 @@ public class SplashInterface : MonoBehaviour
 		});
 
 		return;
-		// return true; 
-		// Rest API calls. 
 	}
 
 	protected void fireBaseSendRegister(string email, string password)
@@ -207,15 +227,25 @@ public class SplashInterface : MonoBehaviour
 		fb.SignUp(email, password, res =>
 		{
 			reg_success = res.Success;
+			reg_received = true; 
 		});
 
 		return;
 	}
 
-	protected bool fireBaseSendPassword()
+	protected void fireBaseSendPassword(string email)
 	{
 		Debug.Log("API call to send login through firebaseSendPassword()");
-		return true;
+
+		fb.PasswordReset(email, res =>
+		{
+			pwd_received = res.Success;
+			if (pwd_received == false) {
+
+            }
+		});
+
+		return; 
 
 	}
 
@@ -237,4 +267,13 @@ public class SplashInterface : MonoBehaviour
 		canvasGroup.interactable = false;
 		yield return null;
 	}
+
+	// Opens the password reset overlay. 
+	public void OpenPasswordResetPanel ()
+    {
+		if (ResetPasswordPanel != null)
+        {
+			ResetPasswordPanel.SetActive (true);
+        }
+    }
 }

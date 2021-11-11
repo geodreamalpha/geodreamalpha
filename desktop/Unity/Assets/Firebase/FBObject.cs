@@ -99,6 +99,7 @@ public class PasswordResetRes
 public class PasswordResetReq
 {
     public string email;
+    public string requestType;
 }
 
 public class PasswordResetSuccessRes
@@ -115,5 +116,6 @@ public class PasswordResetSuccessRes
 
 public class PasswordResetErrorRes
 {
+    public bool Success;
     public SignInResBody error;
 }

@@ -65,6 +65,12 @@ public class SplashInterface : MonoBehaviour
 		system = EventSystem.current;
 
 		Debug.Log("Launching Splash Interface");
+
+		// We need to make sure the firebase API initialized successfully. Display an error message on failure.
+		if (fb == null)
+        {
+			MessageBox.text = "Could not find API key for database";
+        }
 	}
 
 	// Update is called once per frame

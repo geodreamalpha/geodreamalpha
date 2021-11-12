@@ -11,16 +11,21 @@ public class Companion {
     private int str;
     private int spd;
 
+    private String currentLifts;
+    private String liftsNeeded;
+
     // No-argument constructor is required to support conversion of Firestore document to POJO
     public Companion() {  }
 
-    public Companion(String level, String strength, String speed){
+    public Companion(String level, String strength, String speed, String currentLifts, String liftsNeeded){
         this.level = level;
         this.strength = strength;
         this.speed = speed;
         this.lvl = Integer.parseInt(level);
         this.str = Integer.parseInt(strength);
         this.spd = Integer.parseInt(speed);
+        this.currentLifts = currentLifts;
+        this.liftsNeeded = liftsNeeded;
     }
 
     public void convertStats(){
@@ -75,33 +80,21 @@ public class Companion {
         this.spd = spd;
     }
 
-    @Override
-    public String toString() {
-        return "Companion{" +
-                "level='" + level + '\'' +
-                ", strength='" + strength + '\'' +
-                ", speed='" + speed + '\'' +
-                ", lvl=" + lvl +
-                ", str=" + str +
-                ", spd=" + spd +
-                '}';
+    public String getCurrentLifts() {
+        return currentLifts;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Companion companion = (Companion) o;
-        return lvl == companion.lvl &&
-                str == companion.str &&
-                spd == companion.spd &&
-                Objects.equals(level, companion.level) &&
-                Objects.equals(strength, companion.strength) &&
-                Objects.equals(speed, companion.speed);
+    public void setCurrentLifts(String currentLifts) {
+        this.currentLifts = currentLifts;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(level, strength, speed, lvl, str, spd);
+    public String getLiftsNeeded() {
+        return liftsNeeded;
     }
+
+    public void setLiftsNeeded(String liftsNeeded) {
+        this.liftsNeeded = liftsNeeded;
+    }
+
+
 }

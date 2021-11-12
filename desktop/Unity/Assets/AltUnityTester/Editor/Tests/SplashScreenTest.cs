@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Altom.AltUnityDriver;
+using UnityEngine;
 
 public class SplashScreenTest
 {
@@ -18,6 +19,7 @@ public class SplashScreenTest
         altUnityDriver.Stop();
     }
 
+    //Tests user story #8
     [Test]
     public void SuccessfulLoginTest()
     {
@@ -29,6 +31,7 @@ public class SplashScreenTest
         // altUnityDriver.FindObject(By.NAME, "Generate Button").Click();
     }
 
+    //Tests user story #8
     [Test]
     public void WrongCredentialsTest()
     {
@@ -37,5 +40,40 @@ public class SplashScreenTest
         altUnityDriver.FindObject(By.NAME, "PasswordField").SetText("oijoidjew");
         altUnityDriver.FindObject(By.NAME, "LoginButton").Click();
     }
+
+    //Tests user story #8
+    [Test]
+    public void SuccessfulRegistrationTest()
+    {
+	    altUnityDriver.LoadScene("Main Menu");
+        altUnityDriver.FindObject(By.NAME, "EmailForm").SetText("test123@gmail.com");
+        altUnityDriver.FindObject(By.NAME, "PasswordField").SetText("random123");
+        altUnityDriver.FindObject(By.NAME, "Register Button").Click();
+        // altUnityDriver.LoadScene("TerrainGenerator/Scene/MenuScene");
+        // altUnityDriver.FindObject(By.NAME, "Generate Button").Click();
+    }
+
+    //Tests user story #20
+    [Test]
+    public void ForgotPasswordTest()
+    {
+	    altUnityDriver.LoadScene("Main Menu");
+        altUnityDriver.FindObject(By.NAME, "EmailForm").SetText("nick@geodream.alpha");
+        altUnityDriver.FindObject(By.NAME, "Reset Password Button").Click();
+    }
+
+    //Tests user story #5
+    [Test]
+    public void GenerateWorldTest()
+    {
+	    altUnityDriver.LoadScene("TerrainGenerator/Scene/MenuScene");
+        altUnityDriver.FindObject(By.NAME, "Generate Button").Click();
+    }
+
+    // [Test]
+    // public void PlayerMovementTest()
+    // {
+    //     altUnityDriver.PressKeyAndWait(AltUnityKeyCode.W, 30);
+    // }
 
 }

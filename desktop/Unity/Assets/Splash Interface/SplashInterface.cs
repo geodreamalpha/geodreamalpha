@@ -56,6 +56,7 @@ public class SplashInterface : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		// Initialize.
 		MessageBox = GameObject.Find("Panel/MessageBox").GetComponent<Text>();
 		EmailText = GameObject.Find("Panel/EmailForm").GetComponent<InputField>();
 		PasswordText = GameObject.Find("Panel/PasswordField").GetComponent<InputField>();
@@ -67,7 +68,6 @@ public class SplashInterface : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
 		// This is necessary to allow users to tab between inputs.
 		// Source: https://forum.unity.com/threads/tab-between-input-fields.263779/
 
@@ -102,9 +102,9 @@ public class SplashInterface : MonoBehaviour
 
 			else
 			{
-				Debug.Log("Registration failed. Are you sure this email isn't already registered? ");
-				MessageBox.text = "Registration failed. Are you sure this email isn't already registered?";
-
+				Debug.Log("Registration failed. Is this email already in use? ");
+				MessageBox.text = "Registration failed. Is this email already in use?";
+				reg_received = false;
 			}
 		}
 
@@ -182,6 +182,7 @@ public class SplashInterface : MonoBehaviour
 					Debug.Log("Login succeeded.");
 					MessageBox.text = "Login Success";
 					response_received = false;
+					FadeStartMenu();
 					SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
 				}
 
@@ -213,16 +214,20 @@ public class SplashInterface : MonoBehaviour
 	{
 		Debug.Log("Implementing registration. ");
 
+		// Used to make sure that email address is valid.
+		bool validEmail = EmailText.text.IndexOf('@') > 0;
 		if (EmailText.text == "" || PasswordText.text == "")
 		{
 			MessageBox.text = "Sorry, but you must enter an email and a password to register.";
 		}
+		else if (!validEmail) 
+        {
+			MessageBox.text = "Email is invalid. Please try again.";
+        }
 		else
 		{
 			fireBaseSendRegister(EmailText.text, PasswordText.text);
 			MessageBox.text = "Sending registration...";
-			// SceneManager.LoadScene("Game");
-			FadeStartMenu();
 		}
 		return;
 	}
@@ -259,13 +264,12 @@ public class SplashInterface : MonoBehaviour
 
 	public bool fireBaseSendRegister(string email, string password)
 	{
-		Debug.Log("API call to send login through firebaseSendRegister()");
+		Debug.Log("API call to send login through firebaseSendRegister(). Email: " + email);
 
 		fb.SignUp(email, password, res =>
 		{
 			reg_success = res.Success;
 			reg_received = true;
-			
 		});
 
 		return reg_success;

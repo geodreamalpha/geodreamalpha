@@ -44,4 +44,11 @@
     <string name="nav_open_drawer">Open navigation drawer</string>
     <string name="nav_close_drawer">Close navigation drawer</string>
 
+    <string name="strength_minigame_explanation">Welcome to the Strength minigame! Rapidly press the button
+        below to make your companion do barbell lifts. Fill up the bar below to level up and increase
+        your companion\'s strength stat in the desktop game!</string>
+    <string name="get_buff">GET BUFF!</string>
+    <string name="lift_count_label">Total # of sick gains you\'ve performed:</string>
+    <string name="next_level_label">Total # of radical lifts needed to level up:</string>
+
 </resources>

@@ -4,27 +4,28 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+
+// Required to handle asynchronous tests. Stores result of login.
+public static class TestDataSplash
+{
+    public static bool success;
+}
+
 public class SplashInterfaceTests
 {
-    // A Test behaves as an ordinary method
-    [Test]
+    SplashInterface splash = SplashInterface.GetInstance();
 
-    
-    public void SplashInterfaceTestsSimplePasses()
-    {
-        // Use the Assert class to test conditions
-        SplashInterface splash = new SplashInterface();
-        Assert.AreEqual("SplashInterface", splash.objectName); 
-    }
-   
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
+    // Test the login form. 
     [UnityTest]
-    public IEnumerator SplashInterfaceTestsWithEnumeratorPasses()
+    public IEnumerator SuccessfulSplashLoginTest()
     {
-        SplashInterface splash = new SplashInterface();
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
+        splash.fireBaseSendLogin("unit-testing-user@example.com", "unit-testing-password", signedIn => {
+            TestDataSplash.success = signedIn;
+        });
+
+        yield return new WaitForSeconds(2);
+        Assert.AreEqual(true, TestDataSplash.success); 
     }
 }
+
+

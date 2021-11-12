@@ -8,18 +8,50 @@ using UnityEngine.EventSystems;
 
 public class SplashInterface : MonoBehaviour
 {
+
+	private static SplashInterface UniqueInstance;
 	public Text MessageBox;
 	public InputField EmailText;
 	public InputField PasswordText;
+
+
 	protected EventSystem system;
 	public bool signedIn = false;
 	public string uid;
 	public string email;
-	public Firebase fb;
+	public Firebase fb = Firebase.GetInstance();
 	protected int failedLoginsCount = 0;
 	protected int maxLoginAttempts = 10;
-	public string objectName = "SplashInterface";
 	protected bool response_received = false;
+	protected bool reg_received = false;
+	public string reg_email;
+	public string reg_password;
+	public bool pwd_received = false;
+	public bool pwd_success = false; 
+	public bool reg_success; 
+	public bool pwd_submit_received = false;
+	public bool pwd_submit_success = false;
+	public string objectName = "SplashInterface";
+
+	// Overlay
+	public InputField NewPassword;
+	public InputField oobCode;
+	public InputField NewPasswordConfirm;
+	public GameObject ResetPasswordPanel;
+	public Text MessageBoxPWD;
+
+	// Deprecated. Firebase already has a web API to handle this. 
+	public bool enablePasswordOverlay = false;
+
+	// Constructor (required for unit testing)
+	public static SplashInterface GetInstance()
+	{
+		if (UniqueInstance == null)
+		{
+			UniqueInstance = new SplashInterface();
+		}
+		return UniqueInstance;
+	}
 
 	// Start is called before the first frame update
 	void Start()
@@ -29,7 +61,7 @@ public class SplashInterface : MonoBehaviour
 		PasswordText = GameObject.Find("Panel/PasswordField").GetComponent<InputField>();
 		system = EventSystem.current;
 
-		fb = Firebase.GetInstance();
+		Debug.Log ("Launching Splash Interface");
 	}
 
 	// Update is called once per frame
@@ -54,39 +86,66 @@ public class SplashInterface : MonoBehaviour
 			}
 			//else Debug.Log("next nagivation element not found");
 
-		}
+		} 
 
-		if (response_received == true)
+		if (reg_received == true)
 		{
 
 			// If the login succeeds, we change the scene. 
-			if (signedIn == true)
+			if (reg_success == true)
 			{
-				Debug.Log("Login succeeded.");
-				MessageBox.text = "Login Success";
-				response_received = false;
+				Debug.Log("Registration succeeded.");
+				MessageBox.text = "Registration Succeeded. Please type in your login details to and sign in.";
+				reg_received = true;
 				SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
 			}
 
-			// In the event of a login failure, we display a message and prompt the user to try again. 
 			else
 			{
-				// We must keep track of how many times they've logged in. 
-				failedLoginsCount = failedLoginsCount + 1;
-				response_received = false;
-				if (failedLoginsCount > maxLoginAttempts)
-				{
-					Debug.Log("Sorry, but we could not log you in because you failed too many times. Please restart the application and try again.");
-					MessageBox.text = "Sorry, but you have failed too many login attempts. Please restart game and try again";
-				}
-				else
-				{
-					Debug.Log("Login failed. Please check your email or password. ");
-					MessageBox.text = "Login Failed. Please check your email or password.";
-				}
+				Debug.Log("Registration failed. Are you sure this email isn't already registered? ");
+				MessageBox.text = "Registration failed. Are you sure this email isn't already registered?";
+
 			}
 		}
 
+		// Check to see if the user requested a password reset. 
+		if (pwd_received == true)
+		{
+			// Send a password reset code. 
+			Debug.Log("Sent password reset code. Please check your email.");
+			MessageBox.text = "Email sent. Please follow the link provided.";
+			pwd_received = false;
+
+			// Deprecated: Firebase handles UI stuff via built-in web interface. Link sent in email.
+			if (enablePasswordOverlay == true)
+			{ 
+				OpenPasswordResetPanel();
+			}
+		}
+
+		if (enablePasswordOverlay == true) {
+			// Check to see if the user requested a password reset. 
+			if (pwd_submit_received == true)
+			{
+				if (pwd_submit_success == true) {
+					// We've reset the password. Now we close the panel and display success.  
+					Debug.Log("Password successfully reset. Please log in.");
+
+					// Ordinarily, we display messages on the overlay, but if there is a success, we do so on the parent panel because the overlay will be closed. 
+					MessageBox.text = "Password successfully reset. Please log in.";
+					pwd_submit_received = false;
+
+					// Now, we close the overlay and allow them to log in. 
+					OpenPasswordResetPanel(false);
+				}
+				else
+				{
+					// We use a different messagebox for the overlay. If we aren't closing the overlay, we need to use this instead. 
+					setPwdMessage("Failed. Please try again.");
+					Debug.Log("Failed to reset password");
+				}
+			}
+		}
 	}
 
 	public string Hello()
@@ -113,8 +172,38 @@ public class SplashInterface : MonoBehaviour
 
 		else
 		{
-			// This sends the actual login and attempts to authenticate the user. 
-			fireBaseSendLogin(EmailText.text, PasswordText.text);
+			// This sends the actual login and attempts to authenticate the user.
+			fireBaseSendLogin(EmailText.text, PasswordText.text, signedIn => {
+				// Check if the login form was submitted. 
+
+				// If the login succeeds, we change the scene. 
+				if (signedIn == true)
+				{
+					Debug.Log("Login succeeded.");
+					MessageBox.text = "Login Success";
+					response_received = false;
+					SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
+				}
+
+				// In the event of a login failure, we display a message and prompt the user to try again. 
+				else
+				{
+					// We must keep track of how many times they've logged in. 
+					failedLoginsCount = failedLoginsCount + 1;
+					response_received = false;
+					if (failedLoginsCount > maxLoginAttempts)
+					{
+						Debug.Log("Sorry, but we could not log you in because you failed too many times. Please restart the application and try again.");
+						MessageBox.text = "Sorry, but you have failed too many login attempts. Please restart game and try again";
+					}
+					else
+					{
+						Debug.Log("Login failed. Please check your email or password. ");
+						MessageBox.text = "Login Failed. Please check your email or password.";
+					}
+				}
+				
+			});
 			MessageBox.text = "Loading...";
 		}
 		return;
@@ -123,7 +212,6 @@ public class SplashInterface : MonoBehaviour
 	public void Register()
 	{
 		Debug.Log("Implementing registration. ");
-		bool registrationToken = fireBaseSendRegister();
 
 		if (EmailText.text == "" || PasswordText.text == "")
 		{
@@ -131,16 +219,10 @@ public class SplashInterface : MonoBehaviour
 		}
 		else
 		{
-			if (registrationToken == false)
-			{
-				MessageBox.text = "Registration failed - email already registered. Please try again.";
-			}
-			else
-			{
-				MessageBox.text = "Registration succeeded";
-				// SceneManager.LoadScene("Game");
-				FadeStartMenu();
-			}
+			fireBaseSendRegister(EmailText.text, PasswordText.text);
+			MessageBox.text = "Sending registration...";
+			// SceneManager.LoadScene("Game");
+			FadeStartMenu();
 		}
 		return;
 	}
@@ -149,53 +231,122 @@ public class SplashInterface : MonoBehaviour
 	{
 		// return "Hello from Forgotpassword"; 
 		Debug.Log("Implementing forgotPassword. ");
-		bool passwordToken = fireBaseSendPassword();
+		fireBaseSendPassword(EmailText.text);
 
-		if (passwordToken == false)
-		{
-			MessageBox.text = "Could not reset password. Email does not exist.";
-		}
-		else
-		{
-			MessageBox.text = "An email has been sent to reset your password.";
-		}
-		return;
+		return; 
 	}
 
-	// Rest API calls, for firebase connector. 
+	// Sends rest API calls, for firebase connector. 
 
-	protected void fireBaseSendLogin(string email, string password)
+	public delegate void GetLoginCallback(bool signedIn);
+
+	public bool fireBaseSendLogin(string email, string password, GetLoginCallback callback)
 	{
 		Debug.Log("API call to send login through firebaseSendLogin()");
 
-		// This code goes your login method or code block
 		fb.SignIn(email, password, res =>
 		{
-			signedIn = res.Success; // # true if login worked
+			signedIn = res.Success; 
+			Debug.Log($"Debug Res.success: {res.Success}");
 			uid = res.Uid; // # unique user id
 			email = res.Email; // # user's email
 			response_received = true;
+			callback (signedIn);
 		});
 
-		return;
-		// return true; 
-		// Rest API calls. 
+		return signedIn;
 	}
 
-	protected bool fireBaseSendRegister()
+	public bool fireBaseSendRegister(string email, string password)
 	{
 		Debug.Log("API call to send login through firebaseSendRegister()");
 
-		return true;
+		fb.SignUp(email, password, res =>
+		{
+			reg_success = res.Success;
+			reg_received = true;
+			
+		});
+
+		return reg_success;
 	}
 
-	protected bool fireBaseSendPassword()
+	public bool fireBaseSendPassword(string email)
 	{
 		Debug.Log("API call to send login through firebaseSendPassword()");
-		return true;
 
+		// First, we need to check and make sure that the user actually submitted an email. 
+		if (EmailText.text != "")
+        {
+			fb.PasswordReset(email, res =>
+			{
+				pwd_success = res.Success;
+				pwd_received = res.Success; 
+				if (pwd_success == false) {
+					Debug.Log("Failed to get password reset code");
+					MessageBox.text = "Failed to get password reset code";
+				}
+			});
+		}
+		else
+        {
+			// If the user did not submit an email, we must prompt them to do so.
+			MessageBox.text = "Please enter your email address and try again.";
+        }
+		return pwd_success; 
 	}
 
+
+	// Deprecated: Firebase already handles this via a built-in web UI. 
+	public void ForgotPasswordSubmit()
+	{
+		Debug.Log("Front end UI for password submit, verifying data.");
+
+		// First, we grab data from our form. 
+		oobCode = GameObject.Find("Panel/ResetPasswordPanel/oobCode").GetComponent<InputField>();
+		NewPassword = GameObject.Find("Panel/ResetPasswordPanel/NewPassword").GetComponent<InputField>();
+		NewPasswordConfirm = GameObject.Find("Panel/ResetPasswordPanel/NewPasswordConfirm").GetComponent<InputField>();
+
+		// Now, we must check and make sure the passwords match, etc. 
+		if (NewPassword.text != NewPasswordConfirm.text)
+        {
+			Debug.Log("Passwords don't match");
+			setPwdMessage("Passwords don't match.");
+        }
+		else if (oobCode.text == "") {
+			Debug.Log ("Missing OOBcode");
+			setPwdMessage("You must enter a verification code");
+        }
+		else
+        {
+			// No errors, so we proceed to submit. 
+			processPasswordSubmit(oobCode.text, NewPassword.text);
+        }
+		return; 
+	}
+
+	// Deprecated: Firebase already handles this via built-in web UI. 
+	public bool processPasswordSubmit(string oobCode, string newPassword)
+	{
+		Debug.Log ("Backend password submit, attempting to change password via Firebase API call");
+		fb.PasswordResetSubmit(oobCode, newPassword, res =>
+		{
+			pwd_submit_success = res.Success;
+			pwd_submit_received = res.Success;
+
+			// For debug purposes, UI is handled in Update(); 
+			if (pwd_submit_success == false)
+			{
+				Debug.Log("failed to change password.");
+			}
+			else
+			{
+				Debug.Log("Successfully changed password");
+			}
+		});
+
+		return pwd_submit_received;
+	}
 
 	// Allows a clean fade from the login screen to a loading splash page for registration, etc. 
 	public void FadeStartMenu()
@@ -213,5 +364,20 @@ public class SplashInterface : MonoBehaviour
 		}
 		canvasGroup.interactable = false;
 		yield return null;
+	}
+
+	// Opens the password reset overlay. 
+	public void OpenPasswordResetPanel (bool openAction = true)
+    {
+		if (ResetPasswordPanel != null)
+        {
+			ResetPasswordPanel.SetActive (openAction); 
+        }
+    }
+
+	public void setPwdMessage (string message)
+    {
+		MessageBoxPWD = GameObject.Find("Panel/ResetPasswordPanel/MessageBoxPWD").GetComponent<Text>();
+		MessageBoxPWD.text = message;
 	}
 }

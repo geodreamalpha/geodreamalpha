@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour
 {
     public GameObject sender;
+    public bool doesDamage;
 
     [SerializeField]
     GameObject impact;

@@ -67,9 +67,10 @@ namespace CombatSystemComponent
         public void Projectile()
         {
             Rotate(faceTarget); //might need to do something different with yAxisFacingDirection
-            GameObject projectile = Instantiate(assets.getProjectileByName("Fireball"), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
+            GameObject projectile = Instantiate(assets.getProjectileByName("FireballProjectile"), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
             projectile.GetComponent<ProjectileBehavior>().target = target;
             projectile.GetComponent<ProjectileBehavior>().sender = gameObject;
+            projectile.tag = tag;
         }
 
         //Update Helpers
@@ -109,30 +110,32 @@ namespace CombatSystemComponent
         //Collision Damage Logic
         void OnTriggerEnter(Collider other)
         {
-            bool isDead = health <= 0;
-            bool isProjectile = other.tag == "redProjectile";
-            
-            if (!isDead && damageTag == other.transform.root.tag)
-                if (other.transform.root.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("Melee"))
+            bool isProjectile = other.name.Contains("Projectile");
+
+            //other.transform.root.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("Melee")
+
+            if (health > 0 && damageTag == other.transform.root.tag)
+                if (isProjectile && other.GetComponent<ProjectileBehavior>().doesDamage
+                    || true)
                 {
                     //damage calculation
                     int damage = 0;
                     
                     if (isProjectile)
                     {
-                        damage = 10;
+                        CharacterBase otherStats = other.GetComponent<ProjectileBehavior>().sender.GetComponent<CharacterBase>();
+                        damage = (int)(otherStats.gameStats.energy * 2 - otherStats.gameStats.aura);
                     }
                     else
                     {
                         CharacterBase otherStats = other.transform.root.GetComponent<CharacterBase>();
-                        damage = (int)(otherStats.gameStats.strength * 2 - otherStats.gameStats.defense);
-                        
+                        damage = (int)(otherStats.gameStats.strength * 2 - otherStats.gameStats.defense);                       
                     }
-                    health -= damage + UnityEngine.Random.Range(-1, 2);
-
+                    damage += UnityEngine.Random.Range(-1, 2);
+                    health -= damage;
 
                     //check if object is dead
-                    if (isDead)
+                    if (health <= 0)
                     {
                         animator.SetTrigger(grabDead);
                         gameObject.AddComponent<ProjectileBehavior>();

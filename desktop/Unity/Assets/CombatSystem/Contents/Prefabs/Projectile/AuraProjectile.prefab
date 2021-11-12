@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4946293908758941076}
   - component: {fileID: 4946293908758941075}
   m_Layer: 0
-  m_Name: Aura
+  m_Name: AuraProjectile
   m_TagString: redProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

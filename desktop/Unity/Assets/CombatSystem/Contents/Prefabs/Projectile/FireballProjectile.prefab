@@ -41,6 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b0fa7e80141bd40b537058a80b83e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sender: {fileID: 0}
   impact: {fileID: 7851317630485058429, guid: 1a407fb65f279d246a562cbd05e56731, type: 3}
   destroyOnImpact: 1
   lifetime:
@@ -96,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000010823978654, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: m_Name
-      value: Fireball
+      value: FireballProjectile
       objectReference: {fileID: 0}
     - target: {fileID: 1000010823978654, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: m_Layer

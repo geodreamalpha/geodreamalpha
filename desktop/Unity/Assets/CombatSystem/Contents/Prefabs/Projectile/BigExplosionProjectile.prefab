@@ -41,6 +41,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b0fa7e80141bd40b537058a80b83e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sender: {fileID: 0}
+  doesDamage: 1
   impact: {fileID: 0}
   destroyOnImpact: 0
   lifetime:
@@ -100,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
       propertyPath: m_Name
-      value: BigExplosion
+      value: BigExplosionProjectile
       objectReference: {fileID: 0}
     - target: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
       propertyPath: m_Layer

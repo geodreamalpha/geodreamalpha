@@ -45,43 +45,43 @@ MonoBehaviour:
     _testDuration: 0
     path: 
     _testSelectedCount: 1
-  - _selected: 1
+  - _selected: 0
     _testName: SplashScreenTest.ForgotPasswordTest
-    _status: 1
+    _status: 0
     _isSuite: 0
     _parentName: SplashScreenTest
     _testCaseCount: 1
     _foldOut: 1
     _testResultMessage: 
     _testStackTrace: 
-    _testDuration: 0.2876353
+    _testDuration: 0
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
   - _selected: 0
     _testName: SplashScreenTest.GenerateWorldTest
-    _status: 1
+    _status: 0
     _isSuite: 0
     _parentName: SplashScreenTest
     _testCaseCount: 1
     _foldOut: 1
     _testResultMessage: 
     _testStackTrace: 
-    _testDuration: 0.6120261
+    _testDuration: 0
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
   - _selected: 0
     _testName: SplashScreenTest.SuccessfulLoginTest
-    _status: 1
+    _status: 0
     _isSuite: 0
     _parentName: SplashScreenTest
     _testCaseCount: 1
     _foldOut: 1
     _testResultMessage: 
     _testStackTrace: 
-    _testDuration: 0.0518771
+    _testDuration: 0
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
-  - _selected: 0
+  - _selected: 1
     _testName: SplashScreenTest.SuccessfulRegistrationTest
     _status: 1
     _isSuite: 0
@@ -90,19 +90,19 @@ MonoBehaviour:
     _foldOut: 1
     _testResultMessage: 
     _testStackTrace: 
-    _testDuration: 0.3234676
+    _testDuration: 0.2882904
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
   - _selected: 0
     _testName: SplashScreenTest.WrongCredentialsTest
-    _status: 1
+    _status: 0
     _isSuite: 0
     _parentName: SplashScreenTest
     _testCaseCount: 1
     _foldOut: 1
     _testResultMessage: 
     _testStackTrace: 
-    _testDuration: 0.0438428
+    _testDuration: 0
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
   - _selected: 0

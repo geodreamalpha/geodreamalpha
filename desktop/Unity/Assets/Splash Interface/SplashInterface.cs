@@ -21,7 +21,7 @@ public class SplashInterface : MonoBehaviour
 	public string email;
 	public Firebase fb = Firebase.GetInstance();
 	protected int failedLoginsCount = 0;
-	protected int maxLoginAttempts = 10;
+	protected int maxLoginAttempts = 5;
 	protected bool response_received = false;
 	protected bool reg_received = false;
 	public string reg_email;
@@ -97,6 +97,7 @@ public class SplashInterface : MonoBehaviour
 				Debug.Log("Registration succeeded.");
 				MessageBox.text = "Registration Succeeded. Please type in your login details to and sign in.";
 				reg_received = true;
+				FadeStartMenu();
 				SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
 			}
 

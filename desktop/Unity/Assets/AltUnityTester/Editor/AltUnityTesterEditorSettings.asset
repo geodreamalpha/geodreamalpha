@@ -22,55 +22,91 @@ MonoBehaviour:
   BuildNumber: 0
   MyTests:
   - _selected: 0
-    _testName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+    _testName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
     _status: 0
     _isSuite: 1
     _parentName: 
-    _testCaseCount: 2
-    _foldOut: 0
+    _testCaseCount: 5
+    _foldOut: 1
     _testResultMessage: 
     _testStackTrace: 
     _testDuration: 0
     path: 
-    _testSelectedCount: 0
+    _testSelectedCount: 1
   - _selected: 0
     _testName: SplashScreenTest
     _status: 0
     _isSuite: 1
-    _parentName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
-    _testCaseCount: 2
-    _foldOut: 0
+    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+    _testCaseCount: 5
+    _foldOut: 1
     _testResultMessage: 
     _testStackTrace: 
     _testDuration: 0
     path: 
-    _testSelectedCount: 0
-  - _selected: 0
-    _testName: SplashScreenTest.SuccessfulLoginTest
-    _status: 0
+    _testSelectedCount: 1
+  - _selected: 1
+    _testName: SplashScreenTest.ForgotPasswordTest
+    _status: 1
     _isSuite: 0
     _parentName: SplashScreenTest
     _testCaseCount: 1
-    _foldOut: 0
+    _foldOut: 1
     _testResultMessage: 
     _testStackTrace: 
-    _testDuration: 0
+    _testDuration: 0.2876353
+    path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
+    _testSelectedCount: 0
+  - _selected: 0
+    _testName: SplashScreenTest.GenerateWorldTest
+    _status: 1
+    _isSuite: 0
+    _parentName: SplashScreenTest
+    _testCaseCount: 1
+    _foldOut: 1
+    _testResultMessage: 
+    _testStackTrace: 
+    _testDuration: 0.6120261
+    path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
+    _testSelectedCount: 0
+  - _selected: 0
+    _testName: SplashScreenTest.SuccessfulLoginTest
+    _status: 1
+    _isSuite: 0
+    _parentName: SplashScreenTest
+    _testCaseCount: 1
+    _foldOut: 1
+    _testResultMessage: 
+    _testStackTrace: 
+    _testDuration: 0.0518771
+    path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
+    _testSelectedCount: 0
+  - _selected: 0
+    _testName: SplashScreenTest.SuccessfulRegistrationTest
+    _status: 1
+    _isSuite: 0
+    _parentName: SplashScreenTest
+    _testCaseCount: 1
+    _foldOut: 1
+    _testResultMessage: 
+    _testStackTrace: 
+    _testDuration: 0.3234676
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
   - _selected: 0
     _testName: SplashScreenTest.WrongCredentialsTest
-    _status: 0
+    _status: 1
     _isSuite: 0
     _parentName: SplashScreenTest
     _testCaseCount: 1
-    _foldOut: 0
+    _foldOut: 1
     _testResultMessage: 
     _testStackTrace: 
-    _testDuration: 0
+    _testDuration: 0.0438428
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
   - _selected: 0
-    _testName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
+    _testName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
     _status: 0
     _isSuite: 1
     _parentName: 
@@ -85,7 +121,7 @@ MonoBehaviour:
     _testName: FirebaseTests
     _status: 0
     _isSuite: 1
-    _parentName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
+    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
     _testCaseCount: 1
     _foldOut: 0
     _testResultMessage: 
@@ -109,7 +145,7 @@ MonoBehaviour:
     _testName: SplashInterfaceTests
     _status: 0
     _isSuite: 1
-    _parentName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
+    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
     _testCaseCount: 1
     _foldOut: 0
     _testResultMessage: 
@@ -133,7 +169,7 @@ MonoBehaviour:
     _testName: TerrainGeneratorTest
     _status: 0
     _isSuite: 1
-    _parentName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
+    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
     _testCaseCount: 1
     _foldOut: 0
     _testResultMessage: 
@@ -154,7 +190,7 @@ MonoBehaviour:
     path: Assets/TerrainGenerator/Scripts/TerrainGeneratorTestAssembly.asmdef
     _testSelectedCount: 0
   - _selected: 1
-    _testName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll
+    _testName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll
     _status: 0
     _isSuite: 1
     _parentName: 
@@ -166,7 +202,7 @@ MonoBehaviour:
     path: 
     _testSelectedCount: 0
   - _selected: 1
-    _testName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll
+    _testName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll
     _status: 0
     _isSuite: 1
     _parentName: 
@@ -189,13 +225,13 @@ MonoBehaviour:
     _buildIndex: 0
   - _toBeBuilt: 1
     _path: Assets/TerrainGenerator/Scene/MenuScene.unity
-    _buildIndex: 0
+    _buildIndex: 1
   - _toBeBuilt: 1
     _path: Assets/TerrainGenerator/Scene/GameScene.unity
-    _buildIndex: 0
+    _buildIndex: 2
   platform: 2
   StandaloneTarget: 5
-  RanInEditor: 1
+  RanInEditor: 0
   RequestSeparator: ;
   RequestEnding: '&'
   ServerPort: 13000

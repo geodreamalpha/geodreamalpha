@@ -19,6 +19,7 @@ public class SplashScreenTest
         altUnityDriver.Stop();
     }
 
+    //Tests user story #8
     [Test]
     public void SuccessfulLoginTest()
     {
@@ -30,6 +31,7 @@ public class SplashScreenTest
         // altUnityDriver.FindObject(By.NAME, "Generate Button").Click();
     }
 
+    //Tests user story #8
     [Test]
     public void WrongCredentialsTest()
     {
@@ -39,6 +41,7 @@ public class SplashScreenTest
         altUnityDriver.FindObject(By.NAME, "LoginButton").Click();
     }
 
+    //Tests user story #8
     [Test]
     public void SuccessfulRegistrationTest()
     {
@@ -50,6 +53,7 @@ public class SplashScreenTest
         // altUnityDriver.FindObject(By.NAME, "Generate Button").Click();
     }
 
+    //Tests user story #20
     [Test]
     public void ForgotPasswordTest()
     {
@@ -58,6 +62,7 @@ public class SplashScreenTest
         altUnityDriver.FindObject(By.NAME, "Reset Password Button").Click();
     }
 
+    //Tests user story #5
     [Test]
     public void GenerateWorldTest()
     {

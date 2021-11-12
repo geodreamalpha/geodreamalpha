@@ -46,7 +46,7 @@ namespace CombatSystemComponent
 
         //Declare other field attributes
         protected CombatSystemAssets assets;
-        protected Vector3 gravity = new Vector3(0, -9.8f, 0);
+        public readonly static Vector3 gravity = new Vector3(0, -9.8f, 0);
         protected Vector3 velocity = Vector3.zero;
         protected Vector3 rotation = Vector3.forward;
 

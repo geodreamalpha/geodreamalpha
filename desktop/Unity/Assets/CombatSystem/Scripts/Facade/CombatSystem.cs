@@ -40,6 +40,9 @@ namespace CombatSystemComponent {
             return "Hello from Component CombatSystem"; 
         }
 
-
+        public float GetPlayerHealth()
+        {
+            return player.root.gameObject.GetComponent<CharacterBase>().health;
+        }
     }
 }  

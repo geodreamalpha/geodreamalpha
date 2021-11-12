@@ -6,7 +6,7 @@ using UnityEngine.TestTools;
 
 
 // Required to handle asynchronous tests. Stores result of login.
-public static class TestData
+public static class TestDataSplash
 {
     public static bool success;
 }
@@ -20,11 +20,11 @@ public class SplashInterfaceTests
     public IEnumerator SuccessfulSplashLoginTest()
     {
         splash.fireBaseSendLogin("unit-testing-user@example.com", "unit-testing-password", signedIn => {
-            TestData.success = signedIn;
+            TestDataSplash.success = signedIn;
         });
 
         yield return new WaitForSeconds(2);
-        Assert.AreEqual(true, TestData.success);
+        Assert.AreEqual(true, TestDataSplash.success); 
     }
 }
 

@@ -9,13 +9,16 @@ using UnityEngine.EventSystems;
 public class SplashInterface : MonoBehaviour
 {
 
+	// Define game objects
 	private static SplashInterface UniqueInstance;
 	public Text MessageBox;
 	public InputField EmailText;
 	public InputField PasswordText;
 
-
+	// Unity references
 	protected EventSystem system;
+
+	// Define internal variables for Splash Interface
 	public bool signedIn = false;
 	public string uid;
 	public string email;
@@ -90,7 +93,6 @@ public class SplashInterface : MonoBehaviour
 
 		if (reg_received == true)
 		{
-
 			// If the login succeeds, we change the scene. 
 			if (reg_success == true)
 			{
@@ -99,7 +101,6 @@ public class SplashInterface : MonoBehaviour
 				reg_received = true;
 				SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
 			}
-
 			else
 			{
 				Debug.Log("Registration failed. Is this email already in use? ");
@@ -123,6 +124,7 @@ public class SplashInterface : MonoBehaviour
 			}
 		}
 
+		// Deprecated. The email contains a link to the firebase web API. No need to handle new password submissions within Unity. 
 		if (enablePasswordOverlay == true) {
 			// Check to see if the user requested a password reset. 
 			if (pwd_submit_received == true)
@@ -165,18 +167,19 @@ public class SplashInterface : MonoBehaviour
 			MessageBox.text = "Sorry, but you have failed too many login attempts. Please restart game and try again";
 		}
 
+		// Make sure that the user actually entered an email and password. 
 		if (EmailText.text == "" || PasswordText.text == "")
 		{
 			MessageBox.text = "Please enter an email and password to log in.";
 		}
 
+		// If the input is valid, we attempt to process the login. 
 		else
 		{
-			// This sends the actual login and attempts to authenticate the user.
+			// Submit to internal wrapper for firebase API. 
 			fireBaseSendLogin(EmailText.text, PasswordText.text, signedIn => {
-				// Check if the login form was submitted. 
 
-				// If the login succeeds, we change the scene. 
+				// If the login succeeds, we change the scene and sign the user in. 
 				if (signedIn == true)
 				{
 					Debug.Log("Login succeeded.");
@@ -205,6 +208,8 @@ public class SplashInterface : MonoBehaviour
 				}
 				
 			});
+
+			// This displays before the callback above processes, since the callback only runs after the firebase API has responded. 
 			MessageBox.text = "Loading...";
 		}
 		return;
@@ -213,17 +218,21 @@ public class SplashInterface : MonoBehaviour
 	public void Register()
 	{
 		Debug.Log("Implementing registration. ");
+		bool validEmail = EmailText.text.IndexOf('@') > 0; // Email validation
 
-		// Used to make sure that email address is valid.
-		bool validEmail = EmailText.text.IndexOf('@') > 0;
+		// Check to make sure that the user actually entered an email and password
 		if (EmailText.text == "" || PasswordText.text == "")
 		{
 			MessageBox.text = "Sorry, but you must enter an email and a password to register.";
 		}
+
+		// We mut also make sure that the email form is actually an email address. 
 		else if (!validEmail) 
         {
 			MessageBox.text = "Email is invalid. Please try again.";
         }
+
+		// If the email is valid and the both fields are filled out, we process the registration. 
 		else
 		{
 			fireBaseSendRegister(EmailText.text, PasswordText.text);
@@ -232,23 +241,24 @@ public class SplashInterface : MonoBehaviour
 		return;
 	}
 
+	// Runs when the user clicks "Forgot Password" on the Splash Screen. 
 	public void ForgotPassword()
 	{
-		// return "Hello from Forgotpassword"; 
 		Debug.Log("Implementing forgotPassword. ");
 		fireBaseSendPassword(EmailText.text);
 
 		return; 
 	}
 
-	// Sends rest API calls, for firebase connector. 
-
+	// Define a type for callback (login submissions)
 	public delegate void GetLoginCallback(bool signedIn);
 
+	// Send and process the login after the form is validated - See Login() 
 	public bool fireBaseSendLogin(string email, string password, GetLoginCallback callback)
 	{
 		Debug.Log("API call to send login through firebaseSendLogin()");
 
+		// Sign the user in by making a request to Firebase API with username and password. 
 		fb.SignIn(email, password, res =>
 		{
 			signedIn = res.Success; 
@@ -262,6 +272,7 @@ public class SplashInterface : MonoBehaviour
 		return signedIn;
 	}
 
+	// Runs after the registration form is validated - See Register()
 	public bool fireBaseSendRegister(string email, string password)
 	{
 		Debug.Log("API call to send login through firebaseSendRegister(). Email: " + email);
@@ -274,7 +285,8 @@ public class SplashInterface : MonoBehaviour
 
 		return reg_success;
 	}
-
+	
+	// Runs after the Forgot Password form is validated. See ForgotPassword() 
 	public bool fireBaseSendPassword(string email)
 	{
 		Debug.Log("API call to send login through firebaseSendPassword()");
@@ -304,9 +316,10 @@ public class SplashInterface : MonoBehaviour
 	// Deprecated: Firebase already handles this via a built-in web UI. 
 	public void ForgotPasswordSubmit()
 	{
+		// This function grabs the oobCode (verification code) obtained from the email, and validates the overlay form with their new password. 
 		Debug.Log("Front end UI for password submit, verifying data.");
 
-		// First, we grab data from our form. 
+		// First, we grab data from our overlay form. 
 		oobCode = GameObject.Find("Panel/ResetPasswordPanel/oobCode").GetComponent<InputField>();
 		NewPassword = GameObject.Find("Panel/ResetPasswordPanel/NewPassword").GetComponent<InputField>();
 		NewPasswordConfirm = GameObject.Find("Panel/ResetPasswordPanel/NewPasswordConfirm").GetComponent<InputField>();
@@ -332,6 +345,7 @@ public class SplashInterface : MonoBehaviour
 	// Deprecated: Firebase already handles this via built-in web UI. 
 	public bool processPasswordSubmit(string oobCode, string newPassword)
 	{
+		// This function grabs the validated data from forgotPasswordSubmit() and submits a new password request. Deprecated, firebase web-API handles this already. 
 		Debug.Log ("Backend password submit, attempting to change password via Firebase API call");
 		fb.PasswordResetSubmit(oobCode, newPassword, res =>
 		{
@@ -379,6 +393,7 @@ public class SplashInterface : MonoBehaviour
         }
     }
 
+	// (Deprecated) - Messagebox for overlay is different than main panel Messagebox. 
 	public void setPwdMessage (string message)
     {
 		MessageBoxPWD = GameObject.Find("Panel/ResetPasswordPanel/MessageBoxPWD").GetComponent<Text>();

@@ -6,3 +6,4 @@ First, you will need to install AltUnityTester if you haven't already. Pulling f
 
 Next, open the project in Unity. Ensure that in the program's menubar is "AltUnity Tools". Click on this, and select "AltUnity Tester Editor"  
 In this window, here are the settings you will need to run one particular test:
+![image](https://user-images.githubusercontent.com/10481914/141410198-74c2d55f-effa-466f-b11f-50eb321aab60.png)

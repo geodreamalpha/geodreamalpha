@@ -27,46 +27,46 @@ MonoBehaviour:
     _isSuite: 1
     _parentName: 
     _testCaseCount: 2
-    _foldOut: 1
+    _foldOut: 0
     _testResultMessage: 
     _testStackTrace: 
     _testDuration: 0
     path: 
-    _testSelectedCount: 1
+    _testSelectedCount: 0
   - _selected: 0
     _testName: SplashScreenTest
     _status: 0
     _isSuite: 1
     _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
     _testCaseCount: 2
-    _foldOut: 1
+    _foldOut: 0
     _testResultMessage: 
     _testStackTrace: 
     _testDuration: 0
     path: 
-    _testSelectedCount: 1
+    _testSelectedCount: 0
   - _selected: 0
     _testName: SplashScreenTest.SuccessfulLoginTest
     _status: 0
     _isSuite: 0
     _parentName: SplashScreenTest
     _testCaseCount: 1
-    _foldOut: 1
+    _foldOut: 0
     _testResultMessage: 
     _testStackTrace: 
     _testDuration: 0
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
-  - _selected: 1
+  - _selected: 0
     _testName: SplashScreenTest.WrongCredentialsTest
-    _status: 1
+    _status: 0
     _isSuite: 0
     _parentName: SplashScreenTest
     _testCaseCount: 1
-    _foldOut: 1
+    _foldOut: 0
     _testResultMessage: 
     _testStackTrace: 
-    _testDuration: 0.2816641
+    _testDuration: 0
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
   - _selected: 0
@@ -74,6 +74,66 @@ MonoBehaviour:
     _status: 0
     _isSuite: 1
     _parentName: 
+    _testCaseCount: 4
+    _foldOut: 0
+    _testResultMessage: 
+    _testStackTrace: 
+    _testDuration: 0
+    path: 
+    _testSelectedCount: 0
+  - _selected: 0
+    _testName: FirebaseTests
+    _status: 0
+    _isSuite: 1
+    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
+    _testCaseCount: 1
+    _foldOut: 0
+    _testResultMessage: 
+    _testStackTrace: 
+    _testDuration: 0
+    path: 
+    _testSelectedCount: 0
+  - _selected: 0
+    _testName: FirebaseTests.SuccessfulLoginTest
+    _status: 0
+    _isSuite: 0
+    _parentName: FirebaseTests
+    _testCaseCount: 1
+    _foldOut: 0
+    _testResultMessage: 
+    _testStackTrace: 
+    _testDuration: 0
+    path: Assets/Tests/GameModeTests/Firebase/FirebaseTests.cs
+    _testSelectedCount: 0
+  - _selected: 0
+    _testName: SplashInterfaceTests
+    _status: 0
+    _isSuite: 1
+    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
+    _testCaseCount: 2
+    _foldOut: 0
+    _testResultMessage: 
+    _testStackTrace: 
+    _testDuration: 0
+    path: 
+    _testSelectedCount: 0
+  - _selected: 0
+    _testName: SplashInterfaceTests.SplashInterfaceTestsSimplePasses
+    _status: 0
+    _isSuite: 0
+    _parentName: SplashInterfaceTests
+    _testCaseCount: 1
+    _foldOut: 0
+    _testResultMessage: 
+    _testStackTrace: 
+    _testDuration: 0
+    path: 
+    _testSelectedCount: 0
+  - _selected: 0
+    _testName: SplashInterfaceTests.SplashInterfaceTestsWithEnumeratorPasses
+    _status: 0
+    _isSuite: 0
+    _parentName: SplashInterfaceTests
     _testCaseCount: 1
     _foldOut: 0
     _testResultMessage: 
@@ -141,13 +201,13 @@ MonoBehaviour:
     _buildIndex: 0
   - _toBeBuilt: 1
     _path: Assets/TerrainGenerator/Scene/MenuScene.unity
-    _buildIndex: 1
+    _buildIndex: 0
   - _toBeBuilt: 1
     _path: Assets/TerrainGenerator/Scene/GameScene.unity
-    _buildIndex: 2
+    _buildIndex: 0
   platform: 2
   StandaloneTarget: 5
-  RanInEditor: 0
+  RanInEditor: 1
   RequestSeparator: ;
   RequestEnding: '&'
   ServerPort: 13000

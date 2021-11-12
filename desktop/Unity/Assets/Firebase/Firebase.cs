@@ -13,6 +13,8 @@ public class Firebase
     string CurrUserId;
     string API_KEY = System.IO.File.ReadAllText("Assets/Firebase/apikey.0");
 
+    private Firebase() {}
+
     public static Firebase GetInstance()
     {
         if(UniqueInstance == null)

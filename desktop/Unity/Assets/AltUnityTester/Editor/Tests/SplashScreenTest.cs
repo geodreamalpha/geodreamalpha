@@ -25,8 +25,8 @@ public class SplashScreenTest
         altUnityDriver.FindObject(By.NAME, "EmailForm").SetText("nick@geodream.alpha");
         altUnityDriver.FindObject(By.NAME, "PasswordField").SetText("1337h4x0r");
         altUnityDriver.FindObject(By.NAME, "LoginButton").Click();
-        altUnityDriver.LoadScene("TerrainGenerator/Scene/MenuScene");
-        altUnityDriver.FindObject(By.NAME, "Generate Button").Click();
+        // altUnityDriver.LoadScene("TerrainGenerator/Scene/MenuScene");
+        // altUnityDriver.FindObject(By.NAME, "Generate Button").Click();
     }
 
     [Test]

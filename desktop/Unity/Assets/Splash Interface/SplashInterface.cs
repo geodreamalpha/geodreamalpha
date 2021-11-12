@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 
 public class SplashInterface : MonoBehaviour
 {
+
+	private static SplashInterface UniqueInstance;
 	public Text MessageBox;
 	public InputField EmailText;
 	public InputField PasswordText;
@@ -17,7 +19,7 @@ public class SplashInterface : MonoBehaviour
 	public bool signedIn = false;
 	public string uid;
 	public string email;
-	public Firebase fb;
+	public Firebase fb = Firebase.GetInstance();
 	protected int failedLoginsCount = 0;
 	protected int maxLoginAttempts = 10;
 	protected bool response_received = false;
@@ -30,7 +32,6 @@ public class SplashInterface : MonoBehaviour
 	public bool pwd_submit_received = false;
 	public bool pwd_submit_success = false;
 	public string objectName = "SplashInterface";
-	
 
 	// Overlay
 	public InputField NewPassword;
@@ -39,8 +40,18 @@ public class SplashInterface : MonoBehaviour
 	public GameObject ResetPasswordPanel;
 	public Text MessageBoxPWD;
 
-	// Deprecated because Firebase already has a web API to handle this. 
+	// Deprecated. Firebase already has a web API to handle this. 
 	public bool enablePasswordOverlay = false;
+
+	// Constructor (required for unit testing)
+	public static SplashInterface GetInstance()
+	{
+		if (UniqueInstance == null)
+		{
+			UniqueInstance = new SplashInterface();
+		}
+		return UniqueInstance;
+	}
 
 	// Start is called before the first frame update
 	void Start()
@@ -50,7 +61,7 @@ public class SplashInterface : MonoBehaviour
 		PasswordText = GameObject.Find("Panel/PasswordField").GetComponent<InputField>();
 		system = EventSystem.current;
 
-		fb = Firebase.GetInstance();
+		Debug.Log ("Launching Splash Interface");
 	}
 
 	// Update is called once per frame
@@ -75,38 +86,7 @@ public class SplashInterface : MonoBehaviour
 			}
 			//else Debug.Log("next nagivation element not found");
 
-		}
-
-		if (response_received == true)
-		{
-
-			// If the login succeeds, we change the scene. 
-			if (signedIn == true)
-			{
-				Debug.Log("Login succeeded.");
-				MessageBox.text = "Login Success";
-				response_received = false;
-				SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
-			}
-
-			// In the event of a login failure, we display a message and prompt the user to try again. 
-			else
-			{
-				// We must keep track of how many times they've logged in. 
-				failedLoginsCount = failedLoginsCount + 1;
-				response_received = false;
-				if (failedLoginsCount > maxLoginAttempts)
-				{
-					Debug.Log("Sorry, but we could not log you in because you failed too many times. Please restart the application and try again.");
-					MessageBox.text = "Sorry, but you have failed too many login attempts. Please restart game and try again";
-				}
-				else
-				{
-					Debug.Log("Login failed. Please check your email or password. ");
-					MessageBox.text = "Login Failed. Please check your email or password.";
-				}
-			}
-		}
+		} 
 
 		if (reg_received == true)
 		{
@@ -192,8 +172,38 @@ public class SplashInterface : MonoBehaviour
 
 		else
 		{
-			// This sends the actual login and attempts to authenticate the user. 
-			fireBaseSendLogin(EmailText.text, PasswordText.text);
+			// This sends the actual login and attempts to authenticate the user.
+			fireBaseSendLogin(EmailText.text, PasswordText.text, signedIn => {
+				// Check if the login form was submitted. 
+
+				// If the login succeeds, we change the scene. 
+				if (signedIn == true)
+				{
+					Debug.Log("Login succeeded.");
+					MessageBox.text = "Login Success";
+					response_received = false;
+					SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
+				}
+
+				// In the event of a login failure, we display a message and prompt the user to try again. 
+				else
+				{
+					// We must keep track of how many times they've logged in. 
+					failedLoginsCount = failedLoginsCount + 1;
+					response_received = false;
+					if (failedLoginsCount > maxLoginAttempts)
+					{
+						Debug.Log("Sorry, but we could not log you in because you failed too many times. Please restart the application and try again.");
+						MessageBox.text = "Sorry, but you have failed too many login attempts. Please restart game and try again";
+					}
+					else
+					{
+						Debug.Log("Login failed. Please check your email or password. ");
+						MessageBox.text = "Login Failed. Please check your email or password.";
+					}
+				}
+				
+			});
 			MessageBox.text = "Loading...";
 		}
 		return;
@@ -226,9 +236,11 @@ public class SplashInterface : MonoBehaviour
 		return; 
 	}
 
-	// Rest API calls, for firebase connector. 
+	// Sends rest API calls, for firebase connector. 
 
-	protected void fireBaseSendLogin(string email, string password)
+	public delegate void GetLoginCallback(bool signedIn);
+
+	public bool fireBaseSendLogin(string email, string password, GetLoginCallback callback)
 	{
 		Debug.Log("API call to send login through firebaseSendLogin()");
 
@@ -239,12 +251,13 @@ public class SplashInterface : MonoBehaviour
 			uid = res.Uid; // # unique user id
 			email = res.Email; // # user's email
 			response_received = true;
+			callback (signedIn);
 		});
 
-		return;
+		return signedIn;
 	}
 
-	protected void fireBaseSendRegister(string email, string password)
+	public bool fireBaseSendRegister(string email, string password)
 	{
 		Debug.Log("API call to send login through firebaseSendRegister()");
 
@@ -255,10 +268,10 @@ public class SplashInterface : MonoBehaviour
 			
 		});
 
-		return;
+		return reg_success;
 	}
 
-	protected void fireBaseSendPassword(string email)
+	public bool fireBaseSendPassword(string email)
 	{
 		Debug.Log("API call to send login through firebaseSendPassword()");
 
@@ -280,7 +293,7 @@ public class SplashInterface : MonoBehaviour
 			// If the user did not submit an email, we must prompt them to do so.
 			MessageBox.text = "Please enter your email address and try again.";
         }
-		return; 
+		return pwd_success; 
 	}
 
 

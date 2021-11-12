@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AltUnityTesterEditorSettings
   m_EditorClassIdentifier: 
   appendToName: 0
-  MaxLogLength: 300
+  MaxLogLength: 100
   AdbPath: /usr/local/bin/adb
   IProxyPath: /usr/local/bin/iproxy
   XcrunPath: /usr/bin/xcrun
@@ -22,7 +22,7 @@ MonoBehaviour:
   BuildNumber: 0
   MyTests:
   - _selected: 0
-    _testName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+    _testName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
     _status: 0
     _isSuite: 1
     _parentName: 
@@ -37,7 +37,7 @@ MonoBehaviour:
     _testName: SplashScreenTest
     _status: 0
     _isSuite: 1
-    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+    _parentName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
     _testCaseCount: 2
     _foldOut: 0
     _testResultMessage: 
@@ -70,11 +70,11 @@ MonoBehaviour:
     path: Assets/AltUnityTester/Editor/Tests/SplashScreenTest.cs
     _testSelectedCount: 0
   - _selected: 0
-    _testName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
+    _testName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
     _status: 0
     _isSuite: 1
     _parentName: 
-    _testCaseCount: 4
+    _testCaseCount: 3
     _foldOut: 0
     _testResultMessage: 
     _testStackTrace: 
@@ -85,7 +85,7 @@ MonoBehaviour:
     _testName: FirebaseTests
     _status: 0
     _isSuite: 1
-    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
+    _parentName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
     _testCaseCount: 1
     _foldOut: 0
     _testResultMessage: 
@@ -109,19 +109,7 @@ MonoBehaviour:
     _testName: SplashInterfaceTests
     _status: 0
     _isSuite: 1
-    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
-    _testCaseCount: 2
-    _foldOut: 0
-    _testResultMessage: 
-    _testStackTrace: 
-    _testDuration: 0
-    path: 
-    _testSelectedCount: 0
-  - _selected: 0
-    _testName: SplashInterfaceTests.SplashInterfaceTestsSimplePasses
-    _status: 0
-    _isSuite: 0
-    _parentName: SplashInterfaceTests
+    _parentName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
     _testCaseCount: 1
     _foldOut: 0
     _testResultMessage: 
@@ -130,7 +118,7 @@ MonoBehaviour:
     path: 
     _testSelectedCount: 0
   - _selected: 0
-    _testName: SplashInterfaceTests.SplashInterfaceTestsWithEnumeratorPasses
+    _testName: SplashInterfaceTests.SuccessfulSplashLoginTest
     _status: 0
     _isSuite: 0
     _parentName: SplashInterfaceTests
@@ -145,7 +133,7 @@ MonoBehaviour:
     _testName: TerrainGeneratorTest
     _status: 0
     _isSuite: 1
-    _parentName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
+    _parentName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/GameModeTests.dll
     _testCaseCount: 1
     _foldOut: 0
     _testResultMessage: 
@@ -166,7 +154,7 @@ MonoBehaviour:
     path: Assets/TerrainGenerator/Scripts/TerrainGeneratorTestAssembly.asmdef
     _testSelectedCount: 0
   - _selected: 1
-    _testName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll
+    _testName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll
     _status: 0
     _isSuite: 1
     _parentName: 
@@ -178,7 +166,7 @@ MonoBehaviour:
     path: 
     _testSelectedCount: 0
   - _selected: 1
-    _testName: /Users/nick/Desktop/450/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll
+    _testName: /Users/blakeottinger/Documents/SPLASH 7 FOOT/software-engineering-team-project-7-foot-leprechauns/desktop/Unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll
     _status: 0
     _isSuite: 1
     _parentName: 

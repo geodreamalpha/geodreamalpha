@@ -11,7 +11,8 @@
         "EnemySpawnerASM",
         "DataModelsASM",
         "CombatSystemASM",
-        "DataManagerASM"
+        "DataManagerASM",
+        "AltUnityTesterASM"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

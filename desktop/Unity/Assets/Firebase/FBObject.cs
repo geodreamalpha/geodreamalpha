@@ -9,9 +9,9 @@ public class FBObject
     public string updateTime;
 }
 
-public class User : FBObject { }
+public class User : FBObject {}
 
-public class Document : FBObject { }
+public class Document : FBObject {}
 
 public class SignInSuccessRes
 {
@@ -47,6 +47,7 @@ public class SignInError
 public class SignInRes
 {
     public bool Success;
+    public bool ErrorMessage;
     public string Uid;
     public string Email;
     public string Token;
@@ -91,17 +92,22 @@ public class SignUpRes
     public string ErrorMessage;
 }
 
-public class PasswordResetRes
+public class PatchDocRes
 {
     public bool Success;
 }
 
+public class PasswordResetRes
+{
+    public bool Success;
+}
+ 
 public class PasswordResetReq
 {
     public string email;
     public string requestType;
 }
-
+ 
 public class PasswordResetSuccessRes
 {
     public string kind;
@@ -113,24 +119,24 @@ public class PasswordResetSuccessRes
     public string refreshToken;
     public string expiresIn;
 }
-
+ 
 public class PasswordResetErrorRes
 {
     public bool Success;
     public SignInResBody error;
 }
-
+ 
 public class PasswordResetSubmitRes
 {
     public bool Success;
 }
-
+ 
 public class PasswordResetSubmitReq
 {
     public string newPassword;
     public string oobCode; 
 }
-
+ 
 public class PasswordResetSubmitSuccessRes
 {
     public string kind;
@@ -142,7 +148,7 @@ public class PasswordResetSubmitSuccessRes
     public string refreshToken;
     public string expiresIn;
 }
-
+ 
 public class PasswordResetSubmitErrorRes
 {
     public bool Success;

@@ -89,5 +89,29 @@ namespace DataManagerComponent
         {
             fbh.GetStat("xp", val=>{callback(val);});
         }
+
+        /// <summary>
+        /// Get's the companion's last saved level from Firebase
+        /// </summary>
+        public static void GetCompLevel(GetStatCallback callback)
+        {
+            fbh.GetCompStat("level", val=>{callback(val);});
+        }
+
+        /// <summary>
+        /// Get's the companion's last saved speed value from Firebase
+        /// </summary>
+        public static void GetCompSpeed(GetStatCallback callback)
+        {
+            fbh.GetCompStat("speed", val=>{callback(val);});
+        }
+
+        /// <summary>
+        /// Get's the companion's last saved strength value from Firebase
+        /// </summary>
+        public static void GetCompStrength(GetStatCallback callback)
+        {
+            fbh.GetCompStat("strength", val=>{callback(val);});
+        }
     }//
 }//

@@ -104,7 +104,7 @@ public class SplashInterface : MonoBehaviour
 			{
 				Debug.Log("Registration failed. Are you sure this email isn't already registered? ");
 				MessageBox.text = "Registration failed. Are you sure this email isn't already registered?";
-
+				reg_received = false;
 			}
 		}
 
@@ -182,6 +182,7 @@ public class SplashInterface : MonoBehaviour
 					Debug.Log("Login succeeded.");
 					MessageBox.text = "Login Success";
 					response_received = false;
+					FadeStartMenu();
 					SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
 				}
 
@@ -221,8 +222,6 @@ public class SplashInterface : MonoBehaviour
 		{
 			fireBaseSendRegister(EmailText.text, PasswordText.text);
 			MessageBox.text = "Sending registration...";
-			// SceneManager.LoadScene("Game");
-			FadeStartMenu();
 		}
 		return;
 	}

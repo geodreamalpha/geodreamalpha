@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 439997583}
-  m_IndirectSpecularColor: {r: 0.45082313, g: 0.50074166, b: 0.5746965, a: 1}
+  m_IndirectSpecularColor: {r: 0.4508224, g: 0.5007405, b: 0.5746948, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -140,6 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3bce423e0a43842a1242393bee8f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToCheck: 0.1
+  isGrounded: 0
   animator: {fileID: 24708177}
   controller: {fileID: 24708179}
   target: {fileID: 952933073}
@@ -213,7 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dabbbfb28d824c4ca6ed9ae4129376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Configuration: {fileID: 11400000, guid: 680128e8fe729ca4d9361376eb428c0a, type: 2}
 --- !u!4 &343917513
 Transform:
   m_ObjectHideFlags: 0
@@ -1290,6 +1291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b3f91694d4a514eb07555bf0d85509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToCheck: 0.1
+  isGrounded: 0
   animator: {fileID: 952933070}
   controller: {fileID: 952933069}
   target: {fileID: 24708176}
@@ -1383,6 +1386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a3035202b4969a42a38fb98153026fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToCheck: 0.1
+  isGrounded: 0
   animator: {fileID: 1234776192}
   controller: {fileID: 1234776191}
   target: {fileID: 24708176}

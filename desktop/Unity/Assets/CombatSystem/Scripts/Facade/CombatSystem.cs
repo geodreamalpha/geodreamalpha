@@ -7,21 +7,28 @@ namespace CombatSystemComponent {
     //Jake Aldridge 
     public class CombatSystem : MonoBehaviour
     {
+        static readonly Stats companionStats = new Stats(); 
+        [SerializeField]
+        Transform player;
+        [SerializeField]
+        CombatSystemAssets assets;
+        EnemyGenerator enemyGenerator = new EnemyGenerator();
+       
         //Note to Dr. Layman 
         //Combat system will only provide the stats class as well as any particle effects and may not need.
         //It does not involve any other classes, we have determined that the stats class object will be declared 
         //For both the player and enemy classes instead of being managed by the combat system. 
 
-        // Start is called before the first frame update
         void Start()
         {
-
+            player.gameObject.transform.parent.GetComponent<PlayerBehavior>().SetAssets(assets);
         }
 
-        // Update is called once per frame
+        bool initialEnemy = true; //temporary code
         void Update()
         {
-
+            enemyGenerator.Generate(assets, player);
+            companionStats.Update(); 
         }
 
         /// <summary>
@@ -31,6 +38,11 @@ namespace CombatSystemComponent {
         public string Hello()
         {
             return "Hello from Component CombatSystem"; 
+        }
+
+        public float GetPlayerHealth()
+        {
+            return player.root.gameObject.GetComponent<CharacterBase>().health;
         }
     }
 }  

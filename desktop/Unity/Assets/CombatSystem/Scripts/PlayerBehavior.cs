@@ -1,38 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace CombatSystemComponent
 {
-    public class PlayerBehavior : StatsBase
-    {  
-        protected override void Start()
+    public class PlayerBehavior : HelperBase
+    {
+        protected List<(Func<bool>, Action)> moveEvents = new List<(Func<bool>, Action)> { };
+
+        void Start()
         {
-            base.Start();
+            SetInGameStats();
 
-            events.Add((() => Input.GetKey(KeyCode.W),
-                              () => SetMove(Camera.main.transform.forward, transform.forward, grabWalking)));
+            //walk
+            moveEvents.Add((() => Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.LeftShift),
+                              () => Move(Camera.main.transform.forward, grabWalking)));
 
-            events.Add((() => Input.GetKey(KeyCode.S),
-                              () => SetMove(-Camera.main.transform.forward, transform.forward, grabWalking)));
+            moveEvents.Add((() => Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.LeftShift),
+                              () => Move(-Camera.main.transform.forward, grabWalking)));
 
-            events.Add((() => Input.GetKey(KeyCode.A),
-                              () => SetMove(-Camera.main.transform.right, transform.forward, grabWalking)));
+            moveEvents.Add((() => Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftShift),
+                              () => Move(-Camera.main.transform.right, grabWalking)));
 
-            events.Add((() => Input.GetKey(KeyCode.D),
-                              () => SetMove(Camera.main.transform.right, transform.forward, grabWalking)));
+            moveEvents.Add((() => Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftShift),
+                              () => Move(Camera.main.transform.right, grabWalking)));
 
-            events.Add((() => Input.GetMouseButtonDown(0),
+
+            //run
+            moveEvents.Add((() => Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift),
+                              () => Move(Camera.main.transform.forward, grabRunning)));
+
+            moveEvents.Add((() => Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift),
+                              () => Move(-Camera.main.transform.forward, grabRunning)));
+
+            moveEvents.Add((() => Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift),
+                              () => Move(-Camera.main.transform.right, grabRunning)));
+
+            moveEvents.Add((() => Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift),
+                              () => Move(Camera.main.transform.right, grabRunning)));
+
+            //attack
+            moveEvents.Add((() => Input.GetMouseButtonDown(0),
                               () => animator.SetTrigger(grabMelee)));
 
-            events.Add((() => Input.GetMouseButtonDown(0),
-                              () => animator.SetTrigger(grabMelee)));
+            //jump
+            moveEvents.Add((() => Input.GetKeyDown(KeyCode.Space),
+                              () => Jump()));
 
-            events.Add((() => Input.GetMouseButtonDown(0),
-                              () => animator.SetTrigger(grabMelee)));
+            //events.Add((() => Input.GetKey(KeyCode.LeftShift),
+            //() => Sprint()));
 
-            events.Add((() => Input.GetKeyDown(KeyCode.Space),
-                              () => SetJump()));
-        }//
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        void Update()
+        {
+            UpdateGravityAndVelocity();
+            UpdateRotation();
+            ResetBooleanAnimationParameters();
+            ResetMoveVelocity();
+
+            foreach ((Func<bool>, Action) eventElement in moveEvents)
+                if (eventElement.Item1())
+                    eventElement.Item2();
+
+            CheckIfCharacterIsGrounded();
+        }
     }
 }

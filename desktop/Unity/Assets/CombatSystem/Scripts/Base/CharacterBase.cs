@@ -15,13 +15,16 @@ namespace CombatSystemComponent
         [SerializeField]
         protected Color damageTextColor;
 
+        //Declare Main Decision Event Method
+        protected Action OnDecision;
+
         //Declare Current Animation
         protected string currentAnimation = idle;
 
         //Declare Animation Constants
         public const string idle = "idle";
         public const string grabWalking = "isWalking";
-        public const string grabRunning = "isRunning";
+        public const string grabSprint = "isRunning";
         public const string grabGrounded = "isGrounded";
         public const string grabJump = "isJump";
         public const string grabMelee = "isMelee";
@@ -39,7 +42,7 @@ namespace CombatSystemComponent
         protected Stats levelStats;
         [SerializeField]
         DerivedStats baseStats;
-        static DerivedStats multiplier;
+        static DerivedStats multiplier = new DerivedStats();
         public DerivedStats gameStats;
         public int health { get; protected set; } = 0;
         public int stamina { get; protected set; } = 0;
@@ -50,14 +53,9 @@ namespace CombatSystemComponent
         protected Vector3 velocity = Vector3.zero;
         protected Vector3 rotation = Vector3.forward;
 
-        //Set Game Stats
-        protected void SetInGameStats()
+        //Initialize Multiplier Stats
+        public static void InitializeMultiplierStats()
         {
-            levelStats = new Stats();
-            multiplier = new DerivedStats();
-            gameStats = new DerivedStats();
-
-            //------------------------------Temp
             multiplier.walkSpeed /= 16f;
             multiplier.sprintSpeed /= 8f;
             multiplier.jumpHeight /= 16f;
@@ -65,7 +63,16 @@ namespace CombatSystemComponent
             multiplier.defense /= 10f;
             multiplier.energy /= 10f;
             multiplier.aura /= 10f;
-            //------------------------------
+        }
+
+        //Set Game Stats
+        protected void SetInGameStats()
+        {
+            InitializeMultiplierStats();
+
+            //Initialize Stat Groups
+            levelStats = new Stats();
+            gameStats = new DerivedStats();
 
             //health related
             gameStats.healthPoints = baseStats.healthPoints * multiplier.healthPoints * levelStats.GetHealth();

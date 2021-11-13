@@ -2,22 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TerrainGeneratorComponent;
 
 namespace TerrainGeneratorComponent
 {
     //this class manages the in-game exit menu
     public class ExitGUI : MonoBehaviour
     {
+        GameObject damageMenu;
+
+        void Start()
+        {
+            damageMenu = GameObject.Find("DamageMenu");
+        }
+
         public void OnResumeclick()
         {
-            TerrainGeneratorComponent.TerrainGenerator.isPaused = false;
+            TerrainGenerator.ActiveMouse(false);          
+            damageMenu.SetActive(true);
             this.gameObject.SetActive(false);
         }
 
         public void OnNewLocation()
         {
             Resources.UnloadUnusedAssets();
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("TerrainGenerator/Scene/MenuScene");
         }
 
         public void OnReturnToLoginClick()

@@ -29,16 +29,16 @@ namespace CombatSystemComponent
 
             //run
             moveEvents.Add((() => Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift),
-                              () => Move(Camera.main.transform.forward, grabRunning)));
+                              () => Move(Camera.main.transform.forward, grabSprint)));
 
             moveEvents.Add((() => Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift),
-                              () => Move(-Camera.main.transform.forward, grabRunning)));
+                              () => Move(-Camera.main.transform.forward, grabSprint)));
 
             moveEvents.Add((() => Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift),
-                              () => Move(-Camera.main.transform.right, grabRunning)));
+                              () => Move(-Camera.main.transform.right, grabSprint)));
 
             moveEvents.Add((() => Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift),
-                              () => Move(Camera.main.transform.right, grabRunning)));
+                              () => Move(Camera.main.transform.right, grabSprint)));
 
             //attack
             moveEvents.Add((() => Input.GetMouseButtonDown(0),
@@ -50,9 +50,6 @@ namespace CombatSystemComponent
 
             //events.Add((() => Input.GetKey(KeyCode.LeftShift),
             //() => Sprint()));
-
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         void Update()

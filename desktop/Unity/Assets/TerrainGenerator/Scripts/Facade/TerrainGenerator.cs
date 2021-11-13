@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TerrainGeneratorComponent
@@ -17,7 +15,7 @@ namespace TerrainGeneratorComponent
         ChunkManager chunkManager;
 
         GameObject exitMenu;
-        public static bool isPaused { get; set; } = false;
+        GameObject damageMenu;
         bool playerIsInitiallyGrounded = false;
 
         // Start is called before the first frame update
@@ -34,9 +32,9 @@ namespace TerrainGeneratorComponent
             chunkManager = new ChunkManager();
 
             exitMenu = GameObject.Find("Exit Menu");
-            exitMenu.SetActive(false);
-
-            isPaused = false;
+            damageMenu = GameObject.Find("DamageMenu");
+            exitMenu.GetComponent<ExitGUI>().OnResumeclick();            
+            
             SetPlayerPositionFromString();
             playerIsInitiallyGrounded = false;
         }
@@ -50,7 +48,8 @@ namespace TerrainGeneratorComponent
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 exitMenu.SetActive(true);
-                isPaused = true;
+                damageMenu.SetActive(false);                      
+                ActiveMouse(true);
             }
             #endregion
 
@@ -106,6 +105,12 @@ namespace TerrainGeneratorComponent
         public string Hello()
         {
             return "Hello from Component TerrainGenerator";
+        }
+
+        public static void ActiveMouse(bool isActive)
+        {
+            Cursor.visible = isActive;
+            Cursor.lockState = isActive? CursorLockMode.None: CursorLockMode.Locked;
         }
     }
 }

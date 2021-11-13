@@ -13,7 +13,8 @@ namespace CombatSystemComponent {
         [SerializeField]
         CombatSystemAssets assets;
         EnemyGenerator enemyGenerator = new EnemyGenerator();
-       
+
+        
         //Note to Dr. Layman 
         //Combat system will only provide the stats class as well as any particle effects and may not need.
         //It does not involve any other classes, we have determined that the stats class object will be declared 
@@ -22,13 +23,14 @@ namespace CombatSystemComponent {
         void Start()
         {
             player.gameObject.transform.parent.GetComponent<PlayerBehavior>().SetAssets(assets);
+            //CharacterBase.InitializeMultiplierStats();
         }
 
         bool initialEnemy = true; //temporary code
         void Update()
         {
             enemyGenerator.Generate(assets, player);
-            companionStats.Update(); 
+            companionStats.Update();
         }
 
         /// <summary>

@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &1008066350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2917154917344895856}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 140.88101, y: 70.516464, z: 187.47635}
+  m_Center: {x: -154.65883, y: -12.73536, z: -112.66263}
 --- !u!143 &952933069
 CharacterController:
   m_ObjectHideFlags: 0
@@ -64,29 +77,16 @@ MonoBehaviour:
       maxTime: 0.2
     commands:
     - proximity: 6
-      state: 3
+      state: 5
     - proximity: 40
       state: 1
   - timer:
       maxTime: 1
     commands:
     - proximity: 6
-      state: 3
-    - proximity: 30
-      state: 4
---- !u!65 &1008066350
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2917154917344895856}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 140.88101, y: 70.516464, z: 187.47635}
-  m_Center: {x: -154.65883, y: -12.73536, z: -112.66263}
+      state: 5
+    - proximity: 40
+      state: 6
 --- !u!1001 &2918062189230956038
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -37,6 +37,6 @@ public class CommandGroup
             return distance <= proximity;
         }
 
-        public enum State { peace = 0, walk = 1, sprint = 2, attack = 3, projectile = 4 }
+        public enum State { peace = 0, walk = 1, sprint = 2, retarget = 4, melee = 5, fireBall = 6 }
     }
 }

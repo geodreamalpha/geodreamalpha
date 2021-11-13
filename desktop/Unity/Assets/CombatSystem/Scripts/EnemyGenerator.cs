@@ -22,7 +22,6 @@ namespace CombatSystemComponent
                 aIBase.SetAssets(assets);
                 aIBase.Target(player);
             }
-
         }
     }
 }

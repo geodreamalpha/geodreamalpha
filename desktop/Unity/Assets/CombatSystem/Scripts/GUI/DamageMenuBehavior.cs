@@ -8,7 +8,8 @@ public class DamageMenuBehavior : MonoBehaviour
 {
     GameObject healthBar;
     Slider slider;
-    CombatSystem combatSystem; 
+    CombatSystem combatSystem;
+    
 
     // Start is called before the first frame update
     void Start()

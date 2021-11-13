@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 namespace CombatSystemComponent
 {
@@ -26,13 +27,12 @@ namespace CombatSystemComponent
                 velocity.x = direction.x * gameStats.walkSpeed;
                 velocity.z = direction.z * gameStats.walkSpeed;
             }               
-            else if (animationParameter == grabRunning)
+            else if (animationParameter == grabSprint)
             {
                 velocity.x = direction.x * gameStats.sprintSpeed;
                 velocity.z = direction.z * gameStats.sprintSpeed;
             }
         }
-
         public void Rotate(Vector3 yAxisFacingDirection)
         {
             //set rotation
@@ -40,7 +40,6 @@ namespace CombatSystemComponent
             Vector3 newRotation = Quaternion.LookRotation(yAxisFacingDirection).eulerAngles;
             rotation.y = newRotation.y;
         }
-
         public void Jump()
         {
             if (controller.isGrounded)
@@ -53,7 +52,7 @@ namespace CombatSystemComponent
         {
             if (controller.isGrounded)
             {
-                animator.SetTrigger(grabRunning); 
+                animator.SetTrigger(grabSprint); 
             }
         }
         public void Target(Transform target)
@@ -64,20 +63,42 @@ namespace CombatSystemComponent
         {
             animator.SetTrigger(grabMelee);
         }
-        public void Projectile()
+        public void Projectile(string name)
         {
             Rotate(faceTarget); //might need to do something different with yAxisFacingDirection
-            GameObject projectile = Instantiate(assets.getProjectileByName("FireballProjectile"), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
+            GameObject projectile = Instantiate(assets.getProjectileByName(name), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
             projectile.GetComponent<ProjectileBehavior>().target = target;
             projectile.GetComponent<ProjectileBehavior>().sender = gameObject;
             projectile.tag = tag;
+        }
+        public void Retarget(float distance)
+        {
+            Collider[] colliders = Physics.OverlapSphere(controller.transform.position, distance);
+            List<Transform> validTargets = new List<Transform>(); 
+
+            foreach (Collider collider in colliders)
+                if (damageTag == collider.transform.root.tag)
+                    validTargets.Add(collider.transform.root);
+
+            if (validTargets.Count != 0)
+            {
+                target = validTargets.OrderBy(c => (c.transform.position - controller.transform.position).sqrMagnitude).First();
+                OnDecision = OnCombatDecision;
+            }                
+            else
+            {
+                target = GetDefaultTarget();
+                OnDecision = OnPeacefulDecision;
+            }
+                
         }
 
         //Update Helpers
         protected void ResetBooleanAnimationParameters()
         {
+
             animator.SetBool(grabWalking, false);
-            animator.SetBool(grabRunning, false);
+            animator.SetBool(grabSprint, false);
         }
         protected void UpdateGravityAndVelocity()
         {
@@ -101,26 +122,40 @@ namespace CombatSystemComponent
                 animator.SetBool(grabGrounded, false);
         }
 
+        //Make Decision Events
+        protected virtual void OnPeacefulDecision()
+        {          
+        }
+        protected virtual void OnCombatDecision()
+        {        
+        }
+
         //Misc Helpers
         protected Vector3 faceTarget
         {
             get { return target.position - controller.transform.position; }
         }
+        protected virtual Transform GetDefaultTarget()
+        {
+            return null;
+        }
 
         //Collision Damage Logic
         void OnTriggerEnter(Collider other)
         {
-            bool isProjectile = other.name.Contains("Projectile");
+            
 
             //other.transform.root.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("Melee")
 
             if (health > 0 && damageTag == other.transform.root.tag)
+            {
+                bool isProjectile = other.name.Contains("Projectile");
                 if (isProjectile && other.GetComponent<ProjectileBehavior>().doesDamage
-                    || true)
+                        || true)
                 {
                     //damage calculation
                     int damage = 0;
-                    
+
                     if (isProjectile)
                     {
                         CharacterBase otherStats = other.GetComponent<ProjectileBehavior>().sender.GetComponent<CharacterBase>();
@@ -129,7 +164,7 @@ namespace CombatSystemComponent
                     else
                     {
                         CharacterBase otherStats = other.transform.root.GetComponent<CharacterBase>();
-                        damage = (int)(otherStats.gameStats.strength * 2 - otherStats.gameStats.defense);                       
+                        damage = (int)(otherStats.gameStats.strength * 2 - otherStats.gameStats.defense);
                     }
                     damage += UnityEngine.Random.Range(-1, 2);
                     health -= damage;
@@ -156,6 +191,7 @@ namespace CombatSystemComponent
                     Vector3 randomOffset = new Vector3(UnityEngine.Random.Range(-150, 150), UnityEngine.Random.Range(-150, 151), 0);
                     textObject.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(controller.transform.position) + randomOffset;
                 }
+            }        
         }
 
         //Asset Setter

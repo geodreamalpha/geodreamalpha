@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 namespace CombatSystemComponent
 {
@@ -14,7 +15,7 @@ namespace CombatSystemComponent
 
         [SerializeField]
         List<CommandGroup> commandGroups;
-        Queue<CommandGroup> commandGroupQueue = new Queue<CommandGroup>();
+        Queue<CommandGroup> commandGroupQueue = new Queue<CommandGroup>();        
 
         //Start
         void Start()
@@ -23,7 +24,8 @@ namespace CombatSystemComponent
 
             timer = new Timer(5f);
 
-            actionPool = new Action[] { PeacefulAI, () => Move(faceTarget, grabWalking), () => Move(faceTarget, grabRunning), Attack, Projectile};        
+            actionPool = new Action[] { OnPeacefulDecision, () => Move(faceTarget, grabWalking), () => Move(faceTarget, grabSprint), () => Retarget(50), Attack, 
+                () => Projectile("FireballProjectile") };
 
             foreach (CommandGroup commandGroup in commandGroups)
             {
@@ -34,6 +36,8 @@ namespace CombatSystemComponent
                     command.run = actionPool[(int)command.state];
                 }
             }
+
+            OnDecision = OnPeacefulDecision;
         }
 
         //Update
@@ -41,12 +45,17 @@ namespace CombatSystemComponent
         {
             UpdateGravityAndVelocity();
             UpdateRotation();
-            MakeDecision();
+            Retarget(40);
+            OnDecision();
             CheckIfCharacterIsGrounded();
         }
 
-        //Update Helpers
-        protected void MakeDecision()
+        //Make Decision Events
+        protected override void OnPeacefulDecision()
+        {
+            Move(Vector3.forward, grabWalking);
+        }
+        protected override void OnCombatDecision()
         {
             timer.Update();
             if (timer.isAtMax)
@@ -55,18 +64,18 @@ namespace CombatSystemComponent
                 ResetBooleanAnimationParameters();
                 ResetMoveVelocity();
                 commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());
-            }           
+            }
             commandGroupQueue.Peek().ChooseCommand(TargetDistance());
+        }
+
+        //Misc Helpers
+        protected override Transform GetDefaultTarget()
+        {
+            return GameObject.Find("Player").transform;
         }
         protected float TargetDistance()
         {
             return Vector3.Distance(controller.transform.position, target.position); ;
-        }
-
-        //Action AI
-        protected void PeacefulAI()
-        {
-            Move(Vector3.forward, grabWalking);
         }
     }
 }

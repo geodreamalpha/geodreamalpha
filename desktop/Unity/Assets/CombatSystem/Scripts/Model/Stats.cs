@@ -48,7 +48,6 @@ namespace CombatSystemComponent
         /// <returns>Current health int</returns>
         public int GetHealth()
         {
-            Debug.Log(health);
             return health;
         }
 
@@ -58,13 +57,11 @@ namespace CombatSystemComponent
         /// <returns>Current stamina int</returns>
         public int GetStamina()
         {
-            Debug.Log(stamina);
             return stamina;
         }
 
         public int GetSpeed()
         {
-            Debug.Log(speed);
             return speed;
         }
 
@@ -75,7 +72,6 @@ namespace CombatSystemComponent
         /// <returns>Current attack damage int</returns>
         public int GetStrength()
         {
-            Debug.Log(strength);
             return strength;
         }
     }

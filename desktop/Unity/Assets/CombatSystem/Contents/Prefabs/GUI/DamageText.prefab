@@ -148,8 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b0fa7e80141bd40b537058a80b83e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sender: {fileID: 0}
   impact: {fileID: 0}
-  destroyOnImpact: 1
+  destroyOnImpact: 0
   lifetime:
     maxTime: 2
   target: {fileID: 0}

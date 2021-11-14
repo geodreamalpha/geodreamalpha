@@ -29,14 +29,12 @@ public class CommandGroup
     public class Command
     {
         public float proximity;
-        public State state;
+        public string name;
         public Action run;
 
         public bool DoesProximityContain(float distance)
         {
             return distance <= proximity;
         }
-
-        public enum State { peace = 0, walk = 1, sprint = 2, retarget = 4, melee = 5, fireBall = 6 }
     }
 }

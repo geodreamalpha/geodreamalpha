@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3625757175083861117}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_F_LLeg1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4608733764689013115}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_F_RLegAnkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9148380595210551914}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_LLegAnkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414485903614239660}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_LEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9169306445222817873}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: FoxTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7603110667313350700}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3211985735018014385}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_UpperLEyelid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7758377210385953385}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_F_RLeg1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7770616731661629576}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_REye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1791102534840387667}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_F_LLeg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5639868417291573114}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_UpperREyelid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8199372407533652773}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_F_RLeg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +377,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5931780399657438815}
-  m_Layer: 8
+  - component: {fileID: 8171682599251174898}
+  m_Layer: 10
   m_Name: Fox_Tail1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,6 +400,19 @@ Transform:
   m_Father: {fileID: 3160233014707953583}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8171682599251174898
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776830184839195558}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.389935, y: 5.0543466, z: 1}
+  m_Center: {x: -1.6659036, y: 2.2732878, z: -0.0000004470028}
 --- !u!1 &4099713380635469608
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +422,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2408165599102054187}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7458369541236419265}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Tail3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +492,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3314872346504947159}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_RLegAnkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +523,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1650848684302300303}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_RLegDigit11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -539,7 +553,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3478484122489573700}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_F_LLegDigit11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2185993622746496729}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Tail5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +614,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6873988164845738573}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_LLeg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,7 +645,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6714748022147522987}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_RLeg1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,8 +678,9 @@ GameObject:
   - component: {fileID: 4887090567455081004}
   - component: {fileID: 9175197994093646572}
   - component: {fileID: 9175197994093646355}
+  - component: {fileID: 2777632516692603626}
   - component: {fileID: 6460327381058798485}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Companion
   m_TagString: allie
   m_Icon: {fileID: 0}
@@ -725,6 +740,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2777632516692603626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5231421722785405078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d40826672cad94dabe8c0877af9980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  identifiers:
+  - allie
+  harmers:
+  - enemy
 --- !u!114 &6460327381058798485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71018efb2b07ea40ac4936bfe28d325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageTag: enemy
   damageTextColor: {r: 0.9651394, g: 0.2783019, b: 1, a: 1}
   animator: {fileID: 9175197994093646355}
   controller: {fileID: 9175197994093646572}
@@ -766,7 +796,15 @@ MonoBehaviour:
     sprintSpeed: 1
     projectileCheck: 1
     projectileSpeed: 1
-  commandGroups: []
+  peacefulName: peacefulFollow
+  commandGroups:
+  - timer:
+      maxTime: 1
+    commands:
+    - proximity: 3
+      name: melee
+    - proximity: 40
+      name: walkTo
 --- !u!1 &5598525583330774610
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,7 +814,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2335153652760231437}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_F_RLegDigit11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -806,7 +844,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1843915997777523454}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_RLeg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +875,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7882516694345955716}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_F_LLegAnkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -868,7 +906,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2597313441904347920}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_LEar2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -898,7 +936,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7088169104590056706}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Jaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -928,7 +966,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3160233014707953583}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Pelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -962,7 +1000,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8494891708187204650}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_LowerREyelid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -992,7 +1030,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 900029314077170554}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Tail6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1022,7 +1060,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5783724119823772378}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Ribcage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1056,7 +1094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4305011084627942391}
   - component: {fileID: 3257743009519803881}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: fox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1178,7 +1216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5837010805258050590}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_LowerLEyelid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1208,7 +1246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8757109107378964224}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_REar2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1238,7 +1276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1867810782943878512}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Tail4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1269,7 +1307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581592993147048361}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Tail2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1300,7 +1338,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3195376537603954597}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_LLeg1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1331,7 +1369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3600265362566781570}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_LLegDigit11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1361,7 +1399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3838521788519310230}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_LEar1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1392,7 +1430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5366132821289709816}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Spine2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1423,7 +1461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7979801677221358410}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_REar1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1454,7 +1492,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1150697787592503614}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Fox_Spine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

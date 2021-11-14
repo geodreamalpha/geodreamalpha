@@ -29,16 +29,16 @@ namespace CombatSystemComponent
 
             //run
             moveEvents.Add((() => Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift),
-                              () => Move(Camera.main.transform.forward, grabSprint)));
+                              () => Move(Camera.main.transform.forward, grabSprinting)));
 
             moveEvents.Add((() => Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift),
-                              () => Move(-Camera.main.transform.forward, grabSprint)));
+                              () => Move(-Camera.main.transform.forward, grabSprinting)));
 
             moveEvents.Add((() => Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift),
-                              () => Move(-Camera.main.transform.right, grabSprint)));
+                              () => Move(-Camera.main.transform.right, grabSprinting)));
 
             moveEvents.Add((() => Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift),
-                              () => Move(Camera.main.transform.right, grabSprint)));
+                              () => Move(Camera.main.transform.right, grabSprinting)));
 
             //attack
             moveEvents.Add((() => Input.GetMouseButtonDown(0),

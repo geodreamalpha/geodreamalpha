@@ -8,7 +8,6 @@ namespace CombatSystemComponent
     public class CharacterBase : MonoBehaviour
     {
         //Declare Damage Layers List
-        [SerializeField]
         protected string damageTag;
 
         //Declare Damage Text Colors
@@ -24,11 +23,11 @@ namespace CombatSystemComponent
         //Declare Animation Constants
         public const string idle = "idle";
         public const string grabWalking = "isWalking";
-        public const string grabSprint = "isRunning";
+        public const string grabSprinting = "isSprinting";
         public const string grabGrounded = "isGrounded";
         public const string grabJump = "isJump";
         public const string grabMelee = "isMelee";
-        public const string grabMagic = "isMagic";
+        public const string grabMagic = "isProjectile";
         public const string grabBlock = "isBlock";
         public const string grabHit = "isHit";
         public const string grabDead = "isDead";
@@ -68,8 +67,6 @@ namespace CombatSystemComponent
         //Set Game Stats
         protected void SetInGameStats()
         {
-            InitializeMultiplierStats();
-
             //Initialize Stat Groups
             levelStats = new Stats();
             gameStats = new DerivedStats();

@@ -1,21 +1,22 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.Linq;
 
 namespace CombatSystemComponent
 {
     [System.Serializable]
     public class AIBehavior : HelperBase
     {
-        Action[] actionPool;
+        [SerializeField]
+        string peacefulName;
+        Dictionary<string, Action> peacefulPool;
+        Dictionary<string, Action> combatPool;
 
         Timer timer = new Timer(5f);
 
         [SerializeField]
         List<CommandGroup> commandGroups;
-        Queue<CommandGroup> commandGroupQueue = new Queue<CommandGroup>();        
+        Queue<CommandGroup> commandGroupQueue = new Queue<CommandGroup>();
 
         //Start
         void Start()
@@ -24,8 +25,29 @@ namespace CombatSystemComponent
 
             timer = new Timer(5f);
 
-            actionPool = new Action[] { OnPeacefulDecision, () => Move(faceTarget, grabWalking), () => Move(faceTarget, grabSprint), () => Retarget(50), Attack, 
-                () => Projectile("FireballProjectile") };
+            #region Peaceful Pool Dictionary
+            peacefulPool = new Dictionary<string, Action>();
+            peacefulPool.Add("peacefulWalk", PeacefulWalk);
+            peacefulPool.Add("peacefulFollow", PeacefulFollow);
+            #endregion
+
+            OnPeacefulDecision = peacefulPool[peacefulName];
+            OnDecision = OnPeacefulDecision;
+
+            #region Combat Pool Dictionary
+            combatPool = new Dictionary<string, Action>();
+            combatPool.Add("walkTo", () => Move(faceTarget, grabWalking));
+            combatPool.Add("walkFrom", () => Move(-faceTarget, grabWalking));
+            combatPool.Add("walkLeft", () => Move(-faceRightOfTarget, grabWalking));
+            combatPool.Add("walkRight", () => Move(faceRightOfTarget, grabWalking));
+            combatPool.Add("sprintTo", () => Move(faceTarget, grabSprinting));
+            combatPool.Add("sprintFrom", () => Move(-faceTarget, grabSprinting));
+            combatPool.Add("sprintLeft", () => Move(-faceRightOfTarget, grabSprinting));
+            combatPool.Add("sprintRight", () => Move(faceRightOfTarget, grabSprinting));
+            combatPool.Add("retarget", () => Retarget(50));
+            combatPool.Add("melee", Melee);
+            combatPool.Add("fireball", () => Projectile("FireballProjectile"));
+            #endregion
 
             foreach (CommandGroup commandGroup in commandGroups)
             {
@@ -33,11 +55,9 @@ namespace CombatSystemComponent
 
                 foreach (CommandGroup.Command command in commandGroup.commands)
                 {
-                    command.run = actionPool[(int)command.state];
+                    command.run = combatPool[command.name];
                 }
-            }
-
-            OnDecision = OnPeacefulDecision;
+            }         
         }
 
         //Update
@@ -51,9 +71,24 @@ namespace CombatSystemComponent
         }
 
         //Make Decision Events
-        protected override void OnPeacefulDecision()
+        protected void PeacefulWalk()
         {
             Move(Vector3.forward, grabWalking);
+        }
+        protected void PeacefulFollow()
+        {
+            ResetBooleanAnimationParameters();
+            ResetMoveVelocity();
+
+            float distance = faceTarget.magnitude;
+            if (distance > 20)
+                controller.Move(-controller.transform.position + target.position + new Vector3());
+            else if (distance > 3)
+                Move(faceTarget, grabSprinting);
+            else if (distance > 2)
+                Move(faceTarget, grabWalking);
+             
+             
         }
         protected override void OnCombatDecision()
         {

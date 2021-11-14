@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sender: {fileID: 0}
-  doesDamage: 1
   impact: {fileID: 0}
   destroyOnImpact: 0
   lifetime:
@@ -52,6 +51,20 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6204691137890231651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076765269033718749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d40826672cad94dabe8c0877af9980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  identifiers: []
+  harmers: []
 --- !u!1001 &2076628385121617599
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ namespace CombatSystemComponent {
         [SerializeField]
         CombatSystemAssets assets;
         EnemyGenerator enemyGenerator = new EnemyGenerator();
+        static bool isStartUp = true;
 
         //Note to Dr. Layman 
         //Combat system will only provide the stats class as well as any particle effects and may not need.
@@ -21,7 +22,11 @@ namespace CombatSystemComponent {
 
         void Awake()
         {
-            CharacterBase.InitializeMultiplierStats();
+            if (isStartUp)
+            {
+                isStartUp = false;
+                CharacterBase.InitializeMultiplierStats();
+            }           
         }
 
         void Start()

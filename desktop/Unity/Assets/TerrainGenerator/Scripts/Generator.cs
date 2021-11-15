@@ -12,8 +12,8 @@ namespace TerrainGeneratorComponent
     {
         AnimationCurve smoother = new AnimationCurve(new Keyframe(-0.2f, 3f), new Keyframe(1.2f, 0.8f));
         AnimationCurve lacunarity = new AnimationCurve(new Keyframe(-0.2f, 2f), new Keyframe(1.2f, 2f));
-        AnimationCurve persistance = new AnimationCurve(new Keyframe(-0.2f, 0.45f), new Keyframe(1.2f, 0.65f));
-        AnimationCurve amplitude = new AnimationCurve(new Keyframe(-0.2f, 0.2f), new Keyframe(1.2f, 0.8f));
+        AnimationCurve persistance = new AnimationCurve(new Keyframe(-0.2f, 0.45f), new Keyframe(1.2f, 0.55f));
+        AnimationCurve amplitude = new AnimationCurve(new Keyframe(-0.2f, 0.2f), new Keyframe(1.2f, 0.6f));
         AnimationCurve eAmplitude = new AnimationCurve(new Keyframe(-0.2f, 0.2f), new Keyframe(1.2f, 0.8f)); //------
         AnimationCurve frequency = new AnimationCurve(new Keyframe(-0.2f, 0.6f), new Keyframe(1.2f, 0.602f));
 

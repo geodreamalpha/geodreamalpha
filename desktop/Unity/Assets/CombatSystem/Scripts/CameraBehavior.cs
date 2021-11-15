@@ -41,7 +41,7 @@ public class CameraBehavior : MonoBehaviour {
         //the Lerp() function is used to smoothly transform camera from previous position to new position (it happens over multiple frames)
         //the smoothFactor controls the speed of this transition between the range of [0, 1].
         //the newly calculated _cameraOffset AND player's position are added together to create camera's new position
-        transform.position = Vector3.Lerp(transform.position, subject.position + cameraOffset, smoothFactor);
+        transform.position = Vector3.Lerp(transform.position, subject.position + cameraOffset, smoothFactor * 60f * Time.deltaTime);
         #endregion
 
         #region Update Camera Rotation Toward Player's Position

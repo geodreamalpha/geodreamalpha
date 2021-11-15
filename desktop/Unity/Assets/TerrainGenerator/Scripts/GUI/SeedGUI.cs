@@ -78,8 +78,9 @@ namespace TerrainGeneratorComponent
             //ensures seed input is in correct format and is within valid game map range
             if (seedInputIsInCorrectFormat && Mathf.Abs(int.Parse(integers[0])) < 50001 && Mathf.Abs(int.Parse(integers[1])) < 50001)
             {
-                currentSeed = seedInput.text;
+                currentSeed = seedInput.text;               
                 StartCoroutine(LoadGameLevelAsync());
+
             }
             else
                 Debug.LogError("Invalid Format: Seed input must contain two intergers separated by an underscore AND each integer must be between the values -50001 and 50001.  Example: 123_-3670");         

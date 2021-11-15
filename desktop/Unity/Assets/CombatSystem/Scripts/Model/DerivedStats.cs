@@ -23,4 +23,11 @@ public class DerivedStats
     public float sprintSpeed = 1;
     public float projectileCheck = 1;
     public float projectileSpeed = 1;
+
+    public const float reductionSensitivity = 100;
+
+    public static float GetReductionDamage(float offenseValue, float reducerValue)
+    {
+        return offenseValue * (reductionSensitivity / (reductionSensitivity + reducerValue));
+    }
 }

@@ -111,14 +111,14 @@ namespace CombatSystemComponent
             animator.SetBool(grabWalking, false);
             animator.SetBool(grabSprinting, false);
         }
-        protected void UpdateGravityAndVelocity()
-        {
-            velocity.y = Mathf.Clamp(velocity.y + gravity.y * Time.deltaTime, gravity.y, float.MaxValue);
-            controller.Move(velocity * Time.deltaTime);
-        }
-        protected void UpdateRotation()
-        {
-            controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, Quaternion.Euler(rotation), 0.15f);
+        protected void UpdateCharacterController()
+        {           
+            if (controller != null)
+            {
+                velocity.y = Mathf.Clamp(velocity.y + gravity.y * Time.deltaTime, gravity.y, float.MaxValue);
+                controller.Move(velocity * Time.deltaTime);
+                controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, Quaternion.Euler(rotation), 0.15f);
+            }
         }
         protected void ResetMoveVelocity()
         {
@@ -154,36 +154,35 @@ namespace CombatSystemComponent
         }
 
         //Collision Damage Logic
-        void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(Collider attacker)
         {
             //other.transform.root.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("Melee")
-            TagGroup thisTags = this.transform.root.gameObject.GetComponent<TagGroup>();
-            TagGroup otherTags = other.transform.root.gameObject.GetComponent<TagGroup>();
+            TagGroup defenderTags = this.transform.root.gameObject.GetComponent<TagGroup>();
+            TagGroup attackerTags = attacker.transform.root.gameObject.GetComponent<TagGroup>();
 
-            if (health > 0 && thisTags.IsHarmedBy(otherTags.identifiers))
+            if (health > 0 && defenderTags.IsHarmedBy(attackerTags.identifiers))
             {
                 //damage calculation
                 int damage = 0;
-                if (otherTags.identifiers.Contains("redProjectile"))
+                if (attackerTags.identifiers.Contains("redProjectile"))
                 {
-                    CharacterBase otherStats = other.GetComponent<ProjectileBehavior>().sender.GetComponent<CharacterBase>();
-                    damage = (int)(otherStats.gameStats.energy * 2 - otherStats.gameStats.aura);
-                }
+                    CharacterBase attackerStats = attacker.GetComponent<ProjectileBehavior>().sender.GetComponent<CharacterBase>();
+                    damage = (int)DerivedStats.GetReductionDamage(attackerStats.gameStats.energy, this.gameStats.aura);
+                } 
                 else
                 {
-                    CharacterBase otherStats = other.transform.root.GetComponent<CharacterBase>();
-                    damage = (int)(otherStats.gameStats.strength * 2 - otherStats.gameStats.defense);
+                    CharacterBase attackerStats = attacker.transform.root.GetComponent<CharacterBase>();
+                    damage = (int)DerivedStats.GetReductionDamage(attackerStats.gameStats.strength, this.gameStats.defense);
                 }
-                damage += UnityEngine.Random.Range(-1, 2);
+                damage = (int)(damage * UnityEngine.Random.Range(0.8f, 1.2f));
                 health -= damage;
 
                 //check if object is dead
                 if (health <= 0)
                 {
                     animator.SetTrigger(grabDead);
-                    gameObject.AddComponent<ProjectileBehavior>();
-                    ProjectileBehavior behavior = gameObject.GetComponent<ProjectileBehavior>();
-                    behavior.lifetime = new Timer(2f);
+                    Destroy(this.gameObject, 5);
+                    Destroy(controller);
                 }
                 else
                     animator.SetTrigger(grabHit);

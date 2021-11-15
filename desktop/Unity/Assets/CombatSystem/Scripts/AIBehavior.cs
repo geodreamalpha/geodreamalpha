@@ -63,8 +63,7 @@ namespace CombatSystemComponent
         //Update
         void Update()
         {
-            UpdateGravityAndVelocity();
-            UpdateRotation();
+            UpdateCharacterController();
             Retarget(40);
             OnDecision();
             CheckIfCharacterIsGrounded();
@@ -87,8 +86,6 @@ namespace CombatSystemComponent
                 Move(faceTarget, grabSprinting);
             else if (distance > 2)
                 Move(faceTarget, grabWalking);
-             
-             
         }
         protected override void OnCombatDecision()
         {

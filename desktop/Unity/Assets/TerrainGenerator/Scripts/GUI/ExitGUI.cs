@@ -21,6 +21,7 @@ namespace TerrainGeneratorComponent
             TerrainGenerator.ActiveMouse(false);          
             damageMenu.SetActive(true);
             this.gameObject.SetActive(false);
+            Time.timeScale = 1f;
         }
 
         public void OnNewLocation()

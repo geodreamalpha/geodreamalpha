@@ -54,8 +54,7 @@ namespace CombatSystemComponent
 
         void Update()
         {
-            UpdateGravityAndVelocity();
-            UpdateRotation();
+            UpdateCharacterController();
             ResetBooleanAnimationParameters();
             ResetMoveVelocity();
 

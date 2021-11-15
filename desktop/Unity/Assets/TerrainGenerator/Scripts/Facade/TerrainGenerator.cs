@@ -33,7 +33,7 @@ namespace TerrainGeneratorComponent
 
             exitMenu = GameObject.Find("Exit Menu");
             damageMenu = GameObject.Find("DamageMenu");
-            exitMenu.GetComponent<ExitGUI>().OnResumeclick();            
+            exitMenu.GetComponent<ExitGUI>().OnResumeclick();
             
             SetPlayerPositionFromString();
             playerIsInitiallyGrounded = false;
@@ -47,6 +47,7 @@ namespace TerrainGeneratorComponent
             #region Display Exit Menu if Escape Key is Pressed
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                Time.timeScale = 0f;
                 exitMenu.SetActive(true);
                 damageMenu.SetActive(false);                      
                 ActiveMouse(true);

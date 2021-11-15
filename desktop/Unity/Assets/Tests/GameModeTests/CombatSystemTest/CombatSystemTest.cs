@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using CombatSystemComponent;
 
+//Tyler Anderson; Unit Test
 public class CombatSystemTest
 {
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use

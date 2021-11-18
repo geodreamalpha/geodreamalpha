@@ -149,7 +149,8 @@ namespace TerrainGeneratorComponent
 			RaycastHit hit;
 			controller.Move(Vector3.up * 1300);
 			Vector3 newPosition = controller.transform.position;
-			Physics.Raycast(newPosition, Vector3.down, out hit, float.PositiveInfinity, layer);
+			
+			Physics.Raycast(newPosition, Vector3.down, out hit, float.PositiveInfinity, LayerMask.GetMask("ground"), QueryTriggerInteraction.Ignore);
 			newPosition.y = hit.point.y;
 			controller.Move(-controller.transform.position + newPosition);
 		}//

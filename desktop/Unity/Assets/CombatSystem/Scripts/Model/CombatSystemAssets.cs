@@ -6,7 +6,7 @@ using UnityEngine;
 public class CombatSystemAssets
 {  
     [SerializeField]
-    List<GameObject> enemies;
+    public List<GameObject> enemies;
     [SerializeField]
     List<GameObject> projectiles;
     [SerializeField]

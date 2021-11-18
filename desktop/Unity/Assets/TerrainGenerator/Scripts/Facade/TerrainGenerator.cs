@@ -14,8 +14,11 @@ namespace TerrainGeneratorComponent
         Generator generator;
         ChunkManager chunkManager;
 
-        GameObject exitMenu;
-        GameObject damageMenu;
+        [SerializeField]
+        Music music;
+
+        public GameObject exitMenu;
+        public GameObject damageMenu;
         bool playerIsInitiallyGrounded = false;
 
         // Start is called before the first frame update
@@ -112,6 +115,11 @@ namespace TerrainGeneratorComponent
         {
             Cursor.visible = isActive;
             Cursor.lockState = isActive? CursorLockMode.None: CursorLockMode.Locked;
+        }
+
+        public static void ActiveDamageMenu(bool isActive)
+        {
+            
         }
     }
 }

@@ -9,12 +9,8 @@ namespace TerrainGeneratorComponent
     //this class manages the in-game exit menu
     public class ExitGUI : MonoBehaviour
     {
+        [SerializeField]
         GameObject damageMenu;
-
-        void Start()
-        {
-            damageMenu = GameObject.Find("DamageMenu");
-        }
 
         public void OnResumeclick()
         {

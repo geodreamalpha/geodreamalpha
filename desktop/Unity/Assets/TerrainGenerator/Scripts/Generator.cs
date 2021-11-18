@@ -134,6 +134,8 @@ namespace TerrainGeneratorComponent
                         }
                         #endregion
 
+
+
                         //only places trees and grass if they are above sea level
                         if (heightmap[y, x] * chunkSize.y > Chunk.seaLevel)
                         {

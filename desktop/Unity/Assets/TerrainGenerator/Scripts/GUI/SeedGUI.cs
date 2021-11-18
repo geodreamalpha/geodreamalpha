@@ -71,8 +71,6 @@ namespace TerrainGeneratorComponent
 
         public void OnGenerateButtonClick()
         {
-            //TerrainGenerator.ActiveMouse(false);
-
             string[] integers = seedInput.text.Split('_');
 
             //ensures seed input is in correct format and is within valid game map range

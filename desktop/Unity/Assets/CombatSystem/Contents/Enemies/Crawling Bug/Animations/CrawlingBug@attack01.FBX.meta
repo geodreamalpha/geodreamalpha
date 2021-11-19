@@ -1,68 +1,182 @@
 fileFormatVersion: 2
 guid: 971886f6be18ce040b076f36b9ba437f
 ModelImporter:
-  serializedVersion: 21
-  fileIDToRecycleName:
-    100000: BugRig
-    100002: BugRigBackbody
-    100004: BugRigFrontbody
-    100006: BugRigHead
-    100008: BugRigLBackLeg1
-    100010: BugRigLBackLeg2
-    100012: BugRigLBackLegAnkle
-    100014: BugRigLBackLegPlatform
-    100016: BugRigLFrontLeg1
-    100018: BugRigLFrontLeg2
-    100020: BugRigLFrontLegAnkle
-    100022: BugRigLFrontLegPlatform
-    100024: BugRigMouthLeft
-    100026: BugRigMouthRight
-    100028: BugRigNeck
-    100030: BugRigRBackLeg1
-    100032: BugRigRBackLeg2
-    100034: BugRigRBackLegAnkle
-    100036: BugRigRBackLegPlatform
-    100038: BugRigRFrontLeg1
-    100040: BugRigRFrontLeg2
-    100042: BugRigRFrontLegAnkle
-    100044: BugRigRFrontLegPlatform
-    100046: BugRigSpine
-    100048: //RootNode
-    100050: ExplodingBug
-    400000: BugRig
-    400002: BugRigBackbody
-    400004: BugRigFrontbody
-    400006: BugRigHead
-    400008: BugRigLBackLeg1
-    400010: BugRigLBackLeg2
-    400012: BugRigLBackLegAnkle
-    400014: BugRigLBackLegPlatform
-    400016: BugRigLFrontLeg1
-    400018: BugRigLFrontLeg2
-    400020: BugRigLFrontLegAnkle
-    400022: BugRigLFrontLegPlatform
-    400024: BugRigMouthLeft
-    400026: BugRigMouthRight
-    400028: BugRigNeck
-    400030: BugRigRBackLeg1
-    400032: BugRigRBackLeg2
-    400034: BugRigRBackLegAnkle
-    400036: BugRigRBackLegPlatform
-    400038: BugRigRFrontLeg1
-    400040: BugRigRFrontLeg2
-    400042: BugRigRFrontLegAnkle
-    400044: BugRigRFrontLegPlatform
-    400046: BugRigSpine
-    400048: //RootNode
-    400050: ExplodingBug
-    4300000: ExplodingBug
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: ExplodingBug
+  serializedVersion: 21100
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: BugRig
+  - first:
+      1: 100002
+    second: BugRigBackbody
+  - first:
+      1: 100004
+    second: BugRigFrontbody
+  - first:
+      1: 100006
+    second: BugRigHead
+  - first:
+      1: 100008
+    second: BugRigLBackLeg1
+  - first:
+      1: 100010
+    second: BugRigLBackLeg2
+  - first:
+      1: 100012
+    second: BugRigLBackLegAnkle
+  - first:
+      1: 100014
+    second: BugRigLBackLegPlatform
+  - first:
+      1: 100016
+    second: BugRigLFrontLeg1
+  - first:
+      1: 100018
+    second: BugRigLFrontLeg2
+  - first:
+      1: 100020
+    second: BugRigLFrontLegAnkle
+  - first:
+      1: 100022
+    second: BugRigLFrontLegPlatform
+  - first:
+      1: 100024
+    second: BugRigMouthLeft
+  - first:
+      1: 100026
+    second: BugRigMouthRight
+  - first:
+      1: 100028
+    second: BugRigNeck
+  - first:
+      1: 100030
+    second: BugRigRBackLeg1
+  - first:
+      1: 100032
+    second: BugRigRBackLeg2
+  - first:
+      1: 100034
+    second: BugRigRBackLegAnkle
+  - first:
+      1: 100036
+    second: BugRigRBackLegPlatform
+  - first:
+      1: 100038
+    second: BugRigRFrontLeg1
+  - first:
+      1: 100040
+    second: BugRigRFrontLeg2
+  - first:
+      1: 100042
+    second: BugRigRFrontLegAnkle
+  - first:
+      1: 100044
+    second: BugRigRFrontLegPlatform
+  - first:
+      1: 100046
+    second: BugRigSpine
+  - first:
+      1: 100048
+    second: //RootNode
+  - first:
+      1: 100050
+    second: ExplodingBug
+  - first:
+      4: 400000
+    second: BugRig
+  - first:
+      4: 400002
+    second: BugRigBackbody
+  - first:
+      4: 400004
+    second: BugRigFrontbody
+  - first:
+      4: 400006
+    second: BugRigHead
+  - first:
+      4: 400008
+    second: BugRigLBackLeg1
+  - first:
+      4: 400010
+    second: BugRigLBackLeg2
+  - first:
+      4: 400012
+    second: BugRigLBackLegAnkle
+  - first:
+      4: 400014
+    second: BugRigLBackLegPlatform
+  - first:
+      4: 400016
+    second: BugRigLFrontLeg1
+  - first:
+      4: 400018
+    second: BugRigLFrontLeg2
+  - first:
+      4: 400020
+    second: BugRigLFrontLegAnkle
+  - first:
+      4: 400022
+    second: BugRigLFrontLegPlatform
+  - first:
+      4: 400024
+    second: BugRigMouthLeft
+  - first:
+      4: 400026
+    second: BugRigMouthRight
+  - first:
+      4: 400028
+    second: BugRigNeck
+  - first:
+      4: 400030
+    second: BugRigRBackLeg1
+  - first:
+      4: 400032
+    second: BugRigRBackLeg2
+  - first:
+      4: 400034
+    second: BugRigRBackLegAnkle
+  - first:
+      4: 400036
+    second: BugRigRBackLegPlatform
+  - first:
+      4: 400038
+    second: BugRigRFrontLeg1
+  - first:
+      4: 400040
+    second: BugRigRFrontLeg2
+  - first:
+      4: 400042
+    second: BugRigRFrontLegAnkle
+  - first:
+      4: 400044
+    second: BugRigRFrontLegPlatform
+  - first:
+      4: 400046
+    second: BugRigSpine
+  - first:
+      4: 400048
+    second: //RootNode
+  - first:
+      4: 400050
+    second: ExplodingBug
+  - first:
+      43: 4300000
+    second: ExplodingBug
+  - first:
+      74: 7400000
+    second: attack01
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: ExplodingBug
+  externalObjects: {}
   materials:
-    importMaterials: 0
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -75,6 +189,8 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -82,26 +198,74 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: attack01
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.5
+        functionName: MeleeContactEvent
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 0.01
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 0
   tangentSpace:
@@ -109,10 +273,13 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -122,14 +289,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.01
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 1
   userData: 
   assetBundleName: 

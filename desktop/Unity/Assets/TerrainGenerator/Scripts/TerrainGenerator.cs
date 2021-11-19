@@ -19,14 +19,13 @@ namespace TerrainGeneratorComponent
 
         public GameObject exitMenu;
         public GameObject damageMenu;
-        bool playerIsInitiallyGrounded = false;
 
         // Start is called before the first frame update
         void Start()
         {
             #region Initialize Fog Settings
             RenderSettings.fog = true;
-            RenderSettings.fogColor = new Color(78f / 255f, 107f / 255f, 135f / 255f);  //new Color(60f / 255f, 87f / 255f, 113f / 255f)
+            RenderSettings.fogColor = new Color(102f / 255f, 157f / 255f, 195f / 255f) * 0.7f; //new Color(78f / 255f, 107f / 255f, 135f / 255f);  //new Color(60f / 255f, 87f / 255f, 113f / 255f)
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
             RenderSettings.fogDensity = 0.0035f;
             #endregion
@@ -39,7 +38,7 @@ namespace TerrainGeneratorComponent
             exitMenu.GetComponent<ExitGUI>().OnResumeclick();
             
             SetPlayerPositionFromString();
-            playerIsInitiallyGrounded = false;
+            SnapQueue.Add(playerController);
         }
 
         // Update is called once per frame
@@ -49,28 +48,10 @@ namespace TerrainGeneratorComponent
 
             #region Display Exit Menu if Escape Key is Pressed
             if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Time.timeScale = 0f;
-                exitMenu.SetActive(true);
-                damageMenu.SetActive(false);                      
-                ActiveMouse(true);
-            }
+                DisplayExitMenu();
             #endregion
 
-            #region Attempt to Snap Player to Appropriate Map Height Each Frame Until Player Is Grounded
-            //unity's terrain component takes an arbitrary amount of frames to completely instantiate terrain chunks
-            //this method appripriates as much time as it needs by delaying gameplay an arbitrary amount of frames until player is properly grounded to the active terrain chunk
-            if (Input.GetKeyDown(KeyCode.P) || !playerIsInitiallyGrounded)
-            {
-                Chunk.Snap(playerController);
-                if (playerController.isGrounded)
-                {
-                    playerIsInitiallyGrounded = true;
-                    Debug.Log("grounded");
-                }
-                    
-            }
-            #endregion
+            SnapQueue.UpdateSnaps();
         }
 
         public void SetPlayerPositionFromString()
@@ -117,9 +98,19 @@ namespace TerrainGeneratorComponent
             Cursor.lockState = isActive? CursorLockMode.None: CursorLockMode.Locked;
         }
 
-        public static void ActiveDamageMenu(bool isActive)
+        public void DisplayExitMenu()
         {
-            
+            Time.timeScale = 0f;
+            exitMenu.SetActive(true);
+            damageMenu.SetActive(false);
+            ActiveMouse(true);
+        }
+
+        public void DisplayGameOver()
+        {
+            DisplayExitMenu();
+            //GameObject.Find("Resume Button").SetActive(false);
+            GameObject.Find("Game Over").SetActive(true);
         }
     }
 }

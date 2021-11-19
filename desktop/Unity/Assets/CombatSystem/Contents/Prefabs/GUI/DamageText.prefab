@@ -152,7 +152,7 @@ MonoBehaviour:
   impact: {fileID: 0}
   destroyOnImpact: 0
   lifetime:
-    maxTime: 2
+    maxTime: 0.5
   target: {fileID: 0}
   checkRate:
     maxTime: 0.5

@@ -25,4 +25,14 @@ public class DamageMenuBehavior : MonoBehaviour
     {
         slider.value = combatSystem.GetPlayerHealth();
     }
+
+    public void ShowDamage(Vector3 position, float damageAmount, Color damageTint, CombatSystemAssets assets)
+    {
+        GameObject textObject = Instantiate(assets.getDamageText(), transform, false);
+
+        TMPro.TMP_Text text = textObject.GetComponent<TMPro.TMP_Text>();
+        text.text = damageAmount.ToString();
+        text.color = damageTint;
+        textObject.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(position);
+    }
 }

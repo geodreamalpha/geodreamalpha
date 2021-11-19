@@ -21,7 +21,7 @@ namespace TerrainGeneratorComponent
         List<(int, int)> keys = new List<(int, int)> { };
         List<(int, int)> keysToRemove = new List<(int, int)> { };
 
-        public void Refresh(CharacterController playerController, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate)
+        public void Refresh(CharacterController playerController, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, List<(int, Vector3)>, Vector3> Generate)
         {
             #region Get Terrain Indices That Player Is On
             //these two values represent the Key used to identify active terrain chunk (chunk that player is on) and nearby terrain chunks relative to the player

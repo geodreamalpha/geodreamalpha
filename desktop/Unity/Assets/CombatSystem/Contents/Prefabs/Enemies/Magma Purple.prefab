@@ -14619,7 +14619,6 @@ GameObject:
   - component: {fileID: 95990020081867212}
   - component: {fileID: -5463326127685576463}
   - component: {fileID: -1637072256859828601}
-  - component: {fileID: 5059459733788684375}
   m_Layer: 10
   m_Name: Magma Purple
   m_TagString: Untagged
@@ -14636,7 +14635,7 @@ Transform:
   m_GameObject: {fileID: 1639385755693164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4984878850618428}
   - {fileID: 4652962290471704}
@@ -14738,22 +14737,6 @@ MonoBehaviour:
       name: melee
     - proximity: 40
       name: fireball
---- !u!114 &5059459733788684375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639385755693164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d40826672cad94dabe8c0877af9980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  identifiers:
-  - enemy
-  harmers:
-  - allie
 --- !u!1 &1736662095114270
 GameObject:
   m_ObjectHideFlags: 0

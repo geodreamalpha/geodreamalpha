@@ -479,7 +479,6 @@ GameObject:
   - component: {fileID: 9500000}
   - component: {fileID: 1213950217585999848}
   - component: {fileID: 1718639757493046869}
-  - component: {fileID: -4953537894642339500}
   m_Layer: 10
   m_Name: Magma Orange
   m_TagString: Untagged
@@ -496,7 +495,7 @@ Transform:
   m_GameObject: {fileID: 100026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 400032}
   - {fileID: 400024}
@@ -598,22 +597,6 @@ MonoBehaviour:
       name: melee
     - proximity: 40
       name: fireball
---- !u!114 &-4953537894642339500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d40826672cad94dabe8c0877af9980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  identifiers:
-  - enemy
-  harmers:
-  - allie
 --- !u!1 &100028
 GameObject:
   m_ObjectHideFlags: 0

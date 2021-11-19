@@ -54,5 +54,11 @@ namespace CombatSystemComponent {
         {
             return player.root.gameObject.GetComponent<CharacterBase>().health;
         }
+
+        public static void ProperDestroy(GameObject obj, float time = 0)
+        {
+            Destroy(obj, time);
+            obj = null;
+        }
     }
 }  

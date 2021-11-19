@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 95776026912102056}
   - component: {fileID: 7725823999108368405}
   - component: {fileID: 6185528565232376122}
-  - component: {fileID: -4890170254225640262}
   m_Layer: 10
   m_Name: Monster Cat Bat Purple
   m_TagString: Untagged
@@ -60,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 1043250384139726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4611447715454268}
   - {fileID: 4911186260564522}
@@ -161,22 +160,6 @@ MonoBehaviour:
       name: melee
     - proximity: 40
       name: fireball
---- !u!114 &-4890170254225640262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043250384139726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d40826672cad94dabe8c0877af9980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  identifiers:
-  - enemy
-  harmers:
-  - allie
 --- !u!1 &1117205133901824
 GameObject:
   m_ObjectHideFlags: 0

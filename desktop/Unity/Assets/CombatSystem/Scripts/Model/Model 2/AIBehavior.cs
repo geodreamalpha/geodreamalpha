@@ -44,7 +44,7 @@ namespace CombatSystemComponent
             combatPool.Add("sprintFrom", () => Move(-faceTarget, grabSprinting));
             combatPool.Add("sprintLeft", () => Move(-faceRightOfTarget, grabSprinting));
             combatPool.Add("sprintRight", () => Move(faceRightOfTarget, grabSprinting));
-            combatPool.Add("retarget", () => Retarget(50));
+            combatPool.Add("retarget", () => OnNearbyEnemies(0, 50, Retarget));
             combatPool.Add("melee", Melee);
             combatPool.Add("fireball", () => Projectile("FireballProjectile"));
             #endregion
@@ -64,9 +64,17 @@ namespace CombatSystemComponent
         void Update()
         {
             UpdateCharacterController();
-            Retarget(40);
+            OnNearbyEnemies(0, 40, Retarget);
             OnDecision();
+            //-------
+            //OnNearbyEnemies(0, 10, ApplyMeleeDamageTo);
+            //------
             CheckIfCharacterIsGrounded();
+        }
+
+        private void LateUpdate()
+        {
+            DestroyIfDead();
         }
 
         //Make Decision Events
@@ -98,6 +106,17 @@ namespace CombatSystemComponent
                 commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());
             }
             commandGroupQueue.Peek().ChooseCommand(TargetDistance());
+        }
+
+        protected virtual void DestroyIfDead()
+        {
+            //check if object is dead
+            if (health <= 0)
+            {
+                animator.SetTrigger(grabDead);
+                this.gameObject.layer = 2;
+                CombatSystem.ProperDestroy(this.gameObject, 5);
+            }
         }
 
         //Misc Helpers

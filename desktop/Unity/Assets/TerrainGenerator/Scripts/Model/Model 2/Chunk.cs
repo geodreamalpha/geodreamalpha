@@ -9,7 +9,7 @@ namespace TerrainGeneratorComponent
 {
 	//this class manages a specific chunk instance (piece) of the map
 	//
-	class Chunk
+	public class Chunk
 	{
 		public const int layer = 6;
 
@@ -24,6 +24,8 @@ namespace TerrainGeneratorComponent
 		int[][,] detailLayers;
 		//stores the trees, big plants, and big rocks of the terrain
 		List<TreeInstance> trees;
+		//tracks the list of enemies that can be spawned
+		public static List<(int index, Vector3 position)> enemies = new List<(int index, Vector3 position)>();
 
 		//the gameobjec the Terrain Component is attached to
 		GameObject terrainObject;
@@ -46,7 +48,7 @@ namespace TerrainGeneratorComponent
 			get { return terrainObject != null; }
         }
 
-		public async void LoadAsync(int indexX, int indexY, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, Vector3> Generate)
+		public async void LoadAsync(int indexX, int indexY, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, List<(int, Vector3)>, Vector3> Generate)
 		{
             #region Initialize Water Object
 			//this is the water plane that is only visible at low elevations
@@ -86,7 +88,7 @@ namespace TerrainGeneratorComponent
             //async
             var task2 = await Task.Run(() =>
 			{
-				Generate(indexX * faceLength, indexY * faceLength, heightmap, alphamapLayers, detailLayers, trees, correctSize);
+				Generate(indexX * faceLength, indexY * faceLength, heightmap, alphamapLayers, detailLayers, trees, enemies, correctSize);
 				return 0;
 			});
             #endregion
@@ -137,22 +139,6 @@ namespace TerrainGeneratorComponent
 		{
 			//sets center position of terrain chunk
 			terrainObject.transform.position = new Vector3(pos.x - halfFaceLength, pos.y, pos.z - halfFaceLength);
-		}//
-
-		/// <summary>
-		/// snaps character (such as player or enemy) to the height (y) of the terrain depending on their current (x) and (z) position so that they are properly grounded.
-		/// </summary>
-		/// <param name="controller">the character controller component of the character</param>
-		public static void Snap(CharacterController controller)
-		{
-			//snaps character (such as player or enemy) to the height (y) of the terrain depending on their current (x) and (z) position so that they are properly grounded.
-			RaycastHit hit;
-			controller.Move(Vector3.up * 1300);
-			Vector3 newPosition = controller.transform.position;
-			
-			Physics.Raycast(newPosition, Vector3.down, out hit, float.PositiveInfinity, LayerMask.GetMask("ground"), QueryTriggerInteraction.Ignore);
-			newPosition.y = hit.point.y;
-			controller.Move(-controller.transform.position + newPosition);
 		}//
 	}
 }

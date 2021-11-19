@@ -1390,7 +1390,6 @@ GameObject:
   - component: {fileID: 95630423039118104}
   - component: {fileID: -2487010397836729522}
   - component: {fileID: 5844733735223060615}
-  - component: {fileID: -9061060112049064805}
   m_Layer: 10
   m_Name: Masked Orc Blue
   m_TagString: Untagged
@@ -1407,7 +1406,7 @@ Transform:
   m_GameObject: {fileID: 1748979749180474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4608234930558242}
   - {fileID: 4765158373169800}
@@ -1510,22 +1509,6 @@ MonoBehaviour:
       name: melee
     - proximity: 40
       name: fireball
---- !u!114 &-9061060112049064805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1748979749180474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d40826672cad94dabe8c0877af9980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  identifiers:
-  - enemy
-  harmers:
-  - allie
 --- !u!1 &1810020600667414
 GameObject:
   m_ObjectHideFlags: 0

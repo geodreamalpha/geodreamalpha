@@ -17,8 +17,8 @@ namespace TerrainGeneratorComponent
         AnimationCurve eAmplitude = new AnimationCurve(new Keyframe(-0.2f, 0.2f), new Keyframe(1.2f, 0.8f)); //------
         AnimationCurve frequency = new AnimationCurve(new Keyframe(-0.2f, 0.6f), new Keyframe(1.2f, 0.602f));
 
-        Variation[] layerVariations = new Variation[3] { new Variation(0, 5, 1, 1f, 0f, 10f), 
-                                                         new Variation(5, 1, 1, 1f, 10f, 26f), 
+        Variation[] layerVariations = new Variation[3] { new Variation(0, 5, 1, 1f, 0f, 10f),
+                                                         new Variation(5, 1, 1, 1f, 10f, 26f),
                                                          new Variation(6, 6, 3, 1f, 36f, 18f) };
 
         Variation[] detailVariations = new Variation[2] { new Variation(0, 4, 2, 1f, 10f, 7f),
@@ -26,7 +26,14 @@ namespace TerrainGeneratorComponent
 
         Variation[] treeVariations = new Variation[1] { new Variation(0, 5, 3, 0.0005f, 0f, 20f) };
 
-        public void Generate(float worldX, float worldY, float[,] heightmap, float[,,] alphamap, int[][,] detailLayer, List<TreeInstance> instances, Vector3 chunkSize)
+        Variation[] enemyVariations = new Variation[5] { new Variation(0, 7, 3, 0.0002f, 0f, 4f),
+                                                        new Variation(7, 13, 3, 0.0002f, 16f, 2f),
+                                                        new Variation(20, 6, 3, 0.0002f, 24f, 1f),
+                                                        new Variation(26, 6, 2, 0.0002f, 28f, 1f),
+                                                        new Variation(32, 1, 1, 0.0002f, 30f, 2f)};
+
+
+        public void Generate(float worldX, float worldY, float[,] heightmap, float[,,] alphamap, int[][,] detailLayer, List<TreeInstance> instances, List<(int index, Vector3 position)> enemies, Vector3 chunkSize)
         {
             #region Initialize Local Vars
             //these vars are initialized in this method because several of these methods will run async at the same time.
@@ -135,7 +142,6 @@ namespace TerrainGeneratorComponent
                         #endregion
 
 
-
                         //only places trees and grass if they are above sea level
                         if (heightmap[y, x] * chunkSize.y > Chunk.seaLevel)
                         {
@@ -170,6 +176,23 @@ namespace TerrainGeneratorComponent
                             #endregion
                         }
                         //end calculate foilage
+
+
+                        //Begin Calculate Enemies
+                        #region Calculate Enemies that will spawn on this chunk
+                        //decides where to place trees
+                        bioIndex = -1;
+                        foreach (Variation enemyVariation in enemyVariations)
+                        {
+                            bioIndex = enemyVariation.GetPrototypeIndex(slope, lElevation);
+                            if (bioIndex > -1)
+                            {
+                                enemies.Add((bioIndex, new Vector3(worldX + x, 0, worldY + y)));
+                                break;
+                            }
+                        }
+                        #endregion
+                        //End Calculate Enemies
                     }
                 }
            

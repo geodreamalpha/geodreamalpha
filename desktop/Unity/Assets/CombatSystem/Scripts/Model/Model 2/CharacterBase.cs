@@ -7,9 +7,6 @@ namespace CombatSystemComponent
 {
     public class CharacterBase : MonoBehaviour
     {
-        //Declare Damage Layers List
-        protected string damageTag;
-
         //Declare Damage Text Colors
         [SerializeField]
         protected Color damageTextColor;
@@ -42,7 +39,7 @@ namespace CombatSystemComponent
         [SerializeField]
         DerivedStats baseStats;
         static DerivedStats multiplier = new DerivedStats();
-        public DerivedStats gameStats;
+        public DerivedStats gameStats { get; protected set; }
         public int health { get; protected set; } = 0;
         public int stamina { get; protected set; } = 0;
 

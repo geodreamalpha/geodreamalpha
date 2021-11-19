@@ -567,7 +567,6 @@ GameObject:
   - component: {fileID: 95955325026745172}
   - component: {fileID: 6366839468840912390}
   - component: {fileID: 757923617903260203}
-  - component: {fileID: 7669015310391813959}
   m_Layer: 10
   m_Name: Masked Orc Brown
   m_TagString: Untagged
@@ -584,7 +583,7 @@ Transform:
   m_GameObject: {fileID: 1401666661237532}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4891534056151252}
   - {fileID: 4889819101883458}
@@ -604,7 +603,7 @@ Animator:
   m_GameObject: {fileID: 1401666661237532}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b04454d4e0fa2dd44b71735b7d3e20c1, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 747842993efc2e24fb38ea9d864b9489, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -687,22 +686,6 @@ MonoBehaviour:
       name: melee
     - proximity: 40
       name: fireball
---- !u!114 &7669015310391813959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1401666661237532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d40826672cad94dabe8c0877af9980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  identifiers:
-  - enemy
-  harmers:
-  - allie
 --- !u!1 &1419111857021104
 GameObject:
   m_ObjectHideFlags: 0

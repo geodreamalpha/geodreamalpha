@@ -14,12 +14,12 @@ TagManager:
   - 
   - Water
   - UI
-  - ground
+  - Ground
   - player
   - companion
-  - enemy
-  - object
-  - 
+  - oldEnemy
+  - Enemy
+  - Allie
   - 
   - 
   - 

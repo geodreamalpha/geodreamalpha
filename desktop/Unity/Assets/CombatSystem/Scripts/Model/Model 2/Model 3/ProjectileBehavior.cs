@@ -62,6 +62,10 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //CharacterBase attackerStats = attacker.GetComponent<ProjectileBehavior>().sender.GetComponent<CharacterBase>();
+        //damage = (int)DerivedStats.GetReductionDamage(attackerStats.gameStats.energy, this.gameStats.aura);
+
+
         if (sender != null && other.transform.root.gameObject.tag != sender.tag && destroyOnImpact)
         {
             if (impact != null)

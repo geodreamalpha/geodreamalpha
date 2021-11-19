@@ -1,0 +1,171 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+using System.Linq;
+
+namespace CombatSystemComponent
+{
+    [System.Serializable]
+    public abstract class HelperBase : CharacterBase
+    {
+        //Action Helpers
+        public void Move(Vector3 yAxisFacingDirection, string animationParameter = "")
+        {
+            Rotate(yAxisFacingDirection);
+
+            //set direction
+            Vector3 direction = new Vector3(yAxisFacingDirection.x, 0, yAxisFacingDirection.z);
+            direction = direction.normalized;
+
+            //set velocity
+            animator.SetBool(animationParameter, true);
+
+            if (animationParameter == grabWalking)
+            {
+                velocity.x = direction.x * gameStats.walkSpeed;
+                velocity.z = direction.z * gameStats.walkSpeed;
+            }               
+            else if (animationParameter == grabSprinting)
+            {
+                velocity.x = direction.x * gameStats.sprintSpeed;
+                velocity.z = direction.z * gameStats.sprintSpeed;
+            }
+        }
+        public void Rotate(Vector3 yAxisFacingDirection)
+        {
+            //set rotation
+            rotation = controller.transform.rotation.eulerAngles;
+            Vector3 newRotation = Quaternion.LookRotation(yAxisFacingDirection).eulerAngles;
+            rotation.y = newRotation.y;
+        }
+        public void Jump()
+        {
+            if (IsGrounded())
+            {
+                velocity.y = Mathf.Sqrt(gameStats.jumpHeight * 2f * -gravity.y);
+                animator.SetTrigger(grabJump);
+            }         
+        }
+        public void Target(Transform target)
+        {
+            this.target = target;
+        }
+        public void Melee()
+        {
+            animator.SetTrigger(grabMelee);
+        }
+        public void Projectile(string name)
+        {
+            Rotate(faceTarget); //might need to do something different with yAxisFacingDirection
+            GameObject projectile = Instantiate(assets.getProjectileByName(name), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
+            ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
+            projectileBehavior.target = target;
+            projectileBehavior.sender = gameObject;
+        }
+        public void Retarget(Collider[] enemies)
+        {         
+            if (enemies.Length != 0)
+            {
+                target = enemies.OrderBy(c => (c.transform.position - controller.transform.position).sqrMagnitude).First().transform;
+                OnDecision = OnCombatDecision;
+            }
+            else
+            {
+                target = GetDefaultTarget();
+                OnDecision = OnPeacefulDecision;
+            } 
+        }     
+
+        //Update Helpers
+        protected void ResetBooleanAnimationParameters()
+        {
+            animator.SetBool(grabWalking, false);
+            animator.SetBool(grabSprinting, false);
+        }
+        protected void UpdateCharacterController()
+        {           
+            if (gameObject.layer != 2)
+            {
+                velocity.y = Mathf.Clamp(velocity.y + gravity.y * Time.deltaTime, gravity.y, float.MaxValue);
+                controller.Move(velocity * Time.deltaTime);
+                controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, Quaternion.Euler(rotation), 0.15f * 60f * Time.deltaTime);
+            }
+        }
+        protected void ResetMoveVelocity()
+        {
+            velocity.x = 0f;
+            velocity.z = 0f;
+        }
+        protected void CheckIfCharacterIsGrounded()
+        {
+            if (controller.isGrounded)
+                animator.SetBool(grabGrounded, true);
+            else
+                animator.SetBool(grabGrounded, false);
+        }
+
+        //Make Decision Events
+        protected Action OnPeacefulDecision = () => { };
+        protected virtual void OnCombatDecision()
+        {        
+        }
+
+        //Misc Helpers
+        protected bool IsGrounded()
+        {
+            return animator.GetBool(grabGrounded);
+        }
+        protected Vector3 faceTarget
+        {
+            get { return target.position - controller.transform.position; }
+        }
+        protected Vector3 faceRightOfTarget
+        {
+            get { return (target.position - controller.transform.position) + Vector3.right; }
+        }
+        protected virtual Transform GetDefaultTarget()
+        {
+            return null;
+        }
+        protected void OnNearbyEnemies(float forwardOffset, float radius, Action<Collider[]> actionToPerform)
+        {
+            string layer = gameObject.layer == 10 ? "Allie" : "Enemy";
+            Collider[] colliders = Physics.OverlapSphere(transform.position + (transform.forward * forwardOffset), radius, LayerMask.GetMask(layer));
+            actionToPerform(colliders);
+        }
+        protected void ApplyDamageTo(Collider[] enemies)
+        {
+            foreach (Collider enemy in enemies)
+            {
+                //damage calculation
+                int damageAmount = 0;
+                HelperBase enemyStats = enemy.transform.root.GetComponent<HelperBase>();
+                damageAmount = (int)DerivedStats.GetReductionDamage(this.gameStats.strength, enemyStats.gameStats.defense);
+                damageAmount = (int)(damageAmount * UnityEngine.Random.Range(0.8f, 1.2f));
+                enemyStats.TakeDamage(damageAmount);
+            }
+        }
+        public void TakeDamage(float damageAmount)
+        {
+            health -= (int)damageAmount;
+
+            animator.SetTrigger(grabHit);
+
+            //show damage text
+            GameObject.Find("DamageMenu").GetComponent<DamageMenuBehavior>().ShowDamage(transform.position, damageAmount, damageTextColor, assets);
+        }
+        public void MeleeContactEvent()
+        {
+            OnNearbyEnemies(4, 5, ApplyDamageTo);
+            //play damage effects
+            //player particle effects
+        }
+
+        //Asset Setter
+        public void SetAssets(CombatSystemAssets assets)
+        {
+            this.assets = assets;
+        }
+    }
+}

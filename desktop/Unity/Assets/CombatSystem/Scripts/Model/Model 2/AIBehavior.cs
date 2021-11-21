@@ -7,8 +7,8 @@ namespace CombatSystemComponent
     [System.Serializable]
     public class AIBehavior : HelperBase
     {
-        [SerializeField]
-        string peacefulName;
+        int peacefulDirection = 0;
+
         Dictionary<string, Action> peacefulPool;
         Dictionary<string, Action> combatPool;
 
@@ -25,14 +25,9 @@ namespace CombatSystemComponent
 
             timer = new Timer(5f);
 
-            #region Peaceful Pool Dictionary
-            peacefulPool = new Dictionary<string, Action>();
-            peacefulPool.Add("peacefulWalk", PeacefulWalk);
-            peacefulPool.Add("peacefulFollow", PeacefulFollow);
-            #endregion
-
-            OnPeacefulDecision = peacefulPool[peacefulName];
             OnDecision = OnPeacefulDecision;
+
+            target = GetDefaultTarget();
 
             #region Combat Pool Dictionary
             combatPool = new Dictionary<string, Action>();
@@ -66,34 +61,21 @@ namespace CombatSystemComponent
             UpdateCharacterController();
             OnNearbyEnemies(0, 40, Retarget);
             OnDecision();
-            //-------
-            //OnNearbyEnemies(0, 10, ApplyMeleeDamageTo);
-            //------
             CheckIfCharacterIsGrounded();
         }
 
-        private void LateUpdate()
-        {
-            DestroyIfDead();
-        }
-
         //Make Decision Events
-        protected void PeacefulWalk()
+        protected override void OnPeacefulDecision()
         {
-            Move(Vector3.forward, grabWalking);
-        }
-        protected void PeacefulFollow()
-        {
-            ResetBooleanAnimationParameters();
-            ResetMoveVelocity();
-
-            float distance = faceTarget.magnitude;
-            if (distance > 20)
-                controller.Move(-controller.transform.position + target.position + new Vector3());
-            else if (distance > 3)
-                Move(faceTarget, grabSprinting);
-            else if (distance > 2)
-                Move(faceTarget, grabWalking);
+            timer.Update();
+            if (timer.isAtMax)
+            {
+                timer.Reset();
+                ResetDecisionValues();
+                peacefulDirection = UnityEngine.Random.Range(0, 4);
+            }
+            
+            Move(directions[peacefulDirection], grabWalking);
         }
         protected override void OnCombatDecision()
         {
@@ -101,13 +83,11 @@ namespace CombatSystemComponent
             if (timer.isAtMax)
             {
                 timer.Reset();
-                ResetBooleanAnimationParameters();
-                ResetMoveVelocity();
+                ResetDecisionValues();
                 commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());
             }
             commandGroupQueue.Peek().ChooseCommand(TargetDistance());
         }
-
         protected virtual void DestroyIfDead()
         {
             //check if object is dead

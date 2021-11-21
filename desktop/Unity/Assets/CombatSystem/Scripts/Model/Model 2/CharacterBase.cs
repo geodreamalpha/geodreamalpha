@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Collections.ObjectModel;
 
 namespace CombatSystemComponent
 {
     public class CharacterBase : MonoBehaviour
     {
+        //declare immutable world directions a character can walk in
+        public static ReadOnlyCollection<Vector3> directions = new ReadOnlyCollection<Vector3>(new List<Vector3>()
+            { Vector3.up, Vector3.down, Vector3.left, Vector3.right });
+        
         //Declare Damage Text Colors
         [SerializeField]
         protected Color damageTextColor;
@@ -35,13 +40,13 @@ namespace CombatSystemComponent
         public Transform target;
 
         //Declare Stats
-        protected Stats levelStats;
+        protected LevelStats levelStats;
         [SerializeField]
         DerivedStats baseStats;
         static DerivedStats multiplier = new DerivedStats();
         public DerivedStats gameStats { get; protected set; }
-        public int health { get; protected set; } = 0;
-        public int stamina { get; protected set; } = 0;
+        public float health { get; protected set; } = 0;
+        public float stamina { get; protected set; } = 0;
 
         //Declare other field attributes
         protected CombatSystemAssets assets;
@@ -65,7 +70,7 @@ namespace CombatSystemComponent
         protected void SetInGameStats()
         {
             //Initialize Stat Groups
-            levelStats = new Stats();
+            levelStats = new LevelStats();
             gameStats = new DerivedStats();
 
             //health related

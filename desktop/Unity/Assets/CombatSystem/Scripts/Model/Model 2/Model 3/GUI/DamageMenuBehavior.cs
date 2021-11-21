@@ -10,7 +10,6 @@ public class DamageMenuBehavior : MonoBehaviour
     Slider slider;
     CombatSystem combatSystem;
     
-
     // Start is called before the first frame update
     void Start()
     {

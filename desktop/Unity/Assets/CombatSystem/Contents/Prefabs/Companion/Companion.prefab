@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 4887090567455081004}
   - component: {fileID: 9175197994093646572}
   - component: {fileID: 9175197994093646355}
-  - component: {fileID: 6460327381058798485}
+  - component: {fileID: 5318554159754226610}
   m_Layer: 11
   m_Name: Companion
   m_TagString: allie
@@ -725,7 +725,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6460327381058798485
+--- !u!114 &5318554159754226610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -734,10 +734,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5231421722785405078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71018efb2b07ea40ac4936bfe28d325, type: 3}
+  m_Script: {fileID: 11500000, guid: 3072740980a3ddb4c82ad6347e914f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageTextColor: {r: 0.9651394, g: 0.2783019, b: 1, a: 1}
+  damageTextColor: {r: 0.9647059, g: 0.2784314, b: 1, a: 1}
   animator: {fileID: 9175197994093646355}
   controller: {fileID: 9175197994093646572}
   target: {fileID: 0}
@@ -753,19 +753,6 @@ MonoBehaviour:
     sprintSpeed: 1
     projectileCheck: 1
     projectileSpeed: 1
-  gameStats:
-    healthPoints: 1
-    strength: 1
-    defense: 1
-    jumpHeight: 1
-    staminaPoints: 1
-    energy: 1
-    aura: 1
-    walkSpeed: 1
-    sprintSpeed: 1
-    projectileCheck: 1
-    projectileSpeed: 1
-  peacefulName: peacefulFollow
   commandGroups:
   - timer:
       maxTime: 1

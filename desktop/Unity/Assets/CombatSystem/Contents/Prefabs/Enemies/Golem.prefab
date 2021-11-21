@@ -59,19 +59,6 @@ MonoBehaviour:
     sprintSpeed: 1
     projectileCheck: 1
     projectileSpeed: 1
-  gameStats:
-    healthPoints: 1
-    strength: 1
-    defense: 1
-    jumpHeight: 1
-    staminaPoints: 1
-    energy: 1
-    aura: 1
-    walkSpeed: 1
-    sprintSpeed: 1
-    projectileCheck: 1
-    projectileSpeed: 1
-  peacefulName: peacefulWalk
   commandGroups:
   - timer:
       maxTime: 0.2
@@ -208,15 +195,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 447.57
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.7812188
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 162.9408
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalRotation.w

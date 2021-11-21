@@ -1,56 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using TerrainGeneratorComponent;
 
 namespace CombatSystemComponent
 {
     public class EnemyGenerator
     {
         public const int MAX_ENEMIES = 100;
+        public const int DESTROY_DISTANCE = ChunkManager.maxViewDistanceFromPlayer;
         int currentEnemies = 0;
         List<GameObject> enemies = new List<GameObject> { };
-        Vector3[] potentialPositions = new Vector3[] {  };
+        Vector3 yDistance = new Vector3(0, 600, 0);
 
-        List<int> enemiesToBeRemoved = new List<int>();
-
-        public void Generate(CombatSystemAssets assets, Transform player)
+        public void CreateNewEnemies(CombatSystemAssets assets, Transform player)
         {
-            while (currentEnemies < MAX_ENEMIES && TerrainGeneratorComponent.Chunk.enemies.Count > 0)
+            while (currentEnemies < MAX_ENEMIES && Chunk.enemies.Count > 0)
             {
-                currentEnemies += 1;
-                enemies.Add(GameObject.Instantiate(assets.enemies[TerrainGeneratorComponent.Chunk.enemies[0].index],
-                    TerrainGeneratorComponent.Chunk.enemies[0].position, Quaternion.identity));
-                TerrainGeneratorComponent.Chunk.enemies.RemoveAt(0);
+                currentEnemies++;
+                enemies.Add(GameObject.Instantiate(assets.enemies[Chunk.enemies[0].index], Chunk.enemies[0].position + yDistance, Quaternion.identity));
+                Chunk.enemies.RemoveAt(0);
 
-                CharacterController controller = enemies[enemies.Count - 1].GetComponent<CharacterController>();
-                controller.Move(new Vector3(0f, 400f, 0f));
-                TerrainGeneratorComponent.SnapQueue.Add(controller);
-                //TerrainGeneratorComponent.Chunk.Snap(enemies[enemies.Count - 1].GetComponent<CharacterController>());
-
-                HelperBase aIBase = enemies[enemies.Count - 1].GetComponent<HelperBase>();
-                aIBase.SetAssets(assets);
-                aIBase.Target(player);//maybe you do not need this
+                SnapList.Add(enemies[enemies.Count - 1].GetComponent<CharacterController>());
+                enemies[enemies.Count - 1].GetComponent<HelperBase>().SetAssets(assets);
             }
+        }
 
-            int removeIndex = 0;
-            enemiesToBeRemoved.Clear();
-            foreach(GameObject enemy in enemies)
-            {
-                if (enemy.transform.position.y < -10 || enemy.GetComponent<CharacterBase>().health <= 0)
+        public void RemoveOldEnemies(Transform player)
+        {
+            for (int i = 0; i < enemies.Count; i++)
+                if (Vector3.Distance(enemies[i].transform.position, player.position) > DESTROY_DISTANCE || enemies[i].GetComponent<CharacterBase>().health <= 0)
                 {
-                    
-                    enemiesToBeRemoved.Add(removeIndex);
+                    CombatSystem.ProperDestroy(enemies[i]);
+                    enemies.RemoveAt(i);
                     currentEnemies--;
+                    i--;                   
                 }
-                removeIndex++;
-            }
-
-            foreach(int index in enemiesToBeRemoved)
-            {
-                //need to have a unified way of destroying enemy gameobjects.
-                CombatSystem.ProperDestroy(enemies[index]);
-                enemies.RemoveAt(index);
-            }
         }
     }
 }

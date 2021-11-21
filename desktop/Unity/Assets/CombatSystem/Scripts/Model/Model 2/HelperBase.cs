@@ -10,7 +10,7 @@ namespace CombatSystemComponent
     public abstract class HelperBase : CharacterBase
     {
         //Action Helpers
-        public void Move(Vector3 yAxisFacingDirection, string animationParameter = "")
+        protected void Move(Vector3 yAxisFacingDirection, string animationParameter = "")
         {
             Rotate(yAxisFacingDirection);
 
@@ -32,14 +32,14 @@ namespace CombatSystemComponent
                 velocity.z = direction.z * gameStats.sprintSpeed;
             }
         }
-        public void Rotate(Vector3 yAxisFacingDirection)
+        protected void Rotate(Vector3 yAxisFacingDirection)
         {
             //set rotation
             rotation = controller.transform.rotation.eulerAngles;
             Vector3 newRotation = Quaternion.LookRotation(yAxisFacingDirection).eulerAngles;
             rotation.y = newRotation.y;
         }
-        public void Jump()
+        protected void Jump()
         {
             if (IsGrounded())
             {
@@ -47,15 +47,15 @@ namespace CombatSystemComponent
                 animator.SetTrigger(grabJump);
             }         
         }
-        public void Target(Transform target)
+        protected void Target(Transform target)
         {
             this.target = target;
         }
-        public void Melee()
+        protected void Melee()
         {
             animator.SetTrigger(grabMelee);
         }
-        public void Projectile(string name)
+        protected virtual void Projectile(string name)
         {
             Rotate(faceTarget); //might need to do something different with yAxisFacingDirection
             GameObject projectile = Instantiate(assets.getProjectileByName(name), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
@@ -63,7 +63,7 @@ namespace CombatSystemComponent
             projectileBehavior.target = target;
             projectileBehavior.sender = gameObject;
         }
-        public void Retarget(Collider[] enemies)
+        protected void Retarget(Collider[] enemies)
         {         
             if (enemies.Length != 0)
             {
@@ -78,10 +78,12 @@ namespace CombatSystemComponent
         }     
 
         //Update Helpers
-        protected void ResetBooleanAnimationParameters()
+        protected void ResetDecisionValues()
         {
             animator.SetBool(grabWalking, false);
             animator.SetBool(grabSprinting, false);
+            velocity.x = 0f;
+            velocity.z = 0f;
         }
         protected void UpdateCharacterController()
         {           
@@ -92,11 +94,6 @@ namespace CombatSystemComponent
                 controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, Quaternion.Euler(rotation), 0.15f * 60f * Time.deltaTime);
             }
         }
-        protected void ResetMoveVelocity()
-        {
-            velocity.x = 0f;
-            velocity.z = 0f;
-        }
         protected void CheckIfCharacterIsGrounded()
         {
             if (controller.isGrounded)
@@ -106,10 +103,8 @@ namespace CombatSystemComponent
         }
 
         //Make Decision Events
-        protected Action OnPeacefulDecision = () => { };
-        protected virtual void OnCombatDecision()
-        {        
-        }
+        protected virtual void OnPeacefulDecision() { }
+        protected virtual void OnCombatDecision() { }
 
         //Misc Helpers
         protected bool IsGrounded()
@@ -146,7 +141,7 @@ namespace CombatSystemComponent
                 enemyStats.TakeDamage(damageAmount);
             }
         }
-        public void TakeDamage(float damageAmount)
+        public virtual void TakeDamage(float damageAmount)
         {
             health -= (int)damageAmount;
 
@@ -155,11 +150,11 @@ namespace CombatSystemComponent
             //show damage text
             GameObject.Find("DamageMenu").GetComponent<DamageMenuBehavior>().ShowDamage(transform.position, damageAmount, damageTextColor, assets);
         }
-        public void MeleeContactEvent()
+        protected virtual void MeleeContactEvent()
         {
             OnNearbyEnemies(4, 5, ApplyDamageTo);
-            //play damage effects
-            //player particle effects
+            //play damage sound effects
+            //damage particle effects
         }
 
         //Asset Setter

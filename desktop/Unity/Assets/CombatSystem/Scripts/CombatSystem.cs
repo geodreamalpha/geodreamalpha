@@ -7,7 +7,7 @@ namespace CombatSystemComponent {
     //Jake Aldridge 
     public class CombatSystem : MonoBehaviour
     {
-        static readonly Stats companionStats = new Stats(); 
+        static readonly Stats companionStats = new Stats();
         [SerializeField]
         Transform player;
         [SerializeField]
@@ -32,13 +32,19 @@ namespace CombatSystemComponent {
         void Start()
         {
             player.gameObject.transform.root.GetComponent<PlayerBehavior>().SetAssets(assets);
+            GameObject.Find("Companion").GetComponent<CompanionBehavior>().SetAssets(assets);
         }
 
         bool initialEnemy = true; //temporary code
         void Update()
         {
-            enemyGenerator.Generate(assets, player);
+            enemyGenerator.CreateNewEnemies(assets, player);
             companionStats.Update();
+        }
+
+        void LateUpdate()
+        {
+            enemyGenerator.RemoveOldEnemies(player);
         }
 
         /// <summary>

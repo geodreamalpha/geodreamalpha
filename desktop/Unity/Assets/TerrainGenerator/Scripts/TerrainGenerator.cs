@@ -38,7 +38,7 @@ namespace TerrainGeneratorComponent
             exitMenu.GetComponent<ExitGUI>().OnResumeclick();
             
             SetPlayerPositionFromString();
-            SnapQueue.Add(playerController);
+            SnapList.Add(playerController);
         }
 
         // Update is called once per frame
@@ -51,7 +51,7 @@ namespace TerrainGeneratorComponent
                 DisplayExitMenu();
             #endregion
 
-            SnapQueue.UpdateSnaps();
+            SnapList.UpdateSnaps();
         }
 
         public void SetPlayerPositionFromString()
@@ -109,8 +109,8 @@ namespace TerrainGeneratorComponent
         public void DisplayGameOver()
         {
             DisplayExitMenu();
-            //GameObject.Find("Resume Button").SetActive(false);
-            GameObject.Find("Game Over").SetActive(true);
+            exitMenu.transform.Find("Resume Button").gameObject.SetActive(false);
+            exitMenu.transform.Find("Game Over").gameObject.GetComponent<TMPro.TMP_Text>().text = "Game Over";
         }
     }
 }

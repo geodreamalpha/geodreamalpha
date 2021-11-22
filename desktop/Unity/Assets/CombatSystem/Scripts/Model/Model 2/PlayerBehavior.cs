@@ -14,6 +14,7 @@ namespace CombatSystemComponent
 
         void Update()
         {
+            CancelTargetIfOutOfRange(50);
             SlowlyRegainHealthAndStamina();
             UpdateCharacterController();
             ResetDecisionValues();
@@ -29,33 +30,43 @@ namespace CombatSystemComponent
         //Action Helpers
         protected override void Projectile(string name)
         {
-            base.Projectile(name);
-            DecreaseStaminaBy(10);
+            if (stamina > 10)
+            {
+                base.Projectile(name);
+                DecreaseStaminaBy(10);
+            }
+        }
+        protected void SetSprint(ref string animation)
+        {
+            if (stamina > 0)
+            {
+                animation = grabSprinting;
+                DecreaseStaminaBy(10 * Time.deltaTime);
+            }
         }
 
         //Update Helpers
         protected void SlowlyRegainHealthAndStamina()
         {
             health = Mathf.Clamp(health + (gameStats.healthPoints * 0.01f * Time.deltaTime), 0, gameStats.healthPoints);
-            stamina = Mathf.Clamp(stamina + (gameStats.staminaPoints * 0.01f * Time.deltaTime), 0, gameStats.staminaPoints);
+
+            if (!Input.GetKey(KeyCode.LeftShift))
+                stamina = Mathf.Clamp(stamina + (gameStats.staminaPoints * 0.02f * Time.deltaTime), 0, gameStats.staminaPoints);
         }
         protected void UpdateUserControls()
         {
-            Transform c = Camera.main.transform;
+            Transform c = Camera.main.transform; //target;
             string animation = grabWalking;
 
             if (Input.GetKey(KeyCode.LeftShift))
-            {
-                animation = grabSprinting;
-                DecreaseStaminaBy(10 * Time.deltaTime);
-            }          
+                SetSprint(ref animation);
 
             if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
                 Move(c.forward + c.right, animation);
             else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
-                Move(c.right + -c.up, animation);
+                Move(c.right + -c.forward, animation);
             else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
-                Move(-c.up + -c.right, animation);
+                Move(-c.forward + -c.right, animation);
             else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W))
                 Move(-c.right + c.forward, animation);
 
@@ -72,6 +83,10 @@ namespace CombatSystemComponent
                 Jump();
             if (Input.GetMouseButtonDown(0))
                 Melee();
+            if (Input.GetMouseButtonDown(1))
+                SetTarget();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                Projectile("Fireball");
         }
         protected virtual void GameOverIfDead()
         {
@@ -96,6 +111,19 @@ namespace CombatSystemComponent
         public void DecreaseStaminaBy(float amount)
         {
             stamina = Mathf.Clamp(stamina - amount, 0, gameStats.staminaPoints);
+        }
+        public void CancelTargetIfOutOfRange(float distance)
+        {
+            if (target != null && faceTarget.magnitude > distance)
+                CancelTarget();
+        }
+        public void CancelTarget()
+        {
+            target = Camera.main.transform;
+        }
+        public void SetTarget()
+        {
+            OnNearbyEnemies(0, 50, Retarget);
         }
     }
 }

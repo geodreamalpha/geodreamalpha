@@ -57,11 +57,14 @@ namespace CombatSystemComponent
         }
         protected virtual void Projectile(string name)
         {
-            Rotate(faceTarget); //might need to do something different with yAxisFacingDirection
-            GameObject projectile = Instantiate(assets.getProjectileByName(name), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
-            ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
-            projectileBehavior.target = target;
-            projectileBehavior.sender = gameObject;
+            if (target != null)
+            {
+                Rotate(faceTarget); //might need to do something different with yAxisFacingDirection
+                GameObject projectile = Instantiate(assets.getProjectileByName(name), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
+                ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
+                projectileBehavior.target = target;
+                projectileBehavior.sender = gameObject;
+            }
         }
         protected void Retarget(Collider[] enemies)
         {         
@@ -75,7 +78,7 @@ namespace CombatSystemComponent
                 target = GetDefaultTarget();
                 OnDecision = OnPeacefulDecision;
             } 
-        }     
+        }
 
         //Update Helpers
         protected void ResetDecisionValues()
@@ -148,7 +151,7 @@ namespace CombatSystemComponent
             animator.SetTrigger(grabHit);
 
             //show damage text
-            GameObject.Find("DamageMenu").GetComponent<DamageMenuBehavior>().ShowDamage(transform.position, damageAmount, damageTextColor, assets);
+            GameObject.Find("DamageMenu").GetComponent<DamageMenuBehavior>().ShowDamage(transform, damageAmount, damageTextColor, assets);
         }
         protected virtual void MeleeContactEvent()
         {

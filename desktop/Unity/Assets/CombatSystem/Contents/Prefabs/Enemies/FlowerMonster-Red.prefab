@@ -1077,7 +1077,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &-3842907404675931161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,19 +1106,6 @@ MonoBehaviour:
     sprintSpeed: 1
     projectileCheck: 1
     projectileSpeed: 1
-  gameStats:
-    healthPoints: 1
-    strength: 1
-    defense: 1
-    jumpHeight: 1
-    staminaPoints: 1
-    energy: 1
-    aura: 1
-    walkSpeed: 1
-    sprintSpeed: 1
-    projectileCheck: 1
-    projectileSpeed: 1
-  peacefulName: peacefulWalk
   commandGroups:
   - timer:
       maxTime: 0.2

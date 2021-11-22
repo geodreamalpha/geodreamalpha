@@ -9,7 +9,6 @@ namespace CombatSystemComponent
     {
         int peacefulDirection = 0;
 
-        Dictionary<string, Action> peacefulPool;
         Dictionary<string, Action> combatPool;
 
         Timer timer = new Timer(5f);
@@ -41,7 +40,7 @@ namespace CombatSystemComponent
             combatPool.Add("sprintRight", () => Move(faceRightOfTarget, grabSprinting));
             combatPool.Add("retarget", () => OnNearbyEnemies(0, 50, Retarget));
             combatPool.Add("melee", Melee);
-            combatPool.Add("fireball", () => Projectile("FireballProjectile"));
+            combatPool.Add("fireball", () => Projectile("Fireball"));
             #endregion
 
             foreach (CommandGroup commandGroup in commandGroups)
@@ -49,17 +48,15 @@ namespace CombatSystemComponent
                 commandGroupQueue.Enqueue(commandGroup);
 
                 foreach (CommandGroup.Command command in commandGroup.commands)
-                {
                     command.run = combatPool[command.name];
-                }
             }         
         }
 
         //Update
         void Update()
         {
-            UpdateCharacterController();
             OnNearbyEnemies(0, 40, Retarget);
+            UpdateCharacterController();          
             OnDecision();
             CheckIfCharacterIsGrounded();
         }
@@ -69,41 +66,25 @@ namespace CombatSystemComponent
         {
             timer.Update();
             if (timer.isAtMax)
-            {
+            {             
                 timer.Reset();
                 ResetDecisionValues();
                 peacefulDirection = UnityEngine.Random.Range(0, 4);
-            }
-            
+            }            
             Move(directions[peacefulDirection], grabWalking);
         }
         protected override void OnCombatDecision()
         {
             timer.Update();
             if (timer.isAtMax)
-            {
+            {              
                 timer.Reset();
                 ResetDecisionValues();
-                commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());
+                commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());              
             }
             commandGroupQueue.Peek().ChooseCommand(TargetDistance());
         }
-        protected virtual void DestroyIfDead()
-        {
-            //check if object is dead
-            if (health <= 0)
-            {
-                animator.SetTrigger(grabDead);
-                this.gameObject.layer = 2;
-                CombatSystem.ProperDestroy(this.gameObject, 5);
-            }
-        }
-
         //Misc Helpers
-        protected override Transform GetDefaultTarget()
-        {
-            return GameObject.Find("Player").transform;
-        }
         protected float TargetDistance()
         {
             return Vector3.Distance(controller.transform.position, target.position); ;

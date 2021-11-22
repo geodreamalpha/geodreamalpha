@@ -28,7 +28,8 @@ namespace TerrainGeneratorComponent
 
         public void OnReturnToLoginClick()
         {
-            //returns the user to the login screen
+            Resources.UnloadUnusedAssets();
+            SceneManager.LoadScene("Main Menu");
         }
 
         public void OnQuitClick()

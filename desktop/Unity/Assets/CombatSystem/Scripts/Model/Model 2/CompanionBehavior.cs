@@ -45,6 +45,12 @@ namespace CombatSystemComponent
             else if (distance > 2)
                 Move(faceSubject, grabWalking);
         }
+
+        //Misc Helpers
+        protected override Transform GetDefaultTarget()
+        {
+            return GameObject.Find("Player").transform;
+        }
     }
 }
 

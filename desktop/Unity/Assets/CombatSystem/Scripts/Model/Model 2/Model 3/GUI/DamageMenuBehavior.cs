@@ -6,32 +6,40 @@ using CombatSystemComponent;
 
 public class DamageMenuBehavior : MonoBehaviour
 {
-    GameObject healthBar;
-    Slider slider;
-    CombatSystem combatSystem;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        healthBar = GameObject.Find("HealthBar");
-        slider = healthBar.GetComponent<Slider>();
-        combatSystem = GameObject.Find("CombatSystem").GetComponent<CombatSystem>(); 
-        slider.value = combatSystem.GetPlayerHealth(); 
-    }
+
+    [SerializeField] Slider slider;
+    [SerializeField] CombatSystem combatSystem;
+
+    List<(Transform transform, RectTransform rectTransform)> damageList = new List<(Transform, RectTransform)>();
 
     // Update is called once per frame
     void Update()
     {
         slider.value = combatSystem.GetPlayerHealth();
-    }
+        //stamina bar update goes here
 
-    public void ShowDamage(Vector3 position, float damageAmount, Color damageTint, CombatSystemAssets assets)
+        //updates damage text positions
+        for (int i = 0; i < damageList.Count; i++)
+            if (damageList[i].transform == null || damageList[i].rectTransform == null)
+            {
+                damageList.RemoveAt(i);
+                i--;
+            }
+            else if (damageList[i].rectTransform.position.z > 0)
+                damageList[i].rectTransform.position = Camera.main.WorldToScreenPoint(damageList[i].transform.position);
+    }
+    
+    public void ShowDamage(Transform targetTransform, float damageAmount, Color damageTint, CombatSystemAssets assets)
     {
-        GameObject textObject = Instantiate(assets.getDamageText(), transform, false);
+        damageList.Add((targetTransform, Instantiate(assets.getDamageText(),
+            Camera.main.WorldToScreenPoint(targetTransform.position),
+            Quaternion.identity,
+            transform).GetComponent<RectTransform>()));
+
+        GameObject textObject = damageList[damageList.Count - 1].rectTransform.gameObject;
 
         TMPro.TMP_Text text = textObject.GetComponent<TMPro.TMP_Text>();
         text.text = damageAmount.ToString();
         text.color = damageTint;
-        textObject.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(position);
     }
 }

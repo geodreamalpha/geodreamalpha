@@ -910,13 +910,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1
   m_Radius: 0.5
   m_SlopeLimit: 35
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &-1673661901443158720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,7 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71018efb2b07ea40ac4936bfe28d325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageTextColor: {r: 0, g: 0.030314207, b: 1, a: 0}
+  damageTextColor: {r: 0, g: 0.030314207, b: 1, a: 1}
   animator: {fileID: 9500000}
   controller: {fileID: 170208177724646629}
   target: {fileID: 0}
@@ -945,19 +945,6 @@ MonoBehaviour:
     sprintSpeed: 1
     projectileCheck: 1
     projectileSpeed: 1
-  gameStats:
-    healthPoints: 1
-    strength: 1
-    defense: 1
-    jumpHeight: 1
-    staminaPoints: 1
-    energy: 1
-    aura: 1
-    walkSpeed: 1
-    sprintSpeed: 1
-    projectileCheck: 1
-    projectileSpeed: 1
-  peacefulName: peacefulWalk
   commandGroups:
   - timer:
       maxTime: 0.2

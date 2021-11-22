@@ -65,15 +65,16 @@ public class ProjectileBehavior : MonoBehaviour
         //CharacterBase attackerStats = attacker.GetComponent<ProjectileBehavior>().sender.GetComponent<CharacterBase>();
         //damage = (int)DerivedStats.GetReductionDamage(attackerStats.gameStats.energy, this.gameStats.aura);
 
-
-        if (sender != null && other.transform.root.gameObject.tag != sender.tag && destroyOnImpact)
+        if (sender != null && other.transform.root.gameObject.layer != sender.layer)
         {
             if (impact != null)
             {
                 Instantiate(impact, transform.position, Quaternion.identity);
                 impact.GetComponent<ProjectileBehavior>().sender = sender;
-            }
-            Destroy(gameObject);
+            }            
         }
+
+        if (destroyOnImpact)
+            Destroy(gameObject);
     }
 }

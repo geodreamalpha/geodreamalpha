@@ -35,7 +35,6 @@ namespace CombatSystemComponent {
             GameObject.Find("Companion").GetComponent<CompanionBehavior>().SetAssets(assets);
         }
 
-        bool initialEnemy = true; //temporary code
         void Update()
         {
             enemyGenerator.CreateNewEnemies(assets, player);

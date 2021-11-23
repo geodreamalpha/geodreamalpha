@@ -21,6 +21,16 @@ public class FBHook
     }
 
     /// <summary>
+    /// Blanket method to write player stats as integers
+    /// </summary>
+    /// <param name="stat">The name of the stat</param>
+    /// <param name="callback">Callback function</param>
+    public void SetStat(string stat, int value, GetIntCallback callback)
+    {
+        fb.UpdateIntField("/playerStats/0", stat, value, doc=>{});
+    }
+
+    /// <summary>
     /// Blanket method to retrieve companion stats as integers
     /// </summary>
     /// <param name="stat">The name of the stat</param>

@@ -47,38 +47,51 @@ public class Firebase
         }
     }
 
-    // public delegate void PatchDocCallback(PatchDocRes res);
-    // /// <summary>
-    // /// Patches a document's given fields
-    // /// </summary>
-    // /// <param name="docPath"> Path of the document to patch </param>
-    // /// <param name="callback"> What to do after the document is patched </param>
-    // public void PatchDoc(string docPath, string fieldName, object value, GetDocCallback callback)
-    // {
-    //     if(IsAuthenticated())
-    //     {
-    //         string body = "";
-    //         if (value.GetType() == typeof(string))
-    //         {
-    //             body = "{\r\n\t\"fields\": {\r\n    \t\""+fieldName+"\": {\r\n          \"stringValue\": \""+(string) value+"\"\r\n        }\r\n    }\r\n}";
-    //         }
-    //         else if (value.GetType() == typeof(int))
-    //         {
-    //             body = "{\r\n\t\"fields\": {\r\n    \t\""+fieldName+"\": {\r\n          \"integerValue\": "+(int) value+"\r\n        }\r\n    }\r\n}";
-    //         }
-    //         RestClient.Request(new RequestHelper {
-    //             Uri = $"{FSBaseURL}MvmJmiCXlNNHn4pXOi8HRxjif9X2/{docPath}?updateMask.fieldPaths={fieldName}&key={this.API_KEY}",
-    //             Method = "PATCH",
-    //             Body = body
-    //         }).Then(res=>{
-    //             Debug.Log(res.Text);
-    //         }).Catch(err=>{
-    //             var error = err as RequestException;
-    //             Debug.Log(error.Response);
-    //         });
-    //         Debug.Log(body);
-    //     }
-    // }
+    public delegate void UpdateIntFieldCallback(UpdateDocRes res);
+    /// <summary>
+    /// Patches a document's given integer field
+    /// </summary>
+    /// <param name="docPath"> Path of the document to patch </param>
+    /// <param name="fieldName"> Name of the integer field </param>
+    /// <param name="value"> The integer value to update the field with </param>
+    /// <param name="callback"> What to do after the document is patched </param>
+    public void UpdateIntField(string docPath, string fieldName, int value, UpdateIntFieldCallback callback)
+    {
+        if(IsAuthenticated())
+        {
+            string body = "{\r\n  \"writes\": [\r\n    {\r\n    \t\"updateMask\": {\r\n            \"fieldPaths\": [\r\n                \""+fieldName+"\"\r\n            ]\r\n  \t\t},\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+this.CurrUserId+docPath+"\",\r\n\t  \t\t\"fields\": {\r\n              \t\""+fieldName+"\": {\r\n                  \"integerValue\": \""+value.ToString()+"\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    }\r\n  ]\r\n}";
+            RestClient.Post($"{FSApiURL}projects/{ProjectID}/databases/(default)/documents:commit/?key={this.API_KEY}", body).Then(res=>{
+                // Debug.Log(res.Text);
+            }).Catch(err=>{
+                // var error = err as RequestException;
+                // Debug.Log(error.Response);
+            });
+            // Debug.Log(body);
+        }
+    }
+
+    public delegate void UpdateStrFieldCallback(UpdateDocRes res);
+    /// <summary>
+    /// Patches a document's given string field
+    /// </summary>
+    /// <param name="docPath"> Path of the document to patch </param>
+    /// <param name="fieldName"> Name of the string field </param>
+    /// <param name="value"> The string value to update the field with </param>
+    /// <param name="callback"> What to do after the document is patched </param>
+    public void UpdateStrField(string docPath, string fieldName, string value, UpdateStrFieldCallback callback)
+    {
+        if(IsAuthenticated())
+        {
+            string body = "{\r\n  \"writes\": [\r\n    {\r\n    \t\"updateMask\": {\r\n            \"fieldPaths\": [\r\n                \""+fieldName+"\"\r\n            ]\r\n  \t\t},\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+this.CurrUserId+docPath+"\",\r\n\t  \t\t\"fields\": {\r\n              \t\""+fieldName+"\": {\r\n                  \"stringValue\": \""+value.ToString()+"\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    }\r\n  ]\r\n}";
+            RestClient.Post($"{FSApiURL}projects/{ProjectID}/databases/(default)/documents:commit/?key={this.API_KEY}", body).Then(res=>{
+                // Debug.Log(res.Text);
+            }).Catch(err=>{
+                // var error = err as RequestException;
+                // Debug.Log(error.Response);
+            });
+            // Debug.Log(body);
+        }
+    }
 
     public delegate void GetSignInResCallback(SignInRes signInRes);
     /// <summary>

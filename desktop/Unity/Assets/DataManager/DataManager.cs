@@ -41,6 +41,13 @@ namespace DataManagerComponent
         {
             fbh.GetStat("currHP", val=>{callback(val);});
         }
+        /// <summary>
+        /// Sets the player's current health in Firebase
+        /// </summary>
+        public static void SetCurrHP(int value)
+        {
+            fbh.SetStat("currHP", value, res=>{});
+        }
 
         /// <summary>
         /// Gets the player's last known max health from Firebase
@@ -48,6 +55,13 @@ namespace DataManagerComponent
         public static void GetMaxHP(GetStatCallback callback)
         {
             fbh.GetStat("maxHP", val=>{callback(val);});
+        }
+        /// <summary>
+        /// Sets the player's max health in Firebase
+        /// </summary>
+        public static void SetMaxHP(int value)
+        {
+            fbh.SetStat("maxHP", value, res=>{});
         }
 
         /// <summary>
@@ -57,6 +71,13 @@ namespace DataManagerComponent
         {
             fbh.GetStat("currSTM", val=>{callback(val);});
         }
+        /// <summary>
+        /// Sets the player's current stamina in Firebase
+        /// </summary>
+        public static void SetCurrSTM(int value)
+        {
+            fbh.SetStat("currSTM", value, res=>{});
+        }
 
         /// <summary>
         /// Gets the player's last known max stamina from Firebase
@@ -64,6 +85,13 @@ namespace DataManagerComponent
         public static void GetMaxSTM(GetStatCallback callback)
         {
             fbh.GetStat("maxSTM", val=>{callback(val);});
+        }
+        /// <summary>
+        /// Sets the player's max stamina in Firebase
+        /// </summary>
+        public static void SetMaxSTM(int value)
+        {
+            fbh.SetStat("maxSTM", value, res=>{});
         }
 
         /// <summary>
@@ -73,6 +101,13 @@ namespace DataManagerComponent
         {
             fbh.GetStat("strength", val=>{callback(val);});
         }
+        /// <summary>
+        /// Sets the player's strength in Firebase
+        /// </summary>
+        public static void SetStrength(int value)
+        {
+            fbh.SetStat("strength", value, res=>{});
+        }
 
         /// <summary>
         /// Get's the player's last known speed value from Firebase
@@ -81,6 +116,13 @@ namespace DataManagerComponent
         {
             fbh.GetStat("speed", val=>{callback(val);});
         }
+        /// <summary>
+        /// Sets the player's speed in Firebase
+        /// </summary>
+        public static void SetSpeed(int value)
+        {
+            fbh.SetStat("speed", value, res=>{});
+        }
 
         /// <summary>
         /// Get's the player's last saved XP value from Firebase
@@ -88,6 +130,13 @@ namespace DataManagerComponent
         public static void GetXP(GetStatCallback callback)
         {
             fbh.GetStat("xp", val=>{callback(val);});
+        }
+        /// <summary>
+        /// Sets the player's xp in Firebase
+        /// </summary>
+        public static void SetXP(int value)
+        {
+            fbh.SetStat("xp", value, res=>{});
         }
 
         /// <summary>

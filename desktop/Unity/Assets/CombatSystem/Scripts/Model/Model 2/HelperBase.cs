@@ -128,10 +128,15 @@ namespace CombatSystemComponent
         }
         protected void OnNearbyEnemies(float forwardOffset, float radius, Action<Collider[]> actionToPerform)
         {
-            string layer = gameObject.layer == 10 ? "Allie" : "Enemy";
-            Collider[] colliders = Physics.OverlapSphere(transform.position + (transform.forward * forwardOffset), radius, LayerMask.GetMask(layer));
+            OnNearbyEnemies(transform, forwardOffset, radius, actionToPerform);
+        }
+        public static void OnNearbyEnemies(Transform allieTransform, float forwardOffset, float radius, Action<Collider[]> actionToPerform)
+        {
+            string layerName = allieTransform.gameObject.layer == 10 ? "Allie" : "Enemy";
+            Collider[] colliders = Physics.OverlapSphere(allieTransform.position + (allieTransform.forward * forwardOffset), radius, LayerMask.GetMask(layerName));
             actionToPerform(colliders);
         }
+
         protected void ApplyDamageTo(Collider[] enemies)
         {
             foreach (Collider enemy in enemies)
@@ -144,6 +149,7 @@ namespace CombatSystemComponent
                 enemyStats.TakeDamage(damageAmount);
             }
         }
+
         public virtual void TakeDamage(float damageAmount)
         {
             health -= (int)damageAmount;

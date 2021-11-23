@@ -1852,6 +1852,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6779447315424042663, guid: a74d24013144b4d44960c2bb4cb9c833, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 6779447316048282555, guid: a74d24013144b4d44960c2bb4cb9c833, type: 3}
+      propertyPath: m_text
+      value: Logout
+      objectReference: {fileID: 0}
     - target: {fileID: 6779447316932879083, guid: a74d24013144b4d44960c2bb4cb9c833, type: 3}
       propertyPath: m_Pivot.x
       value: 0

@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+//Tyler Anderson; Unit Test
 public class TerrainGeneratorTest
 {
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use

@@ -92,7 +92,7 @@ public class SignUpRes
     public string ErrorMessage;
 }
 
-public class PatchDocRes
+public class UpdateDocRes
 {
     public bool Success;
 }

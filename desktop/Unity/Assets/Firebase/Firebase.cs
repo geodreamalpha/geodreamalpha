@@ -43,42 +43,59 @@ public class Firebase
             {
                 Document doc = JsonConvert.DeserializeObject<Document>(res.Text);
                 callback(doc);
+            }).Catch(err=>
+            {
+                Document doc = new Document();
+                callback(doc);
             });
         }
     }
 
-    // public delegate void PatchDocCallback(PatchDocRes res);
-    // /// <summary>
-    // /// Patches a document's given fields
-    // /// </summary>
-    // /// <param name="docPath"> Path of the document to patch </param>
-    // /// <param name="callback"> What to do after the document is patched </param>
-    // public void PatchDoc(string docPath, string fieldName, object value, GetDocCallback callback)
-    // {
-    //     if(IsAuthenticated())
-    //     {
-    //         string body = "";
-    //         if (value.GetType() == typeof(string))
-    //         {
-    //             body = "{\r\n\t\"fields\": {\r\n    \t\""+fieldName+"\": {\r\n          \"stringValue\": \""+(string) value+"\"\r\n        }\r\n    }\r\n}";
-    //         }
-    //         else if (value.GetType() == typeof(int))
-    //         {
-    //             body = "{\r\n\t\"fields\": {\r\n    \t\""+fieldName+"\": {\r\n          \"integerValue\": "+(int) value+"\r\n        }\r\n    }\r\n}";
-    //         }
-    //         RestClient.Request(new RequestHelper {
-    //             Uri = $"{FSBaseURL}MvmJmiCXlNNHn4pXOi8HRxjif9X2/{docPath}?updateMask.fieldPaths={fieldName}&key={this.API_KEY}",
-    //             Method = "PATCH",
-    //             Body = body
-    //         }).Then(res=>{
-    //             Debug.Log(res.Text);
-    //         }).Catch(err=>{
-    //             var error = err as RequestException;
-    //             Debug.Log(error.Response);
-    //         });
-    //         Debug.Log(body);
-    //     }
-    // }
+    public delegate void UpdateIntFieldCallback(UpdateDocRes res);
+    /// <summary>
+    /// Patches a document's given integer field
+    /// </summary>
+    /// <param name="docPath"> Path of the document to patch </param>
+    /// <param name="fieldName"> Name of the integer field </param>
+    /// <param name="value"> The integer value to update the field with </param>
+    /// <param name="callback"> What to do after the document is patched </param>
+    public void UpdateIntField(string docPath, string fieldName, int value, UpdateIntFieldCallback callback)
+    {
+        if(IsAuthenticated())
+        {
+            string body = "{\r\n  \"writes\": [\r\n    {\r\n    \t\"updateMask\": {\r\n            \"fieldPaths\": [\r\n                \""+fieldName+"\"\r\n            ]\r\n  \t\t},\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+this.CurrUserId+docPath+"\",\r\n\t  \t\t\"fields\": {\r\n              \t\""+fieldName+"\": {\r\n                  \"integerValue\": \""+value.ToString()+"\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    }\r\n  ]\r\n}";
+            RestClient.Post($"{FSApiURL}projects/{ProjectID}/databases/(default)/documents:commit/?key={this.API_KEY}", body).Then(res=>{
+                // Debug.Log(res.Text);
+            }).Catch(err=>{
+                // var error = err as RequestException;
+                // Debug.Log(error.Response);
+            });
+            // Debug.Log(body);
+        }
+    }
+
+    public delegate void UpdateStrFieldCallback(UpdateDocRes res);
+    /// <summary>
+    /// Patches a document's given string field
+    /// </summary>
+    /// <param name="docPath"> Path of the document to patch </param>
+    /// <param name="fieldName"> Name of the string field </param>
+    /// <param name="value"> The string value to update the field with </param>
+    /// <param name="callback"> What to do after the document is patched </param>
+    public void UpdateStrField(string docPath, string fieldName, string value, UpdateStrFieldCallback callback)
+    {
+        if(IsAuthenticated())
+        {
+            string body = "{\r\n  \"writes\": [\r\n    {\r\n    \t\"updateMask\": {\r\n            \"fieldPaths\": [\r\n                \""+fieldName+"\"\r\n            ]\r\n  \t\t},\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+this.CurrUserId+docPath+"\",\r\n\t  \t\t\"fields\": {\r\n              \t\""+fieldName+"\": {\r\n                  \"stringValue\": \""+value.ToString()+"\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    }\r\n  ]\r\n}";
+            RestClient.Post($"{FSApiURL}projects/{ProjectID}/databases/(default)/documents:commit/?key={this.API_KEY}", body).Then(res=>{
+                // Debug.Log(res.Text);
+            }).Catch(err=>{
+                // var error = err as RequestException;
+                // Debug.Log(error.Response);
+            });
+            // Debug.Log(body);
+        }
+    }
 
     public delegate void GetSignInResCallback(SignInRes signInRes);
     /// <summary>
@@ -157,11 +174,16 @@ public class Firebase
     /// </summary>
     /// <param name="userEmail"></param>
     /// <param name="userId"></param>
-    private void CreateUserData(string userEmail, string userId)
+    public void CreateUserData(string userEmail, string userId)
     {
-        string jsonReq = "{\r\n  \"writes\": [\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"userEmail\": {\r\n\t\t\t      \"stringValue\": \""+userEmail+"\"\r\n\t\t\t\t},\r\n              \t\"userId\": {\r\n                  \"stringValue\": \""+userId+"\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/playerStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"currHP\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"currSTM\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"level\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"maxHP\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"maxSTM\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"strength\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"xp\": {\r\n                  \"integerValue\": 0\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/compStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"level\": {\r\n\t\t\t      \"integerValue\": 1\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"integerValue\": 1\r\n                },\r\n              \t\"strength\": {\r\n                  \"integerValue\": 1\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/worlds/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"seed\": {\r\n\t\t\t      \"stringValue\": \"\"\r\n\t\t\t\t}\r\n  \t\t\t}\r\n    \t}\r\n    }\r\n  ]\r\n}";
+        // string jsonReq = "{\r\n  \"writes\": [\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"userEmail\": {\r\n\t\t\t      \"stringValue\": \""+userEmail+"\"\r\n\t\t\t\t},\r\n              \t\"userId\": {\r\n                  \"stringValue\": \""+userId+"\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/playerStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"currHP\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"currSTM\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"level\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"maxHP\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"maxSTM\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"integerValue\": 0\r\n                },\r\n              \t\"strength\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"xp\": {\r\n                  \"integerValue\": 0\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/compStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"level\": {\r\n\t\t\t      \"integerValue\": 1\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"integerValue\": 1\r\n                },\r\n              \t\"strength\": {\r\n                  \"integerValue\": 1\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/worlds/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"seed\": {\r\n\t\t\t      \"stringValue\": \"\"\r\n\t\t\t\t}\r\n  \t\t\t}\r\n    \t}\r\n    }\r\n  ]\r\n}";
+        string jsonReq = "{\r\n  \"writes\": [\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"userEmail\": {\r\n\t\t\t      \"stringValue\": \""+userEmail+"\"\r\n\t\t\t\t},\r\n              \t\"userId\": {\r\n                  \"stringValue\": \""+userId+"\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/playerStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"currHP\": {\r\n\t\t\t      \"integerValue\": 100\r\n\t\t\t\t},\r\n              \t\"currSTM\": {\r\n                  \"integerValue\": 1\r\n                },\r\n              \t\"level\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"maxHP\": {\r\n                  \"integerValue\": 100\r\n                },\r\n              \t\"maxSTM\": {\r\n\t\t\t      \"integerValue\": 0\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"integerValue\": 1\r\n                },\r\n              \t\"strength\": {\r\n\t\t\t      \"integerValue\": 1\r\n\t\t\t\t},\r\n              \t\"xp\": {\r\n                  \"integerValue\": 0\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/compStats/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"level\": {\r\n\t\t\t      \"stringValue\": \"1\"\r\n\t\t\t\t},\r\n              \t\"speed\": {\r\n                  \"stringValue\": \"1\"\r\n                },\r\n              \t\"strength\": {\r\n                  \"stringValue\": \"1\"\r\n                },\r\n              \t\"currentLifts\": {\r\n                  \"stringValue\": \"0\"\r\n                },\r\n              \t\"liftsNeeded\": {\r\n                  \"stringValue\": \"10\"\r\n                }\r\n  \t\t\t}\r\n    \t}\r\n    },\r\n    {  \t\r\n    \t\"update\": {\r\n    \t\t\"name\": \"projects/foot-leprechauns/databases/(default)/documents/users/"+userId+"/worlds/0\",\r\n\t  \t\t\"fields\": {\r\n\t\t\t    \"seed\": {\r\n\t\t\t      \"stringValue\": \"0_0\"\r\n\t\t\t\t}\r\n  \t\t\t}\r\n    \t}\r\n    }\r\n  ]\r\n}";
         RestClient.Post($"https://firestore.googleapis.com/v1/projects/{ProjectID}/databases/(default)/documents:commit/?key={this.API_KEY}", jsonReq).Then(res=>{
-            // Debug.Log(res.Text);
+            Debug.Log(res.Text);
+        }).Catch(err=>
+        {
+            var error = err as RequestException;
+            Debug.Log(error.Response);
         });
     }
 

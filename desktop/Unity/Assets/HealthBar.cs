@@ -33,12 +33,6 @@ public class HealthBar : MonoBehaviour
                 Debug.Log(val);
             });
         }
-        else if(Input.GetKeyDown(KeyCode.W)){
-            DataManager.GetCompStrength(val=>
-            {
-                Debug.Log(val+5);
-            });
-        }
     }
 
     public void SetHealth(int health)

@@ -69,7 +69,7 @@ public class FBHook
     {
         fb.GetDoc("compStats/0", doc=>
         {
-            string val = doc.fields[stat]["integerValue"];
+            string val = doc.fields[stat]["stringValue"];
             int value = int.Parse(val);
             callback(value);
         });

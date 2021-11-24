@@ -34,14 +34,9 @@ public class HealthBar : MonoBehaviour
             });
         }
         else if(Input.GetKeyDown(KeyCode.W)){
-            // fb.UpdateStrField("/worlds/0", "seed", "soijwequ9oiwe", res=>{});
-            // DataManager.GetSeed(0, val=>
-            // {
-            //     Debug.Log(val);
-            // });
-            DataManager.GetSeed(1, val=>
+            DataManager.GetCompStrength(val=>
             {
-                Debug.Log(val);
+                Debug.Log(val+5);
             });
         }
     }

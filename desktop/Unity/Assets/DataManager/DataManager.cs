@@ -19,15 +19,34 @@ namespace DataManagerComponent
             return "Hello from Component DataManager";
         }
 
+        public delegate void GetSeedCallback(string seed);
         /// <summary>
-        /// Gets a world seed from Firebase with given index. Index of 0 means latest seed. 
-        /// Higher values indicate previous seeds respectively.
+        /// Gets a world seed from Firebase with given index.
+        /// The callback will return null if the seed does not exist or the index is out of range
         /// </summary>
         /// <param name="index"></param>
         /// <returns>Seed in string form</returns>
-        public static string GetSeed(int index)
+        public static void GetSeed(int index, GetSeedCallback callback)
         {
-            return "";
+            if (index >= 0 && index < 6) {
+                fbh.GetSeed(index, val=>{callback(val);});
+            }
+            else {
+                callback(null);
+            }
+        }
+        /// <summary>
+        /// Saves a world seed to Firebase with given index.
+        /// If the index is out of the range of 0 to 5 then it will not write the value.
+        /// </summary>
+        /// <param name="seed">Value of the seed</param>
+        /// <param name="index">Index of the seed</param>
+        /// <returns>Seed in string form</returns>
+        public static void SetSeed(string seed, int index)
+        {
+            if (index >= 0 && index < 6) {
+                fbh.SetSeed(seed, index);
+            }
         }
 
 

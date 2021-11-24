@@ -34,8 +34,15 @@ public class HealthBar : MonoBehaviour
             });
         }
         else if(Input.GetKeyDown(KeyCode.W)){
-            // fb.UpdateDoc("/playerStats/0", "currHP", 180, res=>{});
-            DataManager.SetXP(409);
+            // fb.UpdateStrField("/worlds/0", "seed", "soijwequ9oiwe", res=>{});
+            // DataManager.GetSeed(0, val=>
+            // {
+            //     Debug.Log(val);
+            // });
+            DataManager.GetSeed(1, val=>
+            {
+                Debug.Log(val);
+            });
         }
     }
 

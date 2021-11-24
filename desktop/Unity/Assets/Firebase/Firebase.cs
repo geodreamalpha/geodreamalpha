@@ -43,6 +43,10 @@ public class Firebase
             {
                 Document doc = JsonConvert.DeserializeObject<Document>(res.Text);
                 callback(doc);
+            }).Catch(err=>
+            {
+                Document doc = new Document();
+                callback(doc);
             });
         }
     }

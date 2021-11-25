@@ -659,6 +659,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8172526215862255098, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172526215862255098, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172526215862255098, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172526215862255098, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1600
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172526215862255098, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 8172526215862255100, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
       propertyPath: m_Name
       value: MenuCanvas

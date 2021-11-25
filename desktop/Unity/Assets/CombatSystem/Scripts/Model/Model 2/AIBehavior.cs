@@ -66,7 +66,8 @@ namespace CombatSystemComponent
         {
             timer.Update();
             if (timer.isAtMax)
-            {             
+            {
+
                 timer.Reset();
                 ResetDecisionValues();
                 peacefulDirection = UnityEngine.Random.Range(0, 4);
@@ -77,13 +78,16 @@ namespace CombatSystemComponent
         {
             timer.Update();
             if (timer.isAtMax)
-            {              
+            {
+                
                 timer.Reset();
                 ResetDecisionValues();
                 commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());              
             }
             commandGroupQueue.Peek().ChooseCommand(TargetDistance());
         }
+
+        
         //Misc Helpers
         protected float TargetDistance()
         {

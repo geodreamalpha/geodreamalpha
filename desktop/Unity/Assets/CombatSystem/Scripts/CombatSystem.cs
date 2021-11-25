@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 namespace CombatSystemComponent {
 
@@ -14,6 +15,10 @@ namespace CombatSystemComponent {
         CombatSystemAssets assets;
         EnemyGenerator enemyGenerator = new EnemyGenerator();
         static bool isStartUp = true;
+
+        CinemachineBrain brain;
+        CinemachineOrbitalTransposer orbital;
+        CinemachineComposer aim;
 
         //Note to Dr. Layman 
         //Combat system will only provide the stats class as well as any particle effects and may not need.
@@ -33,17 +38,33 @@ namespace CombatSystemComponent {
         {
             player.gameObject.transform.root.GetComponent<PlayerBehavior>().SetAssets(assets);
             GameObject.Find("Companion").GetComponent<CompanionBehavior>().SetAssets(assets);
+
+            brain = Camera.main.GetComponent<CinemachineBrain>();
+            CinemachineVirtualCamera cineCam = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
+            orbital = cineCam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
+            aim = cineCam.GetCinemachineComponent<CinemachineComposer>();
         }
 
         void Update()
         {
             enemyGenerator.CreateNewEnemies(assets, player);
-            companionStats.Update();
+            companionStats.Update();   
         }
 
         void LateUpdate()
         {
             enemyGenerator.RemoveOldEnemies(player);
+
+            if (Time.timeScale > 0.5)
+            {
+                brain.enabled = true;
+                Vector3 follow = orbital.m_FollowOffset;
+                follow.z = Mathf.Clamp(follow.z - Input.mouseScrollDelta.y * 10f * Time.deltaTime, 6, 14);
+                follow.y = Mathf.Clamp(follow.y - Input.GetAxis("Mouse Y") * 1f * Time.deltaTime, 0, 5);
+                orbital.m_FollowOffset = follow;
+            }
+            else
+                brain.enabled = false;
         }
 
         /// <summary>

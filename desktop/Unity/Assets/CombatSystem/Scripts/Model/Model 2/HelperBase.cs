@@ -128,16 +128,16 @@ namespace CombatSystemComponent
         }
         protected void OnNearbyEnemies(float forwardOffset, float radius, Action<Collider[]> actionToPerform)
         {
-            OnNearbyEnemies(transform, forwardOffset, radius, actionToPerform);
+            OnNearbyEnemies(transform, gameObject.layer, forwardOffset, radius, actionToPerform);
         }
-        public static void OnNearbyEnemies(Transform allieTransform, float forwardOffset, float radius, Action<Collider[]> actionToPerform)
+        public static void OnNearbyEnemies(Transform allieTransform, int allieLayer,  float forwardOffset, float radius, Action<Collider[]> actionToPerform)
         {
-            string layerName = allieTransform.gameObject.layer == 10 ? "Allie" : "Enemy";
+            string layerName = allieLayer == 10 ? "Allie" : "Enemy";
             Collider[] colliders = Physics.OverlapSphere(allieTransform.position + (allieTransform.forward * forwardOffset), radius, LayerMask.GetMask(layerName));
             actionToPerform(colliders);
         }
 
-        protected void ApplyDamageTo(Collider[] enemies)
+        protected void ApplyMeleeDamageTo(Collider[] enemies)
         {
             foreach (Collider enemy in enemies)
             {
@@ -161,7 +161,7 @@ namespace CombatSystemComponent
         }
         protected virtual void MeleeContactEvent()
         {
-            OnNearbyEnemies(4, 5, ApplyDamageTo);
+            OnNearbyEnemies(4, 5, ApplyMeleeDamageTo);
             //play damage sound effects
             //damage particle effects
         }

@@ -6,23 +6,31 @@ using System;
 [System.Serializable]
 public class CommandGroup
 {
-    public Timer timer = new Timer(2f);
     public List<Command> commands;
+    [SerializeField]
+
+    int commandCounter = 0;
+    int maxCommands = 4;
+
+    public bool hasCommand { get; private set; } = false;
+    public bool isAtMax { get { return commandCounter >= maxCommands; } }
 
     public void ChooseCommand(float distance)
     {
-        timer.Update();
+        hasCommand = false;
+        foreach (Command command in commands)
+            if (command.DoesProximityContain(distance))
+            {
+                command.run();
+                commandCounter++;
+                hasCommand = true;
+                break;
+            }
+    }
 
-        if (timer.isAtMax)
-        {
-            timer.Reset();
-            foreach (Command command in commands)
-                if (command.DoesProximityContain(distance))
-                {
-                    command.run();
-                    break;
-                }
-        }
+    public void ResetCounter()
+    {
+        commandCounter = 0;
     }
 
     [System.Serializable]

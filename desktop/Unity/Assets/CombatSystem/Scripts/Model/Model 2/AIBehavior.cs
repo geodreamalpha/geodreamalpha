@@ -11,7 +11,8 @@ namespace CombatSystemComponent
 
         Dictionary<string, Action> combatPool;
 
-        Timer timer = new Timer(5f);
+        Timer commandTimer = new Timer(2f);
+        Timer defaultTimer = new Timer(3f);
 
         [SerializeField]
         List<CommandGroup> commandGroups;
@@ -22,7 +23,7 @@ namespace CombatSystemComponent
         {
             SetInGameStats();
 
-            timer = new Timer(5f);
+            commandTimer = new Timer(2f);
 
             OnDecision = OnPeacefulDecision;
 
@@ -55,38 +56,56 @@ namespace CombatSystemComponent
         //Update
         void Update()
         {
-            OnNearbyEnemies(0, 40, Retarget);
-            UpdateCharacterController();          
+            UpdateCharacterController();
             OnDecision();
             CheckIfCharacterIsGrounded();
+        }
+
+        protected override void OnCombatDecision()
+        {
+            commandTimer.Update();
+            if (commandTimer.isAtMax)
+            {
+                commandTimer.Reset();
+                ResetDecisionValues();              
+
+                if (commandGroupQueue.Peek().isAtMax)
+                {
+                    commandGroupQueue.Peek().ResetCounter();
+                    commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());
+                }
+
+                commandGroupQueue.Peek().ChooseCommand(TargetDistance());
+
+                if (!commandGroupQueue.Peek().hasCommand)
+                {
+                    Retarget(new Collider[] { });
+                    peacefulDirection = UnityEngine.Random.Range(0, 4);
+                    Move(directions[peacefulDirection], grabWalking);
+                }
+                    
+            }  
         }
 
         //Make Decision Events
         protected override void OnPeacefulDecision()
         {
-            timer.Update();
-            if (timer.isAtMax)
+            defaultTimer.Update();
+            if (defaultTimer.isAtMax)
             {
-
-                timer.Reset();
+                defaultTimer.Reset();
                 ResetDecisionValues();
-                peacefulDirection = UnityEngine.Random.Range(0, 4);
-            }            
-            Move(directions[peacefulDirection], grabWalking);
-        }
-        protected override void OnCombatDecision()
-        {
-            timer.Update();
-            if (timer.isAtMax)
-            {
-                
-                timer.Reset();
-                ResetDecisionValues();
-                commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());              
-            }
-            commandGroupQueue.Peek().ChooseCommand(TargetDistance());
-        }
+                OnNearbyEnemies(0, 40, Retarget);
 
+                if (target == null)
+                {
+                    peacefulDirection = UnityEngine.Random.Range(0, 4);
+                    Move(directions[peacefulDirection], grabWalking);
+                }
+                else
+                    commandGroupQueue.Peek().ChooseCommand(TargetDistance());
+            }           
+        }
         
         //Misc Helpers
         protected float TargetDistance()

@@ -11,7 +11,6 @@ namespace CombatSystemComponent
         [SerializeField]
         GameObject impact;
 
-        public bool destroyOnImpact = true;
         const float lerpDirection = 0.03f;
         public Timer lifetime = new Timer(10f);
 
@@ -23,18 +22,16 @@ namespace CombatSystemComponent
         public AnimationCurve speed = new AnimationCurve(new Keyframe(0, 40));
         public AnimationCurve growth = new AnimationCurve(new Keyframe(0, 1));
 
-        Rigidbody rigidBody;
-
-        void Start()
+        protected void ApplyProjectileDamageTo(Collider[] enemies)
         {
-            rigidBody = GetComponent<Rigidbody>();
-        }
-
-        void DamageTargets(Collider[] colliders)
-        {
-            foreach(Collider collider in colliders)
+            foreach (Collider enemy in enemies)
             {
-                
+                //damage calculation
+                int damageAmount = 0;
+                HelperBase enemyStats = enemy.transform.root.GetComponent<HelperBase>();
+                damageAmount = (int)DerivedStats.GetReductionDamage(sender.gameObject.GetComponent<HelperBase>().gameStats.energy, enemyStats.gameStats.aura);
+                damageAmount = (int)(damageAmount * UnityEngine.Random.Range(0.8f, 1.2f));
+                enemyStats.TakeDamage(damageAmount);
             }
         }
 
@@ -44,12 +41,18 @@ namespace CombatSystemComponent
             {
                 Instantiate(impact, transform.position, Quaternion.identity);
                 impact.GetComponent<ProjectileBehavior>().sender = sender;
-                Destroy(gameObject);
+                Destroy(gameObject);                
             }
         }
 
-        void Update()
+        private void FixedUpdate()
         {
+            if (sender != null && impact != null)
+                HelperBase.OnNearbyEnemies(transform, sender.layer, 0, 0.5f, ApplyProjectileDamageTo);
+        }
+
+        void Update()
+        {           
             #region Updates Lifetime
             lifetime.Update();
             if (lifetime.isAtMax)
@@ -71,21 +74,12 @@ namespace CombatSystemComponent
                     checkRate.Reset();
                 }
                 direction = Vector3.Lerp(direction, newDirection, lerpDirection);
-                #endregion
+                #endregion               
             }
 
             #region Moves In Specified Direction At Specified Speed
-            if (rigidBody != null)
-                rigidBody.position += (direction * speed.Evaluate(lifetime.getAccumulator) * Time.deltaTime);
-            #endregion
-
-           //HelperBase.OnNearbyEnemies(sender.transform, 0, 1, DamageTargets);
-        }
-
-        private void LateUpdate()
-        {
-            //if (sender == null)
-                //Destroy(gameObject);  destroys text
+            transform.position += (direction * speed.Evaluate(lifetime.getAccumulator) * Time.deltaTime);
+            #endregion          
         }
     }
 }

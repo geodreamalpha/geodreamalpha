@@ -7,6 +7,13 @@ namespace CombatSystemComponent
 {
     public class PlayerBehavior : HelperBase
     {
+        [SerializeField]
+        GameObject LockOn;
+        bool melee = true;
+
+        [SerializeField]
+        Texture2D lockOn;
+
         void Start()
         {
             SetInGameStats();
@@ -14,7 +21,6 @@ namespace CombatSystemComponent
 
         void Update()
         {
-            CancelTargetIfOutOfRange(50);
             SlowlyRegainHealthAndStamina();
             UpdateCharacterController();
             ResetDecisionValues();
@@ -32,7 +38,10 @@ namespace CombatSystemComponent
         {
             if (stamina > 10)
             {
-                base.Projectile(name);
+                GameObject projectile = Instantiate(assets.getProjectileByName(name), Camera.main.transform.position, Quaternion.identity);
+                ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
+                projectileBehavior.sender = gameObject;
+                projectileBehavior.direction = Camera.main.transform.forward;
                 DecreaseStaminaBy(10);
             }
         }
@@ -82,9 +91,9 @@ namespace CombatSystemComponent
             if (Input.GetKeyDown(KeyCode.Space))
                 Jump();
             if (Input.GetMouseButtonDown(0))
-                Melee();
+                Attack();
             if (Input.GetMouseButtonDown(1))
-                SetTarget();
+                SetAttack();
             if (Input.GetKeyDown(KeyCode.Alpha1))
                 Projectile("Fireball");
         }
@@ -112,18 +121,22 @@ namespace CombatSystemComponent
         {
             stamina = Mathf.Clamp(stamina - amount, 0, gameStats.staminaPoints);
         }
-        public void CancelTargetIfOutOfRange(float distance)
+
+        public void Attack()
         {
-            if (target != null && faceTarget.magnitude > distance)
-                CancelTarget();
+            if (melee)
+                Melee();
+            else
+                Projectile("Fireball");
         }
-        public void CancelTarget()
+
+        public void SetAttack()
         {
-            target = Camera.main.transform;
-        }
-        public void SetTarget()
-        {
-            OnNearbyEnemies(0, 50, Retarget);
+            melee = !melee;
+            LockOn.SetActive(!LockOn.activeSelf);
+            //Cursor.visible = true;
+            //Cursor.SetCursor(lockOn, Vector2.zero, CursorMode.Auto);
+
         }
     }
 }

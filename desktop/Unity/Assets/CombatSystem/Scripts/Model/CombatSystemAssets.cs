@@ -11,6 +11,8 @@ public class CombatSystemAssets
     List<GameObject> projectiles;
     [SerializeField]
     GameObject damageText;
+    [SerializeField]
+    protected AudioSource meleeImpactFX;
 
     public GameObject getEnemyByName(string name)
     {

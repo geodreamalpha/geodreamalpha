@@ -11,6 +11,7 @@ namespace CombatSystemComponent
 
         void Update()
         {
+            UpdateInGameStats();
             CheckForNullTarget();
             UpdateCharacterController();     
             PlayerCommands();

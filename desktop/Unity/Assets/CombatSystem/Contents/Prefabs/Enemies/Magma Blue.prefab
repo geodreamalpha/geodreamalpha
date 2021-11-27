@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 95993032998710688}
   - component: {fileID: 3334309078182914985}
   - component: {fileID: -2630572711335407733}
+  - component: {fileID: -2782961916414514384}
   m_Layer: 10
   m_Name: Magma Blue
   m_TagString: Untagged
@@ -117,6 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71018efb2b07ea40ac4936bfe28d325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepFX1: {fileID: 0}
+  stepFX2: {fileID: 0}
+  stepFX3: {fileID: 0}
+  stepFX4: {fileID: 0}
+  meleeAttackFX: {fileID: 0}
+  hitFX: {fileID: 0}
   damageTextColor: {r: 0.2783019, g: 0.32986602, b: 1, a: 1}
   animator: {fileID: 95993032998710688}
   controller: {fileID: 3334309078182914985}
@@ -133,34 +140,115 @@ MonoBehaviour:
     sprintSpeed: 1
     projectileCheck: 1
     projectileSpeed: 1
-  gameStats:
-    healthPoints: 1
-    strength: 1
-    defense: 1
-    jumpHeight: 1
-    staminaPoints: 1
-    energy: 1
-    aura: 1
-    walkSpeed: 1
-    sprintSpeed: 1
-    projectileCheck: 1
-    projectileSpeed: 1
-  peacefulName: peacefulWalk
   commandGroups:
-  - timer:
-      maxTime: 0.2
-    commands:
+  - commands:
     - proximity: 6
       name: melee
     - proximity: 40
       name: walkFrom
-  - timer:
-      maxTime: 1
-    commands:
+    commandCounter: 0
+  - commands:
     - proximity: 6
       name: melee
     - proximity: 40
       name: fireball
+    commandCounter: 0
+--- !u!82 &-2782961916414514384
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118243287434334}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1156400894848668
 GameObject:
   m_ObjectHideFlags: 0

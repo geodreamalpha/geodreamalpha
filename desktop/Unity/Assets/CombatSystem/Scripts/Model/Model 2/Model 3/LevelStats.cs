@@ -17,7 +17,7 @@ namespace CombatSystemComponent
             if (healthExp.isLevelIncreaseAvailable)
             {
                 healthExp.Reset();
-                //increase health
+                health = Mathf.Clamp(health + 50, 100, 5000);
                 Debug.Log("health increase");
             }
         }
@@ -28,7 +28,7 @@ namespace CombatSystemComponent
             if (staminaExp.isLevelIncreaseAvailable)
             {
                 staminaExp.Reset();
-                //increase stamina
+                stamina = Mathf.Clamp(stamina + 1, 1, 100);
                 Debug.Log("stamina increase");
             }
         }
@@ -39,8 +39,8 @@ namespace CombatSystemComponent
             if (strengthLExp.isLevelIncreaseAvailable)
             {
                 strengthLExp.Reset();
-                //increase strength
-                Debug.Log("strength increase");
+                strength = Mathf.Clamp(strength + 1, 1, 100);
+                Debug.Log("strength increase:  " + strength.ToString());
             }
         }
 
@@ -50,7 +50,7 @@ namespace CombatSystemComponent
             if (speedExp.isLevelIncreaseAvailable)
             {
                 speedExp.Reset();
-                //increase speed
+                speed = Mathf.Clamp(speed + 1, 1, 100);
                 Debug.Log("speed increase");
             }
         }

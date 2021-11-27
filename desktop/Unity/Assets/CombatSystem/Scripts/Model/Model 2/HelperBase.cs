@@ -62,6 +62,7 @@ namespace CombatSystemComponent
                 Rotate(faceTarget); //might need to do something different with yAxisFacingDirection
                 GameObject projectile = Instantiate(assets.getProjectileByName(name), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
                 ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
+                projectileBehavior.speed = gameStats.projectileSpeed;
                 projectileBehavior.target = target;
                 projectileBehavior.sender = gameObject;
             }
@@ -136,7 +137,6 @@ namespace CombatSystemComponent
             Collider[] colliders = Physics.OverlapSphere(allieTransform.position + (allieTransform.forward * forwardOffset), radius, LayerMask.GetMask(layerName));
             actionToPerform(colliders);
         }
-
         protected void ApplyMeleeDamageTo(Collider[] enemies)
         {
             foreach (Collider enemy in enemies)
@@ -162,6 +162,7 @@ namespace CombatSystemComponent
         protected virtual void MeleeContactEvent()
         {
             OnNearbyEnemies(4, 5, ApplyMeleeDamageTo);
+
             //play damage sound effects
             //damage particle effects
         }

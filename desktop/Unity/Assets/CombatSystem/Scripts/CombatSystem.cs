@@ -7,11 +7,12 @@ namespace CombatSystemComponent {
     //Jake Aldridge 
     public class CombatSystem : MonoBehaviour
     {
-        static readonly Stats companionStats = new Stats();
         [SerializeField]
         Transform player;
         [SerializeField]
         CombatSystemAssets assets;
+        [SerializeField]
+        MultiplierStats multiplierStats;
         EnemyGenerator enemyGenerator = new EnemyGenerator();
         static bool isStartUp = true;
 
@@ -28,7 +29,7 @@ namespace CombatSystemComponent {
             if (isStartUp)
             {
                 isStartUp = false;
-                CharacterBase.InitializeMultiplierStats();
+                CharacterBase.InitializeMultiplierStats(multiplierStats);
             }           
         }
 
@@ -41,8 +42,7 @@ namespace CombatSystemComponent {
 
         void Update()
         {
-            enemyGenerator.CreateNewEnemies(assets, player);
-            companionStats.Update();   
+            enemyGenerator.CreateNewEnemies(assets, player);  
         }
 
         void LateUpdate()

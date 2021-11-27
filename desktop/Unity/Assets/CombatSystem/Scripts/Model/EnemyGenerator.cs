@@ -24,6 +24,10 @@ namespace CombatSystemComponent
 
                 SnapList.Add(enemies[enemies.Count - 1].GetComponent<CharacterController>());
                 enemies[enemies.Count - 1].GetComponent<HelperBase>().SetAssets(assets);
+
+                //either pull level from player or companion level stats
+                enemies[enemies.Count - 1].GetComponent<CharacterBase>().levelStats = player.root.gameObject.GetComponent<PlayerBehavior>().levelStats;
+                //call initialize stats maybe?
             }
         }
 

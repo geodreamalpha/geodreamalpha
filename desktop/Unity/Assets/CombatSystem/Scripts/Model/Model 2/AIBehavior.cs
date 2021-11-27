@@ -21,9 +21,9 @@ namespace CombatSystemComponent
         //Start
         void Start()
         {
-            SetInGameStats();
+            InitializeInGameStats(); //---------------------
 
-            commandTimer = new Timer(2f);
+            commandTimer = new Timer(2 / (multiplier.speed.curve.Evaluate(levelStats.GetSpeed()) * 2));
 
             OnDecision = OnPeacefulDecision;
 
@@ -50,7 +50,7 @@ namespace CombatSystemComponent
 
                 foreach (CommandGroup.Command command in commandGroup.commands)
                     command.run = combatPool[command.name];
-            }         
+            }
         }
 
         //Update
@@ -84,7 +84,7 @@ namespace CombatSystemComponent
                     Move(directions[peacefulDirection], grabWalking);
                 }
                     
-            }  
+            }
         }
 
         //Make Decision Events

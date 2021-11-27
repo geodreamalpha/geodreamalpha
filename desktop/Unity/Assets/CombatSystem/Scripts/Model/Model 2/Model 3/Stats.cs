@@ -5,9 +5,9 @@ using DataManagerComponent;
 
 namespace CombatSystemComponent
 {
-    public class Stats
+    public abstract class Stats
     {
-        Timer timer = new Timer(2); 
+        Timer timer = new Timer(2);
         public void Update()
         {
             timer.Update();
@@ -37,10 +37,10 @@ namespace CombatSystemComponent
             }
         }
 
-        private int health = 100;
-        private int stamina = 100;
-        private int speed = 100;
-        private int strength = 100;
+        protected int health = 100;
+        protected int stamina = 1;
+        protected int speed = 100;
+        protected int strength = 1;
 
         /// <summary>
         /// Get the current health value.

@@ -19,7 +19,7 @@ namespace CombatSystemComponent
         public Vector3 direction = Vector3.zero;
         Vector3 newDirection = Vector3.zero;
 
-        public AnimationCurve speed = new AnimationCurve(new Keyframe(0, 40));
+        public float speed = 0;
         public AnimationCurve growth = new AnimationCurve(new Keyframe(0, 1));
 
         protected void ApplyProjectileDamageTo(Collider[] enemies)
@@ -78,7 +78,7 @@ namespace CombatSystemComponent
             }
 
             #region Moves In Specified Direction At Specified Speed
-            transform.position += (direction * speed.Evaluate(lifetime.getAccumulator) * Time.deltaTime);
+            transform.position += (direction * speed * Time.deltaTime);
             #endregion          
         }
     }

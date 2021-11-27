@@ -16,11 +16,12 @@ namespace CombatSystemComponent
 
         void Start()
         {
-            SetInGameStats();
+            InitializeInGameStats();
         }
 
         void Update()
         {
+            UpdateInGameStats();
             SlowlyRegainHealthAndStamina();
             UpdateCharacterController();
             ResetDecisionValues();
@@ -41,6 +42,7 @@ namespace CombatSystemComponent
                 GameObject projectile = Instantiate(assets.getProjectileByName(name), Camera.main.transform.position, Quaternion.identity);
                 ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
                 projectileBehavior.sender = gameObject;
+                projectileBehavior.speed = gameStats.projectileSpeed;
                 projectileBehavior.direction = Camera.main.transform.forward;
                 DecreaseStaminaBy(10);
             }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class DerivedStats
 {
     //health related
-    public float healthPoints = 1;
+    public float healthPoints = 100;
 
     //strength related
     public float strength = 1;

@@ -44,11 +44,20 @@
     <string name="nav_open_drawer">Open navigation drawer</string>
     <string name="nav_close_drawer">Close navigation drawer</string>
 
-    <string name="strength_minigame_explanation">Welcome to the Strength minigame! Rapidly press the button
+    <string name="strength_minigame_explanation">Welcome to the Strength Minigame! Rapidly press the button
         below to make your companion do barbell lifts. Fill up the bar below to level up and increase
         your companion\'s strength stat in the desktop game!</string>
     <string name="get_buff">GET BUFF!</string>
     <string name="lift_count_label">Total # of sick gains you\'ve performed:</string>
     <string name="next_level_label">Total # of radical lifts needed to level up:</string>
+
+    <string name="speed_minigame_explanation">Welcome to the Walking Challenge! We\'ll
+    keep track of the steps you walk. Walk enough to fill up the bar below to level up and increase
+    your companion\'s speed stat in the desktop game! Please keep the app running to properly track
+        steps.
+        \n\nPLEASE NOTE: There may be a long delay (~30s) between you walking
+        and the steps showing up in the app. We apologize for any inconvenience.</string>
+    <string name="step_count_label">Total # of steps you\'ve walked:</string>
+    <string name="step_next_level_label">Total # of steps needed to level up:</string>
 
 </resources>

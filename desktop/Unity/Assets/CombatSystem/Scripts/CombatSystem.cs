@@ -60,6 +60,11 @@ namespace CombatSystemComponent {
             return "Hello from Component CombatSystem"; 
         }
 
+        public float GetAReductionDamageValue(float offenseValue, float reducerValue)
+        {
+            return DerivedStats.GetReductionDamage(offenseValue, reducerValue);
+        }
+
         public float GetPlayerHealth()
         {
             return player.root.gameObject.GetComponent<CharacterBase>().health;

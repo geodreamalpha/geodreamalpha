@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace TerrainGeneratorComponent
 {
@@ -11,7 +12,7 @@ namespace TerrainGeneratorComponent
 
         [SerializeField]
         MapAssets assets;
-        Generator generator;
+        Generator generator = new Generator();
         ChunkManager chunkManager;
 
         [SerializeField]
@@ -25,7 +26,7 @@ namespace TerrainGeneratorComponent
         {
             #region Initialize Fog Settings
             RenderSettings.fog = true;
-            RenderSettings.fogColor = new Color(102f / 255f, 157f / 255f, 195f / 255f) * 0.7f; //new Color(78f / 255f, 107f / 255f, 135f / 255f);  //new Color(60f / 255f, 87f / 255f, 113f / 255f)
+            RenderSettings.fogColor = new Color(102f / 255f, 157f / 255f, 195f / 255f) * 0.7f;
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
             RenderSettings.fogDensity = 0.0035f;
             #endregion
@@ -39,12 +40,14 @@ namespace TerrainGeneratorComponent
             
             SetPlayerPositionFromString();
             SnapList.Add(playerController);
+
+            music.ChooseStartMusic();
         }
 
         // Update is called once per frame
         void Update()
         {
-            chunkManager.Refresh(playerController, assets, generator.Generate);
+            chunkManager.Refresh(playerController.transform.position, assets, generator.Generate);
 
             #region Display Exit Menu if Escape Key is Pressed
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -52,6 +55,11 @@ namespace TerrainGeneratorComponent
             #endregion
 
             SnapList.UpdateSnaps();
+        }
+
+        public void RunAUnitTest(float worldX, float worldY, float[,] heightmap, float[,,] alphamap, int[][,] detailLayer, List<TreeInstance> instances, List<(int index, Vector3 position)> enemies)
+        {           
+            generator.Generate(worldX, worldY, heightmap, alphamap, detailLayer, instances, enemies, Chunk.correctSize);
         }
 
         public void SetPlayerPositionFromString()

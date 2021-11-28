@@ -122,7 +122,7 @@ namespace CombatSystemComponent
             //speed related-
             gameStats.walkSpeed = baseStats.walkSpeed * 10 * multiplier.speed.curve.Evaluate(levelStats.GetSpeed());
             gameStats.sprintSpeed = baseStats.sprintSpeed * 16 * multiplier.speed.curve.Evaluate(levelStats.GetSpeed());
-            gameStats.projectileCheck = baseStats.projectileCheck * 0.5f / multiplier.speed.curve.Evaluate(levelStats.GetSpeed());
+            gameStats.projectileCheck = 0.5f / (multiplier.speed.curve.Evaluate(levelStats.GetSpeed()) * baseStats.projectileCheck);
             gameStats.projectileSpeed = baseStats.projectileSpeed * 60 * multiplier.speed.curve.Evaluate(levelStats.GetSpeed());
             //animator
             animator.speed = multiplier.speed.curve.Evaluate(levelStats.GetSpeed());

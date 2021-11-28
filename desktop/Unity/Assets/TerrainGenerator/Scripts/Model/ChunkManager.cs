@@ -21,12 +21,12 @@ namespace TerrainGeneratorComponent
         List<(int, int)> keys = new List<(int, int)> { };
         List<(int, int)> keysToRemove = new List<(int, int)> { };
 
-        public void Refresh(CharacterController playerController, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, List<(int, Vector3)>, Vector3> Generate)
+        public void Refresh(Vector3 playerPosition, MapAssets assets, Action<float, float, float[,], float[,,], int[][,], List<TreeInstance>, List<(int, Vector3)>, Vector3> Generate)
         {
             #region Get Terrain Indices That Player Is On
             //these two values represent the Key used to identify active terrain chunk (chunk that player is on) and nearby terrain chunks relative to the player
-            indexX = Mathf.RoundToInt(playerController.transform.position.x / Chunk.faceLength);
-            indexY = Mathf.RoundToInt(playerController.transform.position.z / Chunk.faceLength);
+            indexX = Mathf.RoundToInt(playerPosition.x / Chunk.faceLength);
+            indexY = Mathf.RoundToInt(playerPosition.z / Chunk.faceLength);
             #endregion
 
             //chunks within range of the player along the x-axis
@@ -36,7 +36,7 @@ namespace TerrainGeneratorComponent
                 for (int y = indexY - maxChunksFromPlayer; y <= indexY + maxChunksFromPlayer; y++)
                 {
                     //if chunk does not exist in-game but is within view distance of the player, then load chunk
-                    if (!chunks.ContainsKey((x, y)) && isWithinPlayerRange((x, y), playerController.transform.position, 0f))
+                    if (!chunks.ContainsKey((x, y)) && isWithinPlayerRange((x, y), playerPosition, 0f))
                     {
                         #region Load Chunk
                         keys.Add((x, y));
@@ -54,7 +54,7 @@ namespace TerrainGeneratorComponent
             foreach ((int, int) key in keys)
             {
                 //if chunk DOES exist in-game but is outside view distance of the player, then delete chunk
-                if (chunks[key].isInstantiated && !isWithinPlayerRange(key, playerController.transform.position, 64f))
+                if (chunks[key].isInstantiated && !isWithinPlayerRange(key, playerPosition, 64f))
                 {
                     #region Delete Chunk
                     chunks[key].Destroy();

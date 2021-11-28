@@ -67,7 +67,7 @@ namespace CombatSystemComponent
             if (commandTimer.isAtMax)
             {
                 commandTimer.Reset();
-                ResetDecisionValues();              
+                ResetDecisionValues();
 
                 if (commandGroupQueue.Peek().isAtMax)
                 {

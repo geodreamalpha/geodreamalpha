@@ -14,10 +14,15 @@ public class CombatSystemTest
     public IEnumerator CombatSystemTestWithEnumeratorPasses()
     {
         CombatSystem combatSystem = new CombatSystem();
-        
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
+
         yield return null;
+
+        float strength = 1;
+        float defense = 1000;
+
+        //with faulty damage calculations, a high defense and low strength could cause damage to be zero or less (which isn't good)
+        Assert.IsTrue(combatSystem.GetAReductionDamageValue(strength, defense) > 0f,
+            "damage calculation test is less than or equal to zero");
 
         Assert.AreEqual("Hello from Component CombatSystem", combatSystem.Hello());
     }

@@ -26,11 +26,7 @@ namespace TerrainGeneratorComponent
 
         Variation[] treeVariations = new Variation[1] { new Variation(0, 5, 3, 0.0005f, 0f, 20f) };
 
-        Variation[] enemyVariations = new Variation[5] { new Variation(0, 7, 3, 0.0002f, 0f, 4f),
-                                                        new Variation(7, 13, 3, 0.0002f, 16f, 2f),
-                                                        new Variation(20, 6, 3, 0.0002f, 24f, 1f),
-                                                        new Variation(26, 6, 2, 0.0002f, 28f, 1f),
-                                                        new Variation(32, 1, 1, 0.0002f, 30f, 2f)};
+        Variation[] enemyVariations = new Variation[1] { new Variation(0, 8, 3, 0.0001f, 0f, 10f) };
 
 
         public void Generate(float worldX, float worldY, float[,] heightmap, float[,,] alphamap, int[][,] detailLayer, List<TreeInstance> instances, List<(int index, Vector3 position)> enemies, Vector3 chunkSize)

@@ -136,9 +136,6 @@ namespace CombatSystemComponent
         {
             melee = !melee;
             LockOn.SetActive(!LockOn.activeSelf);
-            //Cursor.visible = true;
-            //Cursor.SetCursor(lockOn, Vector2.zero, CursorMode.Auto);
-
         }
     }
 }

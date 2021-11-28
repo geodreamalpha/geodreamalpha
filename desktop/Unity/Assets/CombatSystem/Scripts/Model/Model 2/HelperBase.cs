@@ -91,12 +91,12 @@ namespace CombatSystemComponent
         }
         protected void UpdateCharacterController()
         {           
-            if (gameObject.layer != 2)
-            {
+            //if (gameObject.layer != 2)
+            //{
                 velocity.y = Mathf.Clamp(velocity.y + gravity.y * Time.deltaTime, gravity.y, float.MaxValue);
                 controller.Move(velocity * Time.deltaTime);
                 controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, Quaternion.Euler(rotation), 0.15f * 60f * Time.deltaTime);
-            }
+            //}
         }
         protected void CheckIfCharacterIsGrounded()
         {
@@ -149,7 +149,6 @@ namespace CombatSystemComponent
                 enemyStats.TakeDamage(damageAmount);
             }
         }
-
         public virtual void TakeDamage(float damageAmount)
         {
             health -= (int)damageAmount;
@@ -162,9 +161,6 @@ namespace CombatSystemComponent
         protected virtual void MeleeContactEvent()
         {
             OnNearbyEnemies(4, 5, ApplyMeleeDamageTo);
-
-            //play damage sound effects
-            //damage particle effects
         }
 
         //Asset Setter

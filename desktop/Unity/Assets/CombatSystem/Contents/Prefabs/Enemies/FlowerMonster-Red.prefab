@@ -1091,24 +1091,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71018efb2b07ea40ac4936bfe28d325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepFX1: {fileID: 0}
-  stepFX2: {fileID: 0}
-  stepFX3: {fileID: 0}
-  stepFX4: {fileID: 0}
-  meleeAttackFX: {fileID: 0}
-  hitFX: {fileID: 0}
+  stepFX1:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  stepFX2:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  meleeAttackFX:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  hitFX:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
   damageTextColor: {r: 0.2783019, g: 0.32986602, b: 1, a: 1}
   animator: {fileID: 9500000}
   controller: {fileID: 4841167532834094287}
   target: {fileID: 0}
   baseStats:
-    healthPoints: 1
-    strength: 1
-    defense: 3
+    healthPoints: 1.4
+    strength: 2
+    defense: 1
     jumpHeight: 1
     staminaPoints: 1
     energy: 1
-    aura: 1
+    aura: 0.5
     walkSpeed: 1
     sprintSpeed: 1
     projectileCheck: 1

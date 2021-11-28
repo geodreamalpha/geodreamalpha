@@ -8,10 +8,14 @@ namespace CombatSystemComponent
     {
         [SerializeField]
         protected Transform subject;
+        //create timer and set to over max value
 
         void Update()
         {
-            UpdateInGameStats();
+            //-----------------------------
+            //pull from firebase
+            AdjustInGameStats();
+            //-----------------------------
             CheckForNullTarget();
             UpdateCharacterController();     
             PlayerCommands();

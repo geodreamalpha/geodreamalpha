@@ -14,14 +14,24 @@ namespace CombatSystemComponent
         [SerializeField]
         Texture2D lockOn;
 
+        Timer speedLevelIncreaseTimer = new Timer(2f);
+
+        //create timer and set to over max value
+
         void Start()
         {
+            //pull from firebase
+            InitializeSoundFX();
             InitializeInGameStats();
         }
 
         void Update()
         {
-            UpdateInGameStats();
+            //-----------------------------
+            //push to firebase
+            AdjustInGameStats();
+            //-----------------------------
+            AdjustInGameStats();
             SlowlyRegainHealthAndStamina();
             UpdateCharacterController();
             ResetDecisionValues();
@@ -44,15 +54,23 @@ namespace CombatSystemComponent
                 projectileBehavior.sender = gameObject;
                 projectileBehavior.speed = gameStats.projectileSpeed;
                 projectileBehavior.direction = Camera.main.transform.forward;
+                projectileBehavior.damageHitEvent = () => levelStats.AddStaminaExp();
                 DecreaseStaminaBy(10);
             }
         }
         protected void SetSprint(ref string animation)
         {
-            if (stamina > 0)
+            if (stamina > 5)
             {
                 animation = grabSprinting;
-                DecreaseStaminaBy(10 * Time.deltaTime);
+                DecreaseStaminaBy(5 * Time.deltaTime);
+
+                speedLevelIncreaseTimer.Update();
+                if (speedLevelIncreaseTimer.isAtMax)
+                {
+                    speedLevelIncreaseTimer.Reset();
+                    levelStats.AddSpeedExp();
+                }                   
             }
         }
 
@@ -95,7 +113,7 @@ namespace CombatSystemComponent
             if (Input.GetMouseButtonDown(0))
                 Attack();
             if (Input.GetMouseButtonDown(1))
-                SetAttack();
+                ToggleAttackType();
             if (Input.GetKeyDown(KeyCode.Alpha1))
                 Projectile("Fireball");
         }
@@ -123,7 +141,6 @@ namespace CombatSystemComponent
         {
             stamina = Mathf.Clamp(stamina - amount, 0, gameStats.staminaPoints);
         }
-
         public void Attack()
         {
             if (melee)
@@ -131,8 +148,7 @@ namespace CombatSystemComponent
             else
                 Projectile("Fireball");
         }
-
-        public void SetAttack()
+        public void ToggleAttackType()
         {
             melee = !melee;
             LockOn.SetActive(!LockOn.activeSelf);

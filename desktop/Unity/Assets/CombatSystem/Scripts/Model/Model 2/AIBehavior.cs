@@ -19,9 +19,10 @@ namespace CombatSystemComponent
         Queue<CommandGroup> commandGroupQueue = new Queue<CommandGroup>();
 
         //Start
-        void Start()
+        protected void Start()
         {
-            InitializeInGameStats(); //---------------------
+            InitializeSoundFX();
+            InitializeInGameStats();
 
             commandTimer = new Timer(2 / (multiplier.speed.curve.Evaluate(levelStats.GetSpeed()) * 2));
 

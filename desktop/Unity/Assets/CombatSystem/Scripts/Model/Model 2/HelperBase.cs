@@ -90,13 +90,10 @@ namespace CombatSystemComponent
             velocity.z = 0f;
         }
         protected void UpdateCharacterController()
-        {           
-            //if (gameObject.layer != 2)
-            //{
-                velocity.y = Mathf.Clamp(velocity.y + gravity.y * Time.deltaTime, gravity.y, float.MaxValue);
-                controller.Move(velocity * Time.deltaTime);
-                controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, Quaternion.Euler(rotation), 0.15f * 60f * Time.deltaTime);
-            //}
+        {
+            velocity.y = Mathf.Clamp(velocity.y + gravity.y * Time.deltaTime, gravity.y, float.MaxValue);
+            controller.Move(velocity * Time.deltaTime);
+            controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, Quaternion.Euler(rotation), 0.15f * 60f * Time.deltaTime);
         }
         protected void CheckIfCharacterIsGrounded()
         {

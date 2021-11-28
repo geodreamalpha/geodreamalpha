@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace CombatSystemComponent
 {
@@ -22,6 +23,8 @@ namespace CombatSystemComponent
         public float speed = 0;
         public AnimationCurve growth = new AnimationCurve(new Keyframe(0, 1));
 
+        public Action damageHitEvent = () => { };
+
         protected void ApplyProjectileDamageTo(Collider[] enemies)
         {
             foreach (Collider enemy in enemies)
@@ -32,6 +35,7 @@ namespace CombatSystemComponent
                 damageAmount = (int)DerivedStats.GetReductionDamage(sender.gameObject.GetComponent<HelperBase>().gameStats.energy, enemyStats.gameStats.aura);
                 damageAmount = (int)(damageAmount * UnityEngine.Random.Range(0.8f, 1.2f));
                 enemyStats.TakeDamage(damageAmount);
+                damageHitEvent();
             }
         }
 

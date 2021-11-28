@@ -87,15 +87,8 @@ namespace CombatSystemComponent
             CharacterBase.multiplier = multiplier;
         }
 
-        //Set Game Stats
-        protected void InitializeInGameStats()
+        protected void InitializeSoundFX()
         {
-            UpdateInGameStats();
-
-            //other fields
-            health = (int)gameStats.healthPoints;
-            stamina = (int)gameStats.staminaPoints;
-
             //audio FX
             soundFX = GetComponent<AudioSource>();
             stepFX1.source = soundFX;
@@ -104,7 +97,17 @@ namespace CombatSystemComponent
             hitFX.source = soundFX;
         }
 
-        protected void UpdateInGameStats()
+        //Set Game Stats
+        protected void InitializeInGameStats()
+        {
+            AdjustInGameStats();
+
+            //other fields
+            health = (int)gameStats.healthPoints;
+            stamina = (int)gameStats.staminaPoints;           
+        }
+
+        protected void AdjustInGameStats()
         {
             //health related
             gameStats.healthPoints = baseStats.healthPoints * multiplier.healthPoints.curve.Evaluate(levelStats.GetHealth());
@@ -124,6 +127,7 @@ namespace CombatSystemComponent
             gameStats.sprintSpeed = baseStats.sprintSpeed * 16 * multiplier.speed.curve.Evaluate(levelStats.GetSpeed());
             gameStats.projectileCheck = 0.5f / (multiplier.speed.curve.Evaluate(levelStats.GetSpeed()) * baseStats.projectileCheck);
             gameStats.projectileSpeed = baseStats.projectileSpeed * 60 * multiplier.speed.curve.Evaluate(levelStats.GetSpeed());
+
             //animator
             animator.speed = multiplier.speed.curve.Evaluate(levelStats.GetSpeed());
         }     
@@ -148,7 +152,6 @@ namespace CombatSystemComponent
         {
             foreach (AudioClip clip in clips)
             {
-
                 source.volume = UnityEngine.Random.Range(0.5f, 1f);
                 source.pitch = UnityEngine.Random.Range(1f, 2.5f);
                 source.PlayOneShot(clip);

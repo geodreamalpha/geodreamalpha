@@ -5,10 +5,17 @@ using DataManagerComponent;
 
 namespace CombatSystemComponent
 {
-    public abstract class Stats
+    public abstract class StatsData
     {
+        protected int health = 100;
+        protected int stamina = 1;
+        protected int speed = 100;
+        protected int strength = 1;
+
         Timer timer = new Timer(2);
-        public void Update()
+
+        //pull player
+        public void PullPlayer()
         {
             timer.Update();
             if (timer.isAtMax)
@@ -37,10 +44,11 @@ namespace CombatSystemComponent
             }
         }
 
-        protected int health = 100;
-        protected int stamina = 1;
-        protected int speed = 100;
-        protected int strength = 1;
+        //pull companion
+        //---
+
+        //push player
+        //---
 
         /// <summary>
         /// Get the current health value.

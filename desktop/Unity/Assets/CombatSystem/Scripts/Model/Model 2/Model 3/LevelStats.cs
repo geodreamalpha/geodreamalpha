@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CombatSystemComponent
 {
-    public class LevelStats : Stats
+    public class LevelStats : StatsData
     {
         ExpStat healthExp = new ExpStat();
         ExpStat staminaExp = new ExpStat();

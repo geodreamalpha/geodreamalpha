@@ -11,6 +11,8 @@ namespace TerrainGeneratorComponent
     //
     class SeedGUI : MonoBehaviour
     {
+        SeedData seedData = new SeedData();
+
         #region Load Screen Components
         GameObject loadScreen;
         Slider loadingBar;
@@ -39,6 +41,9 @@ namespace TerrainGeneratorComponent
 
         void Start()
         {
+            //pull
+            seedData.PullFromFirebase();
+
             #region Initializes Load Screen Components
             loadScreen = GameObject.Find("Load Screen");
             loadingBar = loadScreen.GetComponentInChildren<Slider>();
@@ -52,11 +57,12 @@ namespace TerrainGeneratorComponent
             generateButton = GetComponentInChildren<Button>();
             seedDropdown = GetComponentInChildren<TMP_Dropdown>();
 
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData("0_0")); //this is default case for a user that has no previous seed values
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData("12345_0"));
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData("0_12345"));
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData("5000_5000"));
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData("10000_10000"));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(0))); //this is default case for a user that has no previous seed values
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(1)));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(2)));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(3)));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(4)));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(5)));
             seedDropdown.captionText.text = seedDropdown.options[0].text;
             seedInput.text = seedDropdown.captionText.text;
             #endregion
@@ -76,7 +82,10 @@ namespace TerrainGeneratorComponent
             //ensures seed input is in correct format and is within valid game map range
             if (seedInputIsInCorrectFormat && Mathf.Abs(int.Parse(integers[0])) < 50001 && Mathf.Abs(int.Parse(integers[1])) < 50001)
             {
-                currentSeed = seedInput.text;               
+                currentSeed = seedInput.text;
+                seedData.ReplaceWith(currentSeed);
+                seedData.PushToFirebase();
+
                 StartCoroutine(LoadGameLevelAsync());
 
             }

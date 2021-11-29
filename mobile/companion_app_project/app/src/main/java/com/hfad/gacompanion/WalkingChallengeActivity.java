@@ -50,6 +50,7 @@ public class WalkingChallengeActivity extends AppCompatActivity implements Navig
     private SensorManager sensorManager;
     private Sensor myStepCounter;
     private boolean isCounterSensorPresent = false;
+    private int prevSteps = -1;
     private int stepCount = 0;
 
     @Override
@@ -121,6 +122,7 @@ public class WalkingChallengeActivity extends AppCompatActivity implements Navig
         this.speed = Integer.parseInt(companion.getSpeed());
         TextView comp_spd = (TextView) findViewById(R.id.speed);
         comp_spd.setText(companion.getSpeed());
+
         this.current_steps = Integer.parseInt(companion.getCurrentSteps());
         TextView step_count = findViewById(R.id.step_count);
         step_count.setText(companion.getCurrentSteps());
@@ -205,6 +207,7 @@ public class WalkingChallengeActivity extends AppCompatActivity implements Navig
 
         compStats.update("currentSteps", Integer.toString(current_steps));
 
+        //int required_steps = ((4 * ((int) Math.pow((speed + 1), 3))) / 5);
         int required_steps = ((4 * ((int) Math.pow(((speed + 1) * 4), 3))) / 5);
         Log.d(TAG, Integer.toString(required_steps));
         compStats.update("stepsNeeded", Integer.toString(required_steps));
@@ -216,22 +219,32 @@ public class WalkingChallengeActivity extends AppCompatActivity implements Navig
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "succesfulys made to onpawz");
+        Log.d(TAG, "successfully made to onPause");
         compStats.update("currentSteps", Integer.toString(current_steps));
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
             sensorManager.unregisterListener(this, myStepCounter);
         }
-
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        Log.d(TAG, "flag7");
         if(sensorEvent.sensor == myStepCounter){
-            Log.d(TAG, "flag8");
             stepCount = (int)sensorEvent.values[0];
-            TextView step_count = findViewById(R.id.step_count);
-            step_count.setText(Integer.toString(stepCount));
+            if(stepCount < current_steps){
+                prevSteps = current_steps;
+                stepCount += current_steps;
+            }
+            if(prevSteps == -1){
+                prevSteps = stepCount;
+            }
+            current_steps += (stepCount - prevSteps);
+            progressBar.setProgress(current_steps);
+            prevSteps = stepCount;
+            TextView current_steps_tv = findViewById(R.id.step_count);
+            current_steps_tv.setText(Integer.toString(current_steps));
+            if(progressBar.getProgress() == progressBar.getMax()){
+                nextLevel();
+            }
         }
     }
 
@@ -243,9 +256,7 @@ public class WalkingChallengeActivity extends AppCompatActivity implements Navig
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "flag8");
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
-            Log.d(TAG, "flag9");
             sensorManager.registerListener(this, myStepCounter, sensorManager.SENSOR_DELAY_NORMAL);
         }
     }

@@ -20,12 +20,12 @@ namespace CombatSystemComponent
         //pull player
         public void PullPlayer()
         {
-            DataManager.GetCurrHP(hp =>
+            DataManager.GetMaxHP(hp =>
             {
                 health = hp;
             });
 
-            DataManager.GetCurrSTM(stam =>
+            DataManager.GetMaxSTM(stam =>
             {
                 stamina = stam;
             });
@@ -59,10 +59,10 @@ namespace CombatSystemComponent
         //push player
         public void PushPlayer()
         {
-            DataManager.SetCurrHP(health);
-            DataManager.SetCurrSTM(stamina);
+            DataManager.SetMaxHP(health);
+            DataManager.SetMaxSTM(stamina);
             DataManager.SetSpeed(speed);
-            DataManager.SetStrength(strength); 
+            DataManager.SetStrength(strength);
         }
 
         /// <summary>

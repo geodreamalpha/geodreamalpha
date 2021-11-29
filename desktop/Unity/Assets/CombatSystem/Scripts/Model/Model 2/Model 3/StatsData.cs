@@ -12,6 +12,9 @@ namespace CombatSystemComponent
         protected int speed = 100;
         protected int strength = 1;
 
+        protected int compHealth = 100;
+        protected int compStrength = 1; 
+
         Timer timer = new Timer(2);
 
         //pull player
@@ -46,6 +49,23 @@ namespace CombatSystemComponent
 
         //pull companion
         //---
+        public void PullCompanion()
+        {
+            timer.Update();
+            if (timer.isAtMax)
+            {
+                timer.Reset();
+                DataManager.GetCompStrength(st =>
+                {
+                    strength = st;
+                });
+
+                DataManager.GetCompSpeed(sp =>
+                {
+                    speed = sp;
+                });
+            }
+        }
 
         //push player
         //---

@@ -49,7 +49,7 @@ namespace CombatSystemComponent
         {
             if (stamina > 10)
             {
-                GameObject projectile = Instantiate(assets.getProjectileByName(name), Camera.main.transform.position, Quaternion.identity);
+                GameObject projectile = Instantiate(assets.GetProjectileByName(name), Camera.main.transform.position, Quaternion.identity);
                 ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
                 projectileBehavior.sender = gameObject;
                 projectileBehavior.speed = gameStats.projectileSpeed;

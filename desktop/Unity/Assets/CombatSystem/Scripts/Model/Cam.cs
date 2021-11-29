@@ -11,6 +11,9 @@ public static class Cam
     static CinemachineComposer camAim;
     static CinemachineCollider camCollider;
 
+    static Queue<float> zoomQueue = new Queue<float>();
+    static float zoomOffset;
+
     public static Vector3 getForward
     {
         get { return camBrain.transform.forward; }
@@ -23,6 +26,11 @@ public static class Cam
         camOrbital = camVirtual.GetCinemachineComponent<CinemachineOrbitalTransposer>();
         camAim = camVirtual.GetCinemachineComponent<CinemachineComposer>();
         camCollider = camVirtual.GetComponent<CinemachineCollider>();
+
+        zoomQueue.Enqueue(-6);
+        zoomQueue.Enqueue(-10);
+        zoomQueue.Enqueue(-14);
+        zoomOffset = -6;
     }
 
     public static void Update()
@@ -31,11 +39,23 @@ public static class Cam
         {
             camBrain.enabled = true;
             Vector3 follow = camOrbital.m_FollowOffset;
-            follow.z = Mathf.Clamp(follow.z - Input.mouseScrollDelta.y * 10f * Time.deltaTime, 6, 14);
+
+            //zoom control
+            if (Input.GetMouseButtonDown(2))
+            {
+                zoomQueue.Enqueue(zoomQueue.Dequeue());
+                zoomOffset = zoomQueue.Peek();
+            }
+                
+            //vertical control
             follow.y = Mathf.Clamp(follow.y - Input.GetAxis("Mouse Y") * 1f * Time.deltaTime, -2, 5);
+
+
+            //update zoom offset;
+            follow.z = Mathf.Lerp(follow.z, zoomOffset, 0.2f);
             camOrbital.m_FollowOffset = follow;
         }
         else
-            camBrain.enabled = false;
+            camBrain.enabled = false;    
     }
 }

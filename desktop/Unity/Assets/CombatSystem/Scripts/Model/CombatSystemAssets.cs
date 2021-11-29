@@ -10,19 +10,25 @@ public class CombatSystemAssets
     [SerializeField]
     List<GameObject> projectiles;
     [SerializeField]
+    GameObject meleeHit;
+    [SerializeField]
     GameObject damageText;
     [SerializeField]
     protected AudioSource meleeImpactFX;
 
-    public GameObject getEnemyByName(string name)
+    public GameObject GetEnemyByName(string name)
     {
         return enemies.Find(e => e.name == name);
     }
-    public GameObject getProjectileByName(string name)
+    public GameObject GetProjectileByName(string name)
     {
         return projectiles.Find(e => e.name == name);
     }
-    public GameObject getDamageText()
+    public GameObject GetMeleeHit()
+    {
+        return meleeHit;
+    }
+    public GameObject GetDamageText()
     {
         return damageText;
     }

@@ -31,7 +31,7 @@ public class DamageMenuBehavior : MonoBehaviour
     
     public void ShowDamage(Transform targetTransform, float damageAmount, Color damageTint, CombatSystemAssets assets)
     {
-        damageList.Add((targetTransform, Instantiate(assets.getDamageText(),
+        damageList.Add((targetTransform, Instantiate(assets.GetDamageText(),
             Camera.main.WorldToScreenPoint(targetTransform.position),
             Quaternion.identity,
             transform).GetComponent<RectTransform>()));

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace TerrainGeneratorComponent
 {
@@ -14,16 +15,24 @@ namespace TerrainGeneratorComponent
         SeedData seedData = new SeedData();
 
         #region Load Screen Components
+        [SerializeField]
         GameObject loadScreen;
+        [SerializeField]
         Slider loadingBar;
+        [SerializeField]
         TMP_Text progressPercent;
         #endregion
 
         #region Seed Input Screen Components
+        [SerializeField]
         TMP_Text nameDisplay;
+        [SerializeField]
         TMP_InputField seedInput;
+        [SerializeField]
         Button generateButton;
+        [SerializeField]
         TMP_Dropdown seedDropdown;
+        [SerializeField]
         TMP_Text helpMessage;
         #endregion
 
@@ -33,6 +42,8 @@ namespace TerrainGeneratorComponent
         //used to determin what input from the user is considered valid
         Regex Validator = new Regex(@"^[0123456789]+[_]{1}[0123456789]+$");
 
+        int firebaseCounter = 0;
+
         //returns a boolean value indicating if user input is valid or not
         bool seedInputIsInCorrectFormat
         {            
@@ -41,33 +52,31 @@ namespace TerrainGeneratorComponent
 
         void Start()
         {
-            //pull
             seedData.PullFromFirebase();
-
-            #region Initializes Load Screen Components
-            loadScreen = GameObject.Find("Load Screen");
-            loadingBar = loadScreen.GetComponentInChildren<Slider>();
-            progressPercent = GameObject.Find("Progress Percentage").GetComponent<TMP_Text>();
             loadScreen.SetActive(false);
-            #endregion
 
             #region Initialize Seed Input Screen Components
-            nameDisplay = GetComponentInChildren<TMP_Text>();
-            seedInput = GetComponentInChildren<TMP_InputField>();
-            generateButton = GetComponentInChildren<Button>();
-            seedDropdown = GetComponentInChildren<TMP_Dropdown>();
-
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(0))); //this is default case for a user that has no previous seed values
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(1)));
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(2)));
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(3)));
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(4)));
-            seedDropdown.options.Add(new TMP_Dropdown.OptionData(seedData.GetAt(5)));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData("")); //this is default case for a user that has no previous seed values
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(""));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(""));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(""));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(""));
+            seedDropdown.options.Add(new TMP_Dropdown.OptionData(""));
             seedDropdown.captionText.text = seedDropdown.options[0].text;
             seedInput.text = seedDropdown.captionText.text;
             #endregion
 
             Application.backgroundLoadingPriority = ThreadPriority.High;
+        }
+
+        public void Update()
+        {
+            for (int i = 0; i < 6; i++)
+                if (seedDropdown.options[i].text != seedData.GetAt(i))
+                {
+                    UpdateDropDownValues();
+                    break;
+                }
         }
 
         public void OnSeedInputChanged()
@@ -87,14 +96,26 @@ namespace TerrainGeneratorComponent
                 seedData.PushToFirebase();
 
                 StartCoroutine(LoadGameLevelAsync());
-
             }
             else
-                Debug.LogError("Invalid Format: Seed input must contain two intergers separated by an underscore AND each integer must be between the values -50001 and 50001.  Example: 123_-3670");         
+                helpMessage.text = "Invalid Format: Seed input must contain two intergers separated by an underscore AND " +
+                                   "each integer must be between the values -50001 and 50001.  Example: 123_-3670";        
         }
 
         public void OnSeedDropdownClick()
         {
+            seedInput.text = seedDropdown.captionText.text;            
+        }
+
+        void UpdateDropDownValues()
+        {
+            seedDropdown.options[0] = (new TMP_Dropdown.OptionData(seedData.GetAt(0))); //this is default case for a user that has no previous seed values
+            seedDropdown.options[1] = (new TMP_Dropdown.OptionData(seedData.GetAt(1)));
+            seedDropdown.options[2] = (new TMP_Dropdown.OptionData(seedData.GetAt(2)));
+            seedDropdown.options[3] = (new TMP_Dropdown.OptionData(seedData.GetAt(3)));
+            seedDropdown.options[4] = (new TMP_Dropdown.OptionData(seedData.GetAt(4)));
+            seedDropdown.options[5] = (new TMP_Dropdown.OptionData(seedData.GetAt(5)));
+            seedDropdown.captionText.text = seedDropdown.options[0].text;
             seedInput.text = seedDropdown.captionText.text;
         }
 

@@ -135,12 +135,12 @@ GameObject:
   - component: {fileID: 22968074}
   - component: {fileID: 22968073}
   m_Layer: 5
-  m_Name: HelpMessage
+  m_Name: Help Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &22968072
 RectTransform:
   m_ObjectHideFlags: 0
@@ -155,10 +155,10 @@ RectTransform:
   m_Father: {fileID: 8172526215662346415}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: -200}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -250}
+  m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &22968073
 MonoBehaviour:
@@ -189,8 +189,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4286545919
+  m_fontColor: {r: 1, g: 0.49803922, b: 0.49803922, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -683,6 +683,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8172526216413062826, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: m_Name
+      value: Name Display
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172526217483087700, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: seedInput
+      value: 
+      objectReference: {fileID: 8172526215662346422}
+    - target: {fileID: 8172526217483087700, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: loadScreen
+      value: 
+      objectReference: {fileID: 8172526215662346418}
+    - target: {fileID: 8172526217483087700, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: loadingBar
+      value: 
+      objectReference: {fileID: 8172526215662346417}
+    - target: {fileID: 8172526217483087700, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: helpMessage
+      value: 
+      objectReference: {fileID: 22968073}
+    - target: {fileID: 8172526217483087700, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: nameDisplay
+      value: 
+      objectReference: {fileID: 8172526215662346419}
+    - target: {fileID: 8172526217483087700, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: seedDropdown
+      value: 
+      objectReference: {fileID: 8172526215662346420}
+    - target: {fileID: 8172526217483087700, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: generateButton
+      value: 
+      objectReference: {fileID: 8172526215662346421}
+    - target: {fileID: 8172526217483087700, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+      propertyPath: progressPercent
+      value: 
+      objectReference: {fileID: 8172526215662346416}
     - target: {fileID: 8172526217483087701, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -714,3 +750,74 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8172526217483087703, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
   m_PrefabInstance: {fileID: 8172526215662346414}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8172526215662346416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8172526217494960558, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+  m_PrefabInstance: {fileID: 8172526215662346414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8172526215662346417 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8172526215528125037, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+  m_PrefabInstance: {fileID: 8172526215662346414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8172526215662346418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8172526215634979002, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+  m_PrefabInstance: {fileID: 8172526215662346414}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8172526215662346419 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8172526216881489109, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+  m_PrefabInstance: {fileID: 8172526215662346414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8172526215662346420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8172526217202793955, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+  m_PrefabInstance: {fileID: 8172526215662346414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8172526215662346421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8172526216054552054, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+  m_PrefabInstance: {fileID: 8172526215662346414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8172526215662346422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8172526216671406923, guid: 01597a8790e8e654ab206d91782ec972, type: 3}
+  m_PrefabInstance: {fileID: 8172526215662346414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

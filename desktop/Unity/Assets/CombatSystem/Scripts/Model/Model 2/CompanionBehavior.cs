@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CombatSystemComponent
 {
@@ -9,6 +10,10 @@ namespace CombatSystemComponent
         [SerializeField]
         protected Transform subject;
         //create timer and set to over max value
+        [SerializeField]
+        Image peacefulIcon;
+        [SerializeField]
+        Image combatIcon;
 
         void Update()
         {
@@ -31,10 +36,20 @@ namespace CombatSystemComponent
 
         void PlayerCommands()
         {
-            if (Input.GetKeyDown(KeyCode.T))
-                OnNearbyEnemies(0, 40, Retarget);
-            else if (Input.GetKeyDown(KeyCode.R))
+            //peaceful
+            if (Input.mouseScrollDelta.y < 0)
+            {
                 OnDecision = OnPeacefulDecision;
+                peacefulIcon.color = new Color(1f, 1f, 1f);
+                combatIcon.color = new Color(0.4f, 0.4f, 0.4f);
+            }
+            //combat
+            if (Input.mouseScrollDelta.y > 0)
+            {
+                OnNearbyEnemies(0, 40, Retarget);
+                combatIcon.color = new Color(1f, 1f, 1f);
+                peacefulIcon.color = new Color(0.4f, 0.4f, 0.4f);               
+            }               
         }
 
         protected override void OnPeacefulDecision()

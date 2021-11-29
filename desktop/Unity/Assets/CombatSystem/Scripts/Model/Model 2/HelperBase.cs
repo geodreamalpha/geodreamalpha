@@ -60,7 +60,7 @@ namespace CombatSystemComponent
             if (target != null)
             {
                 Rotate(faceTarget); //might need to do something different with yAxisFacingDirection
-                GameObject projectile = Instantiate(assets.getProjectileByName(name), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
+                GameObject projectile = Instantiate(assets.GetProjectileByName(name), controller.transform.position + (faceTarget.normalized + Vector3.up) * 5f, Quaternion.identity);
                 ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
                 projectileBehavior.speed = gameStats.projectileSpeed;
                 projectileBehavior.target = target;
@@ -143,6 +143,9 @@ namespace CombatSystemComponent
                 HelperBase enemyStats = enemy.transform.root.GetComponent<HelperBase>();
                 damageAmount = (int)DerivedStats.GetReductionDamage(this.gameStats.strength, enemyStats.gameStats.defense);
                 damageAmount = (int)(damageAmount * UnityEngine.Random.Range(0.8f, 1.2f));
+
+                Instantiate(assets.GetMeleeHit(), enemy.ClosestPointOnBounds(transform.position), Quaternion.identity);
+
                 enemyStats.TakeDamage(damageAmount);
             }
         }

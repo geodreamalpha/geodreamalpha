@@ -681,6 +681,10 @@ PrefabInstance:
       propertyPath: peacefulIcon
       value: 
       objectReference: {fileID: 1128529743}
+    - target: {fileID: 5318554159754226610, guid: 0e43bac9b2a98eb418cec0e2f9a1d257, type: 3}
+      propertyPath: commandGroups.Array.data[0].commands.Array.data[0].proximity
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5598525583330774610, guid: 0e43bac9b2a98eb418cec0e2f9a1d257, type: 3}
       propertyPath: m_Layer
       value: 11

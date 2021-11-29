@@ -31,15 +31,20 @@ public class DamageMenuBehavior : MonoBehaviour
     
     public void ShowDamage(Transform targetTransform, float damageAmount, Color damageTint, CombatSystemAssets assets)
     {
-        damageList.Add((targetTransform, Instantiate(assets.GetDamageText(),
-            Camera.main.WorldToScreenPoint(targetTransform.position),
+        Vector3 screenPosition = Camera.main.WorldToScreenPoint(targetTransform.position);
+
+        if (screenPosition.z > 0)
+        {
+            damageList.Add((targetTransform, Instantiate(assets.GetDamageText(),
+            screenPosition,
             Quaternion.identity,
             transform).GetComponent<RectTransform>()));
 
-        GameObject textObject = damageList[damageList.Count - 1].rectTransform.gameObject;
+            GameObject textObject = damageList[damageList.Count - 1].rectTransform.gameObject;
 
-        TMPro.TMP_Text text = textObject.GetComponent<TMPro.TMP_Text>();
-        text.text = damageAmount.ToString();
-        text.color = damageTint;
+            TMPro.TMP_Text text = textObject.GetComponent<TMPro.TMP_Text>();
+            text.text = damageAmount.ToString();
+            text.color = damageTint;
+        }        
     }
 }

@@ -46,7 +46,7 @@ namespace CombatSystemComponent
             //combat
             if (Input.mouseScrollDelta.y > 0)
             {
-                OnNearbyEnemies(0, 40, Retarget);
+                OnNearbyEnemies(0, 40, Retarget);              
                 combatIcon.color = new Color(1f, 1f, 1f);
                 peacefulIcon.color = new Color(0.4f, 0.4f, 0.4f);               
             }               

@@ -17,9 +17,6 @@ namespace TerrainGeneratorComponent
         List<UserDetailPrototype> detailTextures = new List<UserDetailPrototype> { }; //grass
 
         [SerializeField]
-        List<GameObject> detailMeshes = new List<GameObject> { }; //grass
-
-        [SerializeField]
         List<UserTreePrototype> trees = new List<UserTreePrototype> { }; //trees
 
         public TerrainLayer[] GetLayers()

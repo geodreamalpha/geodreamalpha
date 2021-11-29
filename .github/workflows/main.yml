@@ -1,7 +1,7 @@
 name: Run Tests (2)
 
 on: [push, pull_request]
-
+projectPath: /desktop/Unity/
 jobs:
   build:
     name: Build my project ✨
@@ -16,8 +16,8 @@ jobs:
       # Cache
       - uses: actions/cache@v2
         with:
-          path: desktop/Unity
-          key: desktop/Unity/-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-
 

@@ -9,12 +9,12 @@ jobs:
     steps:
       # Checkout
       - name: Checkout repository
-        uses: actions/checkout@v1.7
+        uses: actions/checkout@v2
         with:
           lfs: true
 
       # Cache
-      - uses: actions/cache@v1.7
+      - uses: actions/cache@v2
         with:
           path: Library
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
@@ -40,7 +40,7 @@ jobs:
           targetPlatform: WebGL
 
       # Output
-      - uses: actions/upload-artifact@v1.7
+      - uses: actions/upload-artifact@v2
         with:
           name: Build
           path: build

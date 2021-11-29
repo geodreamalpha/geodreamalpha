@@ -1,7 +1,7 @@
 name: Run Tests (2)
 
 on: [push, pull_request]
-projectPath: /desktop/Unity/
+
 jobs:
   build:
     name: Build my project ✨
@@ -35,6 +35,8 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+        
+          projectPath: /desktop/Unity/
           targetPlatform: WebGL
 
       # Output

@@ -20,55 +20,50 @@ namespace CombatSystemComponent
         //pull player
         public void PullPlayer()
         {
-            timer.Update();
-            if (timer.isAtMax)
+            DataManager.GetCurrHP(hp =>
             {
-                timer.Reset();
-                DataManager.GetCurrHP(hp =>
-                {
-                    health = hp;
-                });
+                health = hp;
+            });
 
-                DataManager.GetCurrSTM(stam =>
-                {
-                    stamina = stam;
-                });
+            DataManager.GetCurrSTM(stam =>
+            {
+                stamina = stam;
+            });
 
-                DataManager.GetSpeed(sp =>
-                {
-                    speed = sp;
-                });
+            DataManager.GetSpeed(sp =>
+            {
+                speed = sp;
+            });
 
-                DataManager.GetStrength(st =>
-                {
-                    strength = st;
-                });
-                //Debug.Log("Health: " + health + "Stamina: " + stamina); 
-            }
+            DataManager.GetStrength(st =>
+            {
+                strength = st;
+            });
+            //Debug.Log("Health: " + health + "Stamina: " + stamina); 
         }
 
         //pull companion
-        //---
         public void PullCompanion()
         {
-            timer.Update();
-            if (timer.isAtMax)
+            DataManager.GetCompStrength(st =>
             {
-                timer.Reset();
-                DataManager.GetCompStrength(st =>
-                {
-                    strength = st;
-                });
+                strength = st;
+            });
 
-                DataManager.GetCompSpeed(sp =>
-                {
-                    speed = sp;
-                });
-            }
+            DataManager.GetCompSpeed(sp =>
+            {
+                speed = sp;
+            });
         }
 
         //push player
-        //---
+        public void PushPlayer()
+        {
+            DataManager.SetCurrHP(health);
+            DataManager.SetCurrSTM(stamina);
+            DataManager.SetSpeed(speed);
+            DataManager.SetStrength(strength); 
+        }
 
         /// <summary>
         /// Get the current health value.

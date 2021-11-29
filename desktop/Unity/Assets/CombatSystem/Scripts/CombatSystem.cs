@@ -71,6 +71,12 @@ namespace CombatSystemComponent {
             return (characterBase.health / characterBase.gameStats.healthPoints) * 100f;
         }
 
+        public float GetPlayerStamina()
+        {
+            CharacterBase characterBase = player.root.gameObject.GetComponent<CharacterBase>();
+            return (characterBase.stamina / characterBase.gameStats.staminaPoints) * 100f;
+        }
+        
         public static void ProperDestroy(GameObject obj, float time = 0)
         {
             Destroy(obj, time);

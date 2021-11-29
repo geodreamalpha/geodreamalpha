@@ -8,6 +8,7 @@ public class DamageMenuBehavior : MonoBehaviour
 {
 
     [SerializeField] Slider slider;
+    [SerializeField] Slider staminaSlider; 
     [SerializeField] CombatSystem combatSystem;
 
     List<(Transform transform, RectTransform rectTransform)> damageList = new List<(Transform, RectTransform)>();
@@ -16,6 +17,7 @@ public class DamageMenuBehavior : MonoBehaviour
     void Update()
     {
         slider.value = combatSystem.GetPlayerHealth();
+        staminaSlider.value = combatSystem.GetPlayerStamina(); 
         //stamina bar update goes here
 
         //updates damage text positions

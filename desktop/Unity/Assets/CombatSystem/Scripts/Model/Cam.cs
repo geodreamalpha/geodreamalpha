@@ -46,9 +46,9 @@ public static class Cam
                 zoomQueue.Enqueue(zoomQueue.Dequeue());
                 zoomOffset = zoomQueue.Peek();
             }
-                
+            
             //vertical control
-            follow.y = Mathf.Clamp(follow.y - Input.GetAxis("Mouse Y") * 1f * Time.deltaTime, -2, 5);
+            follow.y = Mathf.Clamp(follow.y - Input.GetAxis("Mouse Y") * 1f * Time.deltaTime, 0, 5);
 
 
             //update zoom offset;

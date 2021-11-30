@@ -7,15 +7,16 @@ namespace CombatSystemComponent
 {
     public abstract class StatsData
     {
-        protected int health = 100;
-        protected int stamina = 1;
-        protected int speed = 100;
-        protected int strength = 1;
+        protected int health = 0; //100
+        protected int stamina = 0; //1
+        protected int speed = 0; //100
+        protected int strength = 0; //1
 
-        protected int compHealth = 100;
-        protected int compStrength = 1; 
-
-        Timer timer = new Timer(2);
+        public bool isAnyStatZero
+        {
+            get { return health == 0 || stamina == 0 || speed == 0 || strength == 0; }
+        }
+        
 
         //pull player
         public void PullPlayer()
@@ -25,7 +26,7 @@ namespace CombatSystemComponent
                 health = hp;
             });
 
-            DataManager.GetMaxSTM(stam =>
+            DataManager.GetCurrSTM(stam => //max stamina
             {
                 stamina = stam;
             });
@@ -60,7 +61,7 @@ namespace CombatSystemComponent
         public void PushPlayer()
         {
             DataManager.SetMaxHP(health);
-            DataManager.SetMaxSTM(stamina);
+            DataManager.SetCurrSTM(stamina); //max stamina
             DataManager.SetSpeed(speed);
             DataManager.SetStrength(strength);
         }
@@ -96,6 +97,14 @@ namespace CombatSystemComponent
         public int GetStrength()
         {
             return strength;
+        }
+
+        public void Print()
+        {
+            Debug.Log("health: " + health.ToString());
+            Debug.Log("stamina: " + stamina.ToString());
+            Debug.Log("strength: " + strength.ToString());
+            Debug.Log("speed: " + speed.ToString());
         }
     }
 }

@@ -14,7 +14,7 @@ namespace TerrainGeneratorComponent
 
         public void OnResumeclick()
         {
-            TerrainGenerator.ActiveMouse(false);          
+            TerrainGenerator.SetMouseBehavior(false);          
             damageMenu.SetActive(true);
             this.gameObject.SetActive(false);
             Time.timeScale = 1f;

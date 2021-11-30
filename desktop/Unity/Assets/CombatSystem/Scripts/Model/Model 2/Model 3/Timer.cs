@@ -24,10 +24,10 @@ public struct Timer
         get { return accumulator; }
     }
 
-    public Timer(float maxTime)
+    public Timer(float maxTime, float startTime = 0)
     {
         this.maxTime = maxTime;
-        accumulator = 0;
+        accumulator = startTime;
     }
 
     public void Update()

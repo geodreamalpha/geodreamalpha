@@ -15,12 +15,12 @@ namespace CombatSystemComponent
         [SerializeField]
         Image combatIcon;
 
+        Timer pullTimer = new Timer(5f, 6f);
+
         void Update()
         {
-            //-----------------------------
-            //pull from firebase
+            PullFirebaseStats();
             AdjustInGameStats();
-            //-----------------------------
             CheckForNullTarget();
             UpdateCharacterController();     
             PlayerCommands();
@@ -28,10 +28,24 @@ namespace CombatSystemComponent
             CheckIfCharacterIsGrounded();
         }
 
+        void PullFirebaseStats()
+        {
+            pullTimer.Update();
+            if (pullTimer.isAtMax)
+            {
+                pullTimer.Reset();
+                levelStats.PullCompanion();
+            }
+        }
+
         void CheckForNullTarget()
         {
             if (target == null)
+            {
                 OnDecision = OnPeacefulDecision;
+                peacefulIcon.color = new Color(1f, 1f, 1f);
+                combatIcon.color = new Color(0.4f, 0.4f, 0.4f);  //---------------------------------------
+            }              
         }
 
         void PlayerCommands()

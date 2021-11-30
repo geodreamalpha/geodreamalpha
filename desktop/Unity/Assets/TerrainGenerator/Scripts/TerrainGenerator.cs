@@ -100,10 +100,10 @@ namespace TerrainGeneratorComponent
             return "Hello from Component TerrainGenerator";
         }
 
-        public static void ActiveMouse(bool isActive)
+        public static void SetMouseBehavior(bool isNormal)
         {
-            Cursor.visible = isActive;
-            Cursor.lockState = isActive? CursorLockMode.None: CursorLockMode.Locked;
+            Cursor.visible = isNormal;
+            Cursor.lockState = isNormal? CursorLockMode.None: CursorLockMode.Confined;
         }
 
         public void DisplayExitMenu()
@@ -111,7 +111,7 @@ namespace TerrainGeneratorComponent
             Time.timeScale = 0f;
             exitMenu.SetActive(true);
             damageMenu.SetActive(false);
-            ActiveMouse(true);
+            SetMouseBehavior(true);
         }
 
         public void DisplayGameOver()

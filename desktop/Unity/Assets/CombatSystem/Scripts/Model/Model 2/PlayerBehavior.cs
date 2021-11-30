@@ -14,23 +14,25 @@ namespace CombatSystemComponent
         [SerializeField]
         Texture2D lockOn;
 
-        Timer speedLevelIncreaseTimer = new Timer(2f);
+        Timer speedLevelIncreaseTimer = new Timer(0.5f);
+
+        Timer pullTimer = new Timer(5f, 6f);
+
 
         //create timer and set to over max value
 
         void Start()
         {
             //pull from firebase
+            levelStats.PullPlayer();
             InitializeSoundFX();
             InitializeInGameStats();
         }
 
         void Update()
         {
-            //-----------------------------
-            //push to firebase
+            PullFirebaseStats();
             AdjustInGameStats();
-            //-----------------------------
             AdjustInGameStats();
             SlowlyRegainHealthAndStamina();
             UpdateCharacterController();
@@ -53,7 +55,7 @@ namespace CombatSystemComponent
                 ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
                 projectileBehavior.sender = gameObject;
                 projectileBehavior.speed = gameStats.projectileSpeed;
-                projectileBehavior.direction = Camera.main.transform.forward;
+                projectileBehavior.direction = Camera.main.ScreenPointToRay(LockOn.GetComponent<RectTransform>().position).direction;
                 projectileBehavior.damageHitEvent = () => levelStats.AddStaminaExp();
                 DecreaseStaminaBy(10);
             }
@@ -75,6 +77,18 @@ namespace CombatSystemComponent
         }
 
         //Update Helpers
+        void PullFirebaseStats()
+        {
+            levelStats.Print();
+            pullTimer.Update();
+            if (pullTimer.isAtMax && !levelStats.isAnyStatZero)
+            {              
+                levelStats.Print();
+                pullTimer.Reset();
+                levelStats.PushPlayer();
+                
+            }
+        }
         protected void SlowlyRegainHealthAndStamina()
         {
             health = Mathf.Clamp(health + (gameStats.healthPoints * 0.01f * Time.deltaTime), 0, gameStats.healthPoints);
@@ -84,6 +98,10 @@ namespace CombatSystemComponent
         }
         protected void UpdateUserControls()
         {
+            Vector3 lockOnScreenPosition = LockOn.GetComponent<RectTransform>().position;
+            lockOnScreenPosition.y = Mathf.Clamp(lockOnScreenPosition.y + (Input.GetAxis("Mouse Y") * 0.5f), 0, Screen.height); //* Time.deltaTime;
+            LockOn.GetComponent<RectTransform>().position = lockOnScreenPosition;
+
             Transform c = Camera.main.transform; //target;
             string animation = grabWalking;
 
@@ -114,8 +132,6 @@ namespace CombatSystemComponent
                 Attack();
             if (Input.GetMouseButtonDown(1))
                 ToggleAttackType();
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                Projectile("Fireball");
         }
         protected virtual void GameOverIfDead()
         {

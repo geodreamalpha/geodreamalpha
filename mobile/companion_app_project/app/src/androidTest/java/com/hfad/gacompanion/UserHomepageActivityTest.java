@@ -15,21 +15,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.contrib.DrawerMatchers.isClosed;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class StrengthMinigameActivityTest{
+public class UserHomepageActivityTest {
 
     @Rule
-    public ActivityScenarioRule<StrengthMinigameActivity> activityScenario = new ActivityScenarioRule<>(StrengthMinigameActivity.class);
+    public ActivityScenarioRule<UserHomepageActivity> activityScenario = new ActivityScenarioRule<>(UserHomepageActivity.class);
 
     @Before
     public void setUp() throws Exception{
@@ -44,26 +40,9 @@ public class StrengthMinigameActivityTest{
     @Test
     public void test_activityInView() {
         onView(withText("STRENGTH")).check(ViewAssertions.matches(isDisplayed()));
+        onView(withText("SPEED")).check(ViewAssertions.matches(isDisplayed()));
     }
 
-    @Test
-    public void test_activityButton() {
-        onView(withId(R.id.get_buff_button)).check(ViewAssertions.matches(isClickable()));
-        int num = 0;
-        boolean lifted = false;
-        int i = 1;
-        while(i<=10){
-            onView(withId(R.id.get_buff_button)).perform(click());
-            if(!lifted){
-                lifted = true;
-            } else{
-                num++;
-                onView(withId(R.id.lift_count)).check(ViewAssertions.matches(withText(Integer.toString(num))));
-                lifted = false;
-            }
-            i++;
-        }
-    }
 
     @Test
     public void test_navigationDrawerOpenAndClose() {
@@ -73,17 +52,15 @@ public class StrengthMinigameActivityTest{
                 .check(ViewAssertions.matches(DrawerMatchers.isClosed()));
     }
 
-
-
     @Test
-    public void test_navigationDrawerLaunchUserHomepage() {
+    public void test_navigationDrawerLaunchStrengthMinigame() {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
                 .check(ViewAssertions.matches(DrawerMatchers.isOpen()));
 
         onView(withId(R.id.nav_view))
-                .perform(NavigationViewActions.navigateTo(R.id.navigate_to_user_homepage));
+                .perform(NavigationViewActions.navigateTo(R.id.nav_str_minigame));
 
-        intended(hasComponent(UserHomepageActivity.class.getName()));
+        intended(hasComponent(StrengthMinigameActivity.class.getName()));
 
     }
 
@@ -98,6 +75,7 @@ public class StrengthMinigameActivityTest{
         intended(hasComponent(WalkingChallengeActivity.class.getName()));
 
     }
+
 
 
 

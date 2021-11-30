@@ -188,11 +188,6 @@ public class WalkingChallengeActivity extends AppCompatActivity implements Navig
         }
     }
 
-    public void updateSteps(SensorEvent sensorEvent) {
-        int totalStepSinceReboot = (int)sensorEvent.values[0];
-        Log.d(TAG, Integer.toString(totalStepSinceReboot));
-    }
-
 
 
 
@@ -260,6 +255,14 @@ public class WalkingChallengeActivity extends AppCompatActivity implements Navig
             sensorManager.registerListener(this, myStepCounter, sensorManager.SENSOR_DELAY_NORMAL);
         }
     }
+
+//    public void testShake() throws InterruptedException {
+//        onSensorChanged(new SensorEvent(myStepCounter.TYPE_STEP_COUNTER, sensorManager.SENSOR_DELAY_NORMAL, new float[] {0, 0, 0}));
+//        Thread.sleep(500);
+//        onSensorChanged(SensorManager.SENSOR_ACCELEROMETER, new float[] {300, 300, 300});
+//        Assert.assertTrue("Counter: " + mShaker.shakeCounter, mShaker.shakeCounter > 0);
+//    }
+
 
 
 

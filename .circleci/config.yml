@@ -26,16 +26,19 @@
 #      - say-hello
 
 version: '2.1'
+general:
+  build_dir: /mobile/companion_app_project/
 orbs:
   android: circleci/android@1.0
 jobs:
   test:
     working_directory: ~/mobile/companion_app_project/
+
     executor:
       name: android/android-machine
       resource-class: large
     steps:
-      - checkout
+      - checkout 
       - android/start-emulator-and-run-tests:
           system-image: system-images;android-29;default;x86
 workflows:

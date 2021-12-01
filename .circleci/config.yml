@@ -31,7 +31,8 @@ jobs:
     steps:
       - checkout
       - run: "ls -l"
-      - run: "touch testing_dir.txt"
+      - run: "cd mobile/companion_app_project/"
+      - run: "touch testing_dir_mobile.txt"
       - run: "ls -l"
       - android/create-avd:
           avd-name: myavd

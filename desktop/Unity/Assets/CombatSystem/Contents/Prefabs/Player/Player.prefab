@@ -2220,12 +2220,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3bce423e0a43842a1242393bee8f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepFX1: {fileID: 8300000, guid: 2a071dbf352c0ce48be59ecef36e5c9e, type: 3}
-  stepFX2: {fileID: 8300000, guid: c218e51bbc4869447af33b6b182dfd08, type: 3}
-  stepFX3: {fileID: 0}
-  stepFX4: {fileID: 0}
-  meleeAttackFX: {fileID: 0}
-  hitFX: {fileID: 0}
+  stepFX1:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  stepFX2:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  stepFX3:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  stepFX4:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  meleeAttackFX:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  TakeDamageFX:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  meleeOffset: 4
+  meleeRadius: 5
   damageTextColor: {r: 1, g: 0.091103174, b: 0, a: 1}
   animator: {fileID: 8795052651118023916}
   controller: {fileID: 8795052652238203771}
@@ -2243,7 +2281,6 @@ MonoBehaviour:
     projectileCheck: 1
     projectileSpeed: 1
   LockOn: {fileID: 0}
-  lockOn: {fileID: 2800000, guid: 1f1d5baae1d26404a8a639a07e5c7766, type: 3}
 --- !u!82 &-1968135261376717678
 AudioSource:
   m_ObjectHideFlags: 0

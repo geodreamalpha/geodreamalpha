@@ -140,6 +140,20 @@ MonoBehaviour:
     maxVolume: 0
     minPitch: 0
     maxPitch: 0
+  stepFX3:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  stepFX4:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
   meleeAttackFX:
     clips: []
     source: {fileID: 0}
@@ -147,13 +161,15 @@ MonoBehaviour:
     maxVolume: 0
     minPitch: 0
     maxPitch: 0
-  hitFX:
+  TakeDamageFX:
     clips: []
     source: {fileID: 0}
     minVolume: 0
     maxVolume: 0
     minPitch: 0
     maxPitch: 0
+  meleeOffset: 4
+  meleeRadius: 5
   damageTextColor: {r: 0.2783019, g: 0.32986602, b: 1, a: 1}
   animator: {fileID: 2967258313441920762}
   controller: {fileID: 952933069}
@@ -176,13 +192,11 @@ MonoBehaviour:
       name: melee
     - proximity: 40
       name: walkFrom
-    commandCounter: 0
   - commands:
     - proximity: 6
       name: melee
     - proximity: 40
       name: fireball
-    commandCounter: 0
 --- !u!1001 &2918062189230956038
 PrefabInstance:
   m_ObjectHideFlags: 0

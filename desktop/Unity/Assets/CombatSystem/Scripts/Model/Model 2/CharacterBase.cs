@@ -28,17 +28,35 @@ namespace CombatSystemComponent
             stepFX2.Play();
         }
         [SerializeField]
+        protected soundFXGroup stepFX3;
+        void PlayStepFX3()
+        {
+            stepFX3.Play();
+        }
+        [SerializeField]
+        protected soundFXGroup stepFX4;
+        void PlayStepFX4()
+        {
+            stepFX4.Play();
+        }
+        [SerializeField]
         protected soundFXGroup meleeAttackFX;
         void PlayMeleeAttackFX()
         {
             meleeAttackFX.Play();
         }
         [SerializeField]
-        protected soundFXGroup hitFX;
-        void PlayHitFX()
+        protected soundFXGroup TakeDamageFX;
+        void PlayTakeDamageFX()
         {
-            hitFX.Play();
+            TakeDamageFX.Play();
         }
+
+        //Declare Melee Damage Range
+        [SerializeField]
+        protected float meleeOffset;
+        [SerializeField]
+        protected float meleeRadius;
 
         //Declare Damage Text Colors
         [SerializeField]
@@ -94,7 +112,7 @@ namespace CombatSystemComponent
             stepFX1.source = soundFX;
             stepFX2.source = soundFX;
             meleeAttackFX.source = soundFX;
-            hitFX.source = soundFX;
+            TakeDamageFX.source = soundFX;
         }
         
         //Adjusts stats

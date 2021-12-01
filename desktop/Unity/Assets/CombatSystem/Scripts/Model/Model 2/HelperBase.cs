@@ -158,11 +158,12 @@ namespace CombatSystemComponent
 
             //show damage text
             GameObject.Find("DamageMenu").GetComponent<DamageMenuBehavior>().ShowDamage(transform, damageAmount, damageTextColor, assets);
+
+            TakeDamageFX.Play();
         }
         protected virtual void MeleeContactEvent()
         {
-            OnNearbyEnemies(4, 5, ApplyMeleeDamageTo);
-            meleeAttackFX.Play();
+            OnNearbyEnemies(meleeOffset, meleeRadius, ApplyMeleeDamageTo);
         }
 
         //Misc Setter

@@ -737,6 +737,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3072740980a3ddb4c82ad6347e914f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepFX1:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  stepFX2:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  stepFX3:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  stepFX4:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  meleeAttackFX:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  TakeDamageFX:
+    clips: []
+    source: {fileID: 0}
+    minVolume: 0
+    maxVolume: 0
+    minPitch: 0
+    maxPitch: 0
+  meleeOffset: 4
+  meleeRadius: 5
   damageTextColor: {r: 0.9647059, g: 0.2784314, b: 1, a: 1}
   animator: {fileID: 9175197994093646355}
   controller: {fileID: 9175197994093646572}
@@ -754,13 +798,14 @@ MonoBehaviour:
     projectileCheck: 1
     projectileSpeed: 1
   commandGroups:
-  - timer:
-      maxTime: 1
-    commands:
+  - commands:
     - proximity: 3
       name: melee
     - proximity: 40
       name: walkTo
+  subject: {fileID: 0}
+  peacefulIcon: {fileID: 0}
+  combatIcon: {fileID: 0}
 --- !u!1 &5598525583330774610
 GameObject:
   m_ObjectHideFlags: 0

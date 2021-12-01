@@ -9,7 +9,7 @@ namespace CombatSystemComponent
     {
         int arbitraryDirection = 0;
 
-        Dictionary<string, Action> commandPool;
+        protected Dictionary<string, Action> commandPool;
 
         Timer commandTimer = new Timer(2f);
         Timer defaultTimer = new Timer(3f);
@@ -22,7 +22,8 @@ namespace CombatSystemComponent
         protected void Start()
         {
             InitializeSoundFX();
-            InitializeInGameStats();
+            AdjustInGameStats();
+            AdjustHealthAndStamina();
 
             commandTimer = new Timer(2 / (multiplier.speed.curve.Evaluate(levelStats.GetSpeed()) * 2));
 
@@ -61,8 +62,8 @@ namespace CombatSystemComponent
         //Update
         void Update()
         {
-            UpdateCharacterController();
             OnCombatDecision();
+            UpdateCharacterController();            
             CheckIfCharacterIsGrounded();
         }
 
@@ -108,7 +109,7 @@ namespace CombatSystemComponent
                 commandTimer.Reset(float.MaxValue);
             }
         }
-      
+        
         //Misc Helpers
         protected virtual float TargetDistance()
         {

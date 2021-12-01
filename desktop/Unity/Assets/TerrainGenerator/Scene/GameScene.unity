@@ -700,6 +700,10 @@ PrefabInstance:
       propertyPath: commandGroups.Array.data[0].commands.Array.data[0].proximity
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5318554159754226610, guid: 0e43bac9b2a98eb418cec0e2f9a1d257, type: 3}
+      propertyPath: commandGroups.Array.data[0].commands.Array.data[1].proximity
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5598525583330774610, guid: 0e43bac9b2a98eb418cec0e2f9a1d257, type: 3}
       propertyPath: m_Layer
       value: 11
@@ -1368,17 +1372,17 @@ MonoBehaviour:
           time: 100
           value: 100
           inSlope: 0
-          outSlope: 0
-          tangentMode: 0
+          outSlope: 1
+          tangentMode: 69
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
           time: 5000
           value: 5000
-          inSlope: 0
+          inSlope: 1
           outSlope: 0
-          tangentMode: 0
+          tangentMode: 69
           weightedMode: 0
           inWeight: 0
           outWeight: 0
@@ -2050,8 +2054,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 100, y: 200}
-  m_SizeDelta: {x: 200, y: 400}
+  m_AnchoredPosition: {x: 120, y: 200}
+  m_SizeDelta: {x: 240, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1974104607
 MonoBehaviour:
@@ -2527,6 +2531,34 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 8978796600987841304}
+    - target: {fileID: 8795052651118023914, guid: 3adff5e3951fdcb42aa390873ca35502, type: 3}
+      propertyPath: stepFX1.minVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795052651118023914, guid: 3adff5e3951fdcb42aa390873ca35502, type: 3}
+      propertyPath: meleeAttackFX.maxPitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795052651118023914, guid: 3adff5e3951fdcb42aa390873ca35502, type: 3}
+      propertyPath: meleeAttackFX.minPitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795052651118023914, guid: 3adff5e3951fdcb42aa390873ca35502, type: 3}
+      propertyPath: meleeAttackFX.maxVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795052651118023914, guid: 3adff5e3951fdcb42aa390873ca35502, type: 3}
+      propertyPath: meleeAttackFX.minVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795052651118023914, guid: 3adff5e3951fdcb42aa390873ca35502, type: 3}
+      propertyPath: meleeAttackFX.clips.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795052651118023914, guid: 3adff5e3951fdcb42aa390873ca35502, type: 3}
+      propertyPath: meleeAttackFX.clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 57ebf74d9b0eda64faa730c7d74d77c9, type: 3}
     - target: {fileID: 8795052651118023915, guid: 3adff5e3951fdcb42aa390873ca35502, type: 3}
       propertyPath: m_Name
       value: Player

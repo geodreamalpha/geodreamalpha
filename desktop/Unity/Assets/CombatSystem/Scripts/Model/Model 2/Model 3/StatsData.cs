@@ -108,7 +108,7 @@ namespace CombatSystemComponent
         public string ToString(string name = "")
         {
             return
-                "\n" + name + " stats\n" +
+                "\n" + name + "\n" +
                 "health: " + health.ToString() + "\n" +
                 "stamina: " + stamina.ToString() + "\n" +
                 "strength: " + strength.ToString() + "\n" +

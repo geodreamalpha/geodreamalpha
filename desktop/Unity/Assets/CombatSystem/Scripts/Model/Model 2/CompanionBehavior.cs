@@ -18,19 +18,22 @@ namespace CombatSystemComponent
 
         Timer pullTimer = new Timer(5f, 6f);
 
+        protected new void Start()
+        {
+            base.Start();
+            commandPool["peaceful"] = SetPeacefulBehavior;
+        }
+
         void Update()
         {
             PullFirebaseStats();
             AdjustInGameStats();
-            CheckForNullTarget();
-            UpdateCharacterController();     
             PlayerCommands();
+            CheckForNullTarget();
             OnDecision();
+            UpdateCharacterController();          
             CheckIfCharacterIsGrounded();
         }
-
-        //Initializers
-        protected override void InitializeDefaultCommand() { }
 
         //Update Helpers
         void PullFirebaseStats()
@@ -44,7 +47,7 @@ namespace CombatSystemComponent
         }
         void CheckForNullTarget()
         {
-            if (target == GetDefaultTarget())
+            if (target == null)
                 SetPeacefulBehavior();
         }
         void PlayerCommands()
@@ -79,20 +82,24 @@ namespace CombatSystemComponent
         }
         protected void SetPeacefulBehavior()
         {
+            target = GetDefaultTarget();
             OnDecision = OnPeacefulDecision;
             peacefulIcon.color = new Color(1f, 1f, 1f);
             combatIcon.color = new Color(0.4f, 0.4f, 0.4f);
         }
         protected void SetCombatBehavior()
         {
-            OnNearbyEnemies(0, 40, Retarget);
-            combatIcon.color = new Color(1f, 1f, 1f);
-            peacefulIcon.color = new Color(0.4f, 0.4f, 0.4f);
+            if (OnNearbyEnemies(0, 50, Retarget))
+            {
+                combatIcon.color = new Color(1f, 1f, 1f);
+                peacefulIcon.color = new Color(0.4f, 0.4f, 0.4f);
+            }          
         }
         protected override float TargetDistance()
         {
             return Vector3.Distance(controller.transform.position, target.position); ;
         }
+        public override void TakeDamage(float damageAmount) { }
     }
 }
 

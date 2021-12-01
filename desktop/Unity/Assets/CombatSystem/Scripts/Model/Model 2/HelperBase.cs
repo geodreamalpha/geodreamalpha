@@ -124,15 +124,16 @@ namespace CombatSystemComponent
         {
             return GameObject.Find("Player").transform;
         }
-        protected void OnNearbyEnemies(float forwardOffset, float radius, Action<Collider[]> actionToPerform)
+        protected bool OnNearbyEnemies(float forwardOffset, float radius, Action<Collider[]> actionToPerform)
         {
-            OnNearbyEnemies(transform, gameObject.layer, forwardOffset, radius, actionToPerform);
+            return OnNearbyEnemies(transform, gameObject.layer, forwardOffset, radius, actionToPerform);
         }
-        public static void OnNearbyEnemies(Transform allieTransform, int allieLayer,  float forwardOffset, float radius, Action<Collider[]> actionToPerform)
+        public static bool OnNearbyEnemies(Transform allieTransform, int allieLayer,  float forwardOffset, float radius, Action<Collider[]> actionToPerform)
         {
             string layerName = allieLayer == 10 ? "Allie" : "Enemy";
             Collider[] colliders = Physics.OverlapSphere(allieTransform.position + (allieTransform.forward * forwardOffset), radius, LayerMask.GetMask(layerName));
             actionToPerform(colliders);
+            return colliders.Length > 0;
         }
         protected void ApplyMeleeDamageTo(Collider[] enemies)
         {
@@ -161,9 +162,10 @@ namespace CombatSystemComponent
         protected virtual void MeleeContactEvent()
         {
             OnNearbyEnemies(4, 5, ApplyMeleeDamageTo);
+            meleeAttackFX.Play();
         }
 
-        //Asset Setter
+        //Misc Setter
         public void SetAssets(CombatSystemAssets assets)
         {
             this.assets = assets;

@@ -14,18 +14,22 @@ namespace CombatSystemComponent
 
         Timer speedLevelIncreaseTimer = new Timer(0.5f);
         Timer pushTimer = new Timer(5f, 6f);
+        public bool isFirebaseStatsLoaded { get; private set; } = false;
+        bool isHealthAndStaminaInitialized = false;
 
         void Start()
         {
             levelStats.PullPlayer();
             InitializeSoundFX();
-            InitializeInGameStats();
+            AdjustInGameStats();
+            AdjustHealthAndStamina();
         }
 
         void Update()
         {
             PushFirebaseStats();
             AdjustInGameStats();
+            CheckInitialHealthAndStaminaValues();
             SlowlyRegainHealthAndStamina();
             UpdateCharacterController();
             ResetDecisionValues();
@@ -75,10 +79,18 @@ namespace CombatSystemComponent
             pushTimer.Update();
             if (pushTimer.isAtMax && !levelStats.isAnyStatZero)
             {              
-                levelStats.ToString();
                 pushTimer.Reset();
                 levelStats.PushPlayer();
-                
+                isFirebaseStatsLoaded = true;
+            }
+        }
+        protected void CheckInitialHealthAndStaminaValues()
+        {
+            if (!isHealthAndStaminaInitialized &&!levelStats.isAnyStatZero)
+            {
+                isHealthAndStaminaInitialized = true;
+                AdjustInGameStats();
+                AdjustHealthAndStamina();
             }
         }
         protected void SlowlyRegainHealthAndStamina()

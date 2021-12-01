@@ -40,7 +40,7 @@ namespace CombatSystemComponent {
 
         void Update()
         {
-            enemyGenerator.CreateNewEnemies(assets, player);  
+            enemyGenerator.CreateNewEnemies(assets, player);
         }
 
         void LateUpdate()
@@ -81,12 +81,12 @@ namespace CombatSystemComponent {
 
         public string PrintPlayerStats()
         {
-            return playerBase.levelStats.ToString();
+            return playerBase.levelStats.ToString("player");
         }
 
         public string PrintCompanionStats()
         {
-            return companionBase.levelStats.ToString();
+            return companionBase.levelStats.ToString("companion");
         }
         
         public static void ProperDestroy(GameObject obj, float time = 0)

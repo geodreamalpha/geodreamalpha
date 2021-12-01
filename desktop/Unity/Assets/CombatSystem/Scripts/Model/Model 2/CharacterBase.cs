@@ -96,17 +96,9 @@ namespace CombatSystemComponent
             meleeAttackFX.source = soundFX;
             hitFX.source = soundFX;
         }
-        protected void InitializeInGameStats()
-        {
-            AdjustInGameStats();
-
-            //other fields
-            health = (int)gameStats.healthPoints;
-            stamina = (int)gameStats.staminaPoints;           
-        }
-
-        //Adjusts in-game stats
-        protected void AdjustInGameStats()
+        
+        //Adjusts stats
+        public void AdjustInGameStats()
         {
             //health related
             gameStats.healthPoints = baseStats.healthPoints * multiplier.healthPoints.curve.Evaluate(levelStats.GetHealth());
@@ -129,7 +121,13 @@ namespace CombatSystemComponent
 
             //animator
             animator.speed = multiplier.speed.curve.Evaluate(levelStats.GetSpeed());
-        }     
+        }
+        public void AdjustHealthAndStamina()
+        {
+            //other fields
+            health = (int)gameStats.healthPoints;
+            stamina = (int)gameStats.staminaPoints;
+        }
     }
 
     //sound FX class that handles all sound FX of characters
@@ -138,23 +136,25 @@ namespace CombatSystemComponent
     {
         [SerializeField]
         protected List<AudioClip> clips;
+        [HideInInspector]
         public AudioSource source;
-        [SerializeField]
+        [Range(0, 2)][SerializeField]
         float minVolume;
-        [SerializeField]
+        [Range(0, 2)][SerializeField]
         float maxVolume;
-        [SerializeField]
+        [Range(0, 2)][SerializeField]
         float minPitch;
-        [SerializeField]
+        [Range(0, 2)][SerializeField]
         float maxPitch;
 
         public void Play()
         {
-            foreach (AudioClip clip in clips)
+            if (clips.Count > 0)
             {
-                source.volume = UnityEngine.Random.Range(0.5f, 1f);
-                source.pitch = UnityEngine.Random.Range(1f, 2.5f);
-                source.PlayOneShot(clip);
+                source.volume = UnityEngine.Random.Range(minVolume, maxVolume);
+                source.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+                int i = UnityEngine.Random.Range(0, clips.Count);
+                source.PlayOneShot(clips[i]);
             }
         }
     }

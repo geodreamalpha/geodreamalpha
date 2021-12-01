@@ -30,21 +30,9 @@ jobs:
       resource-class: large
     steps:
       - checkout
-      - run: "ls -l"
-      - run: "cd mobile"
-      - run: "touch testing_dir_mobile.txt"
-      - run: "ls -l"
-      - android/create-avd:
-          avd-name: myavd
-          install: true
+      - android/start-emulator-and-run-tests:
+          test-command: cd mobile/companion_app_project; ./gradlew connectedDebugAndroidTest
           system-image: system-images;android-29;default;x86
-      - android/start-emulator:
-          avd-name: myavd
-          no-window: true
-          restore-gradle-cache-prefix: v1a
-      - android/run-tests
-      - android/save-gradle-cache:
-          cache-prefix: v1a
 workflows:
   test:
     jobs:

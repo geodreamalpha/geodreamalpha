@@ -1,15 +1,47 @@
-version: 2.1
-general:
-  working_directory: ~/circlecimobile/companion_app_project/
+#version: 2.1
+#general:
+#  working_directory: ~/project/mobile/companion_app_project/
+#  build_dir: ~/project/mobile/companion_app_project/
   
+#orbs:
+# android: circleci/android@0.2.0
+
+#jobs:
+# build:
+#   executor: android/android
+
+#   steps:
+#     - checkout
+#     - run:
+#         command: ./gradlew build
+
+version: 2.1
+
+general:
+  working_directory: ~/project/mobile/companion_app_project/
+  build_dir: ~/project/mobile/companion_app_project/
 orbs:
- android: circleci/android@0.2.0
+  android: circleci/android@1.0.3
 
 jobs:
- build:
-   executor: android/android
-
-   steps:
-     - checkout
-     - run:
-         command: ./gradlew build
+  test:
+    working_directory: ~/project/mobile/companion_app_project/
+    executor:
+      name: android/android-machine
+      resource-class: large
+    steps:
+      - checkout
+      - run: echo '$googleservices' > mobile/companion_app_project/app/google-services.json
+      - run: echo mobile/companion_app_project/app/google-services.json
+      - android/start-emulator-and-run-tests:
+          post-emulator-launch-assemble-command: cd mobile/companion_app_project/
+          test-command: cd mobile/companion_app_project; ./gradlew connectedDebugAndroidTest
+          #test-command: cd mobile/companion_app_project; ls -l; touch test_file_here3.txt
+          #run-tests-working-directory: ~/project/mobile/companion_app_project/
+          system-image: system-images;android-29;default;x86
+workflows:
+  test:
+    jobs:
+      - test:    
+          context: 
+          - apiVariables 

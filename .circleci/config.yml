@@ -1,6 +1,6 @@
 version: 2.1
 general:
-  working_directory: ~/mobile/companion_app_project/
+  working_directory: ~/circlecimobile/companion_app_project/
   
 orbs:
  android: circleci/android@0.2.0

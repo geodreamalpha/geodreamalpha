@@ -14,10 +14,14 @@ public class Companion {
     private String currentLifts;
     private String liftsNeeded;
 
+    private String currentSteps;
+    private String stepsNeeded;
+
     // No-argument constructor is required to support conversion of Firestore document to POJO
     public Companion() {  }
 
-    public Companion(String level, String strength, String speed, String currentLifts, String liftsNeeded){
+    public Companion(String level, String strength, String speed, String currentLifts, String liftsNeeded,
+                     String currentSteps, String stepsNeeded){
         this.level = level;
         this.strength = strength;
         this.speed = speed;
@@ -26,6 +30,8 @@ public class Companion {
         this.spd = Integer.parseInt(speed);
         this.currentLifts = currentLifts;
         this.liftsNeeded = liftsNeeded;
+        this.currentSteps = currentSteps;
+        this.stepsNeeded = stepsNeeded;
     }
 
     public void convertStats(){
@@ -96,5 +102,19 @@ public class Companion {
         this.liftsNeeded = liftsNeeded;
     }
 
+    public String getCurrentSteps() {
+        return currentSteps;
+    }
 
+    public void setCurrentSteps(String currentSteps) {
+        this.currentSteps = currentSteps;
+    }
+
+    public String getStepsNeeded() {
+        return stepsNeeded;
+    }
+
+    public void setStepsNeeded(String stepsNeeded) {
+        this.stepsNeeded = stepsNeeded;
+    }
 }

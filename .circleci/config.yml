@@ -25,6 +25,7 @@ orbs:
 
 jobs:
   test:
+    working_directory: ~/project/mobile/companion_app_project/
     executor:
       name: android/android-machine
       resource-class: large
@@ -33,7 +34,7 @@ jobs:
       - android/start-emulator-and-run-tests:
           #test-command: cd mobile/companion_app_project; ./gradlew connectedDebugAndroidTest
           #test-command: cd mobile/companion_app_project; ls -l; touch test_file_here3.txt
-          run-tests-working-directory: ~/project/mobile/companion_app_project/
+          #run-tests-working-directory: ~/project/mobile/companion_app_project/
           system-image: system-images;android-29;default;x86
 workflows:
   test:

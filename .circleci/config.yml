@@ -30,12 +30,12 @@ orbs:
   android: circleci/android@1.0
 jobs:
   test:
+    working_directory: ~/mobile/companion_app_project/
     executor:
       name: android/android-machine
       resource-class: large
     steps:
-      - checkout:
-        path: mobile/companion_app_project/
+      - checkout
       - android/start-emulator-and-run-tests:
           system-image: system-images;android-29;default;x86
 workflows:

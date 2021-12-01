@@ -9,7 +9,7 @@ namespace TerrainGeneratorComponent
 {
 	//this class manages a specific chunk instance (piece) of the map
 	//
-	public class Chunk
+	class Chunk
 	{
 		public const int layer = 6;
 

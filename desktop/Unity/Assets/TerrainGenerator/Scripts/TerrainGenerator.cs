@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace TerrainGeneratorComponent
 {
     //Tyler Anderson
-    //the facade class that other components will interact with
+    //the terrain generator facade class that other components will interact with
     public class TerrainGenerator : MonoBehaviour
     {
         [SerializeField]
@@ -20,6 +20,15 @@ namespace TerrainGeneratorComponent
 
         public GameObject exitMenu;
         public GameObject damageMenu;
+
+        public static int getChunkLineLength
+        {
+            get { return Chunk.lineLength; }
+        }
+        public static int getChunkFaceLength
+        {
+            get { return Chunk.faceLength; }
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -92,12 +101,26 @@ namespace TerrainGeneratorComponent
         }//
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<(int index, Vector3 position)> GetEnemySpawnInfo()
+        {
+            return Chunk.enemies;
+        }
+
+        /// <summary>
         /// Gets the "Hello from" string of this component
         /// </summary>
         /// <returns> A string that introduces this component </returns>
         public string Hello()
         {
             return "Hello from Component TerrainGenerator";
+        }
+
+        public static void SnapToGround(CharacterController controller)
+        {
+            SnapList.Add(controller);
         }
 
         public static void SetMouseBehavior(bool isNormal)

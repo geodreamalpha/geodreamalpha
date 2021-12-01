@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace TerrainGeneratorComponent
 {
+    //this class manages the ambience and music files that play during execution
     [System.Serializable]
-    public class Music
-    {
-        //this class manages the ambience and music files that play during execution
+    class Music
+    {        
         [SerializeField]
         AudioSource ambienceSource;
         [SerializeField]

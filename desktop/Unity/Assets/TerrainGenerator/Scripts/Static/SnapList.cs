@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace TerrainGeneratorComponent
 {
-	public static class SnapList
+	//adds all characters to a list and attempts to snap them to a newly generated terrain each framerate until they are properly grounded.
+	static class SnapList
 	{
 		static List<CharacterController> controllers = new List<CharacterController>();
 

@@ -5,25 +5,18 @@ using System;
 
 namespace CombatSystemComponent
 {
-    public class PlayerBehavior : HelperBase
+    //Manages the player behavior
+    class PlayerBehavior : HelperBase
     {
         [SerializeField]
         GameObject LockOn;
         bool melee = true;
 
-        [SerializeField]
-        Texture2D lockOn;
-
         Timer speedLevelIncreaseTimer = new Timer(0.5f);
-
-        Timer pullTimer = new Timer(5f, 6f);
-
-
-        //create timer and set to over max value
+        Timer pushTimer = new Timer(5f, 6f);
 
         void Start()
         {
-            //pull from firebase
             levelStats.PullPlayer();
             InitializeSoundFX();
             InitializeInGameStats();
@@ -31,8 +24,7 @@ namespace CombatSystemComponent
 
         void Update()
         {
-            PullFirebaseStats();
-            AdjustInGameStats();
+            PushFirebaseStats();
             AdjustInGameStats();
             SlowlyRegainHealthAndStamina();
             UpdateCharacterController();
@@ -77,14 +69,14 @@ namespace CombatSystemComponent
         }
 
         //Update Helpers
-        void PullFirebaseStats()
+        void PushFirebaseStats()
         {
-            levelStats.Print();
-            pullTimer.Update();
-            if (pullTimer.isAtMax && !levelStats.isAnyStatZero)
+            levelStats.ToString();
+            pushTimer.Update();
+            if (pushTimer.isAtMax && !levelStats.isAnyStatZero)
             {              
-                levelStats.Print();
-                pullTimer.Reset();
+                levelStats.ToString();
+                pushTimer.Reset();
                 levelStats.PushPlayer();
                 
             }
@@ -153,18 +145,18 @@ namespace CombatSystemComponent
             base.TakeDamage(damageAmount);
             levelStats.AddHealthExp();
         }
-        public void DecreaseStaminaBy(float amount)
+        protected void DecreaseStaminaBy(float amount)
         {
             stamina = Mathf.Clamp(stamina - amount, 0, gameStats.staminaPoints);
         }
-        public void Attack()
+        protected void Attack()
         {
             if (melee)
                 Melee();
             else
                 Projectile("Fireball");
         }
-        public void ToggleAttackType()
+        protected void ToggleAttackType()
         {
             melee = !melee;
             LockOn.SetActive(!LockOn.activeSelf);

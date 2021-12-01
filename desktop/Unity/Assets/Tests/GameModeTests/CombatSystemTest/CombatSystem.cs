@@ -17,7 +17,7 @@ public class CombatSystemTest2
         // Use the Assert class to test conditions.
         // Use yield to skip a frame.
         Assert.AreEqual(timer.getMaxTime, 1000); 
-        Assert.AreEqual(CharacterBase.gravity, new Vector3(0, -9.8f, 0));
+        Assert.AreEqual(CombatSystem.GetGravity(), new Vector3(0, -9.8f, 0));
 
         float strength = 1;
         float defense = 1000;

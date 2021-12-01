@@ -6,8 +6,8 @@ using System.Linq;
 
 namespace CombatSystemComponent
 {
-    [System.Serializable]
-    public abstract class HelperBase : CharacterBase
+    //Manages common helper methods and helper functions that can be used by each character in the game
+    abstract class HelperBase : CharacterBase
     {
         //Action Helpers
         protected void Move(Vector3 yAxisFacingDirection, string animationParameter = "")
@@ -51,7 +51,7 @@ namespace CombatSystemComponent
         {
             this.target = target;
         }
-        protected void Melee()
+        protected virtual void Melee()
         {
             animator.SetTrigger(grabMelee);
         }
@@ -122,7 +122,7 @@ namespace CombatSystemComponent
         }
         protected virtual Transform GetDefaultTarget()
         {
-            return null;
+            return GameObject.Find("Player").transform;
         }
         protected void OnNearbyEnemies(float forwardOffset, float radius, Action<Collider[]> actionToPerform)
         {

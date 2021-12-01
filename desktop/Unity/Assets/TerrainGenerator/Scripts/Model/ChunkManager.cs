@@ -9,13 +9,13 @@ namespace TerrainGeneratorComponent
 {
     //this class loads and deletes map chunk instances as they enter and leave the view distance of the player
     //
-    public class ChunkManager
+    class ChunkManager
     {
         int indexX = 0;
         int indexY = 0;
 
         const int maxChunksFromPlayer = 3;
-        public const int maxViewDistanceFromPlayer = 768; //512
+        public const int maxViewDistanceFromPlayer = 768;
         
         Dictionary<(int, int), Chunk> chunks = new Dictionary<(int, int), Chunk>();
         List<(int, int)> keys = new List<(int, int)> { };

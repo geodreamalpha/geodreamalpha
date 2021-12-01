@@ -6,7 +6,7 @@ namespace TerrainGeneratorComponent
 {
     //this class manages what prototypes (map textures, grasses, trees) will be placed and where they will be placed on the game map.
     //it also determins how many will be placed, the range of prototypes that might be placed, and how prototypes will change over large map distances.
-    public class Variation
+    class Variation
     {
         //start index of prototype range
         int startIndex;

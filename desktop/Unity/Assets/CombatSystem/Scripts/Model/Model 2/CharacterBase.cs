@@ -6,7 +6,8 @@ using System.Collections.ObjectModel;
 
 namespace CombatSystemComponent
 {
-    public class CharacterBase : MonoBehaviour
+    //Manages common fields and initializer methods that can be used by each character in the game
+    abstract class CharacterBase : MonoBehaviour
     {
         //declare immutable world directions a character can walk in
         public static ReadOnlyCollection<Vector3> directions = new ReadOnlyCollection<Vector3>(new List<Vector3>()
@@ -81,12 +82,11 @@ namespace CombatSystemComponent
         protected Vector3 velocity = Vector3.zero;
         protected Vector3 rotation = Vector3.forward;
 
-        //Initialize Multiplier Stats
+        //Initializers
         public static void InitializeMultiplierStats(MultiplierStats multiplier)
         {
             CharacterBase.multiplier = multiplier;
         }
-
         protected void InitializeSoundFX()
         {
             //audio FX
@@ -96,8 +96,6 @@ namespace CombatSystemComponent
             meleeAttackFX.source = soundFX;
             hitFX.source = soundFX;
         }
-
-        //Set Game Stats
         protected void InitializeInGameStats()
         {
             AdjustInGameStats();
@@ -107,6 +105,7 @@ namespace CombatSystemComponent
             stamina = (int)gameStats.staminaPoints;           
         }
 
+        //Adjusts in-game stats
         protected void AdjustInGameStats()
         {
             //health related
@@ -133,6 +132,7 @@ namespace CombatSystemComponent
         }     
     }
 
+    //sound FX class that handles all sound FX of characters
     [System.Serializable]
     public class soundFXGroup
     {

@@ -8,7 +8,7 @@ namespace TerrainGeneratorComponent
     //this class stores the foilage prototypes that will be used for the terrain generator.
     //
     [System.Serializable]
-    public class MapAssets
+    class MapAssets
     {
         [SerializeField]
         List<TerrainLayer> layers = new List<TerrainLayer> { }; //layers/ map textures

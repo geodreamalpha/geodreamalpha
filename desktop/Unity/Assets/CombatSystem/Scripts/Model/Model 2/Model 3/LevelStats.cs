@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace CombatSystemComponent
 {
-    public class LevelStats : StatsData
+    //Manages the levelling up behavior of player's stats (but can be used for any character)
+    class LevelStats : StatsData
     {
         ExpStat healthExp = new ExpStat();
         ExpStat staminaExp = new ExpStat();
@@ -18,7 +19,6 @@ namespace CombatSystemComponent
             {
                 healthExp.Reset();
                 health = Mathf.Clamp(health + 50, 100, 5000);
-                Debug.Log("health increase");
             }
         }
 
@@ -29,7 +29,6 @@ namespace CombatSystemComponent
             {
                 staminaExp.Reset();
                 stamina = Mathf.Clamp(stamina + 1, 1, 100);
-                Debug.Log("stamina increase");
             }
         }
 
@@ -40,7 +39,6 @@ namespace CombatSystemComponent
             {
                 strengthLExp.Reset();
                 strength = Mathf.Clamp(strength + 1, 1, 100);
-                Debug.Log("strength increase:  " + strength.ToString());
             }
         }
 
@@ -51,7 +49,6 @@ namespace CombatSystemComponent
             {
                 speedExp.Reset();
                 speed = Mathf.Clamp(speed + 1, 1, 100);
-                Debug.Log("speed increase");
             }
         }
     }

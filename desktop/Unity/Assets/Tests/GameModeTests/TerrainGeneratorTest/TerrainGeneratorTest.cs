@@ -25,6 +25,8 @@ public class TerrainGeneratorTest
     public IEnumerator TerrainGeneratorTestWithEnumeratorPasses()
     {     
         TerrainGenerator generator = new TerrainGenerator();
+        int lineLength = TerrainGenerator.getChunkLineLength;
+        int faceLength = TerrainGenerator.getChunkFaceLength;
 
         //Terrain generator is a notoriously hard thing to unit test.  Fortunately, many things went correctly when it was designed.
         //1) the terrain generator algorithm "Generator" class contains no gameobjects.  It only contains logic which returns simple data types.
@@ -39,11 +41,11 @@ public class TerrainGeneratorTest
         //total asserts used (modest estimate): 1000
         for (int x = 0; x < 50000; x += 5000)
         {
-            heightmap = new float[Chunk.lineLength, Chunk.lineLength];
-            alphamapLayers = new float[Chunk.faceLength, Chunk.faceLength, 12];
+            heightmap = new float[lineLength, lineLength];
+            alphamapLayers = new float[faceLength, faceLength, 12];
             detailLayers = new int[14][,];
             for (int i = 0; i < detailLayers.Length; i++)
-                detailLayers[i] = new int[Chunk.faceLength, Chunk.faceLength];
+                detailLayers[i] = new int[faceLength, faceLength];
             trees = new List<TreeInstance> { };            
             enemies = new List<(int index, Vector3 position)>();
 

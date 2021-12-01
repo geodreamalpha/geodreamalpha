@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 namespace CombatSystemComponent
 {
-    public class CompanionBehavior : AIBehavior
+    //Manages companion behavior in the game
+    class CompanionBehavior : AIBehavior
     {
         [SerializeField]
         protected Transform subject;
@@ -28,6 +29,10 @@ namespace CombatSystemComponent
             CheckIfCharacterIsGrounded();
         }
 
+        //Initializers
+        protected override void InitializeDefaultCommand() { }
+
+        //Update Helpers
         void PullFirebaseStats()
         {
             pullTimer.Update();
@@ -37,35 +42,22 @@ namespace CombatSystemComponent
                 levelStats.PullCompanion();
             }
         }
-
         void CheckForNullTarget()
         {
-            if (target == null)
-            {
-                OnDecision = OnPeacefulDecision;
-                peacefulIcon.color = new Color(1f, 1f, 1f);
-                combatIcon.color = new Color(0.4f, 0.4f, 0.4f);  //---------------------------------------
-            }              
+            if (target == GetDefaultTarget())
+                SetPeacefulBehavior();
         }
-
         void PlayerCommands()
         {
             //peaceful
             if (Input.mouseScrollDelta.y < 0)
-            {
-                OnDecision = OnPeacefulDecision;
-                peacefulIcon.color = new Color(1f, 1f, 1f);
-                combatIcon.color = new Color(0.4f, 0.4f, 0.4f);
-            }
+                SetPeacefulBehavior();
             //combat
             if (Input.mouseScrollDelta.y > 0)
-            {
-                OnNearbyEnemies(0, 40, Retarget);              
-                combatIcon.color = new Color(1f, 1f, 1f);
-                peacefulIcon.color = new Color(0.4f, 0.4f, 0.4f);               
-            }               
+                SetCombatBehavior();               
         }
 
+        //Make Decision Events
         protected override void OnPeacefulDecision()
         {
             ResetDecisionValues();
@@ -84,6 +76,22 @@ namespace CombatSystemComponent
         protected override Transform GetDefaultTarget()
         {
             return GameObject.Find("Player").transform;
+        }
+        protected void SetPeacefulBehavior()
+        {
+            OnDecision = OnPeacefulDecision;
+            peacefulIcon.color = new Color(1f, 1f, 1f);
+            combatIcon.color = new Color(0.4f, 0.4f, 0.4f);
+        }
+        protected void SetCombatBehavior()
+        {
+            OnNearbyEnemies(0, 40, Retarget);
+            combatIcon.color = new Color(1f, 1f, 1f);
+            peacefulIcon.color = new Color(0.4f, 0.4f, 0.4f);
+        }
+        protected override float TargetDistance()
+        {
+            return Vector3.Distance(controller.transform.position, target.position); ;
         }
     }
 }

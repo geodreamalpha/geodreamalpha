@@ -6,7 +6,7 @@ using TerrainGeneratorComponent;
 
 namespace TerrainGeneratorComponent
 {
-    //this class manages the in-game exit menu
+    //Manages the in-game exit menu
     public class ExitGUI : MonoBehaviour
     {
         [SerializeField]

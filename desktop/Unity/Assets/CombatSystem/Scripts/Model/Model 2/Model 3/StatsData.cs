@@ -5,7 +5,9 @@ using DataManagerComponent;
 
 namespace CombatSystemComponent
 {
-    public abstract class StatsData
+    //basic stats for the game that are pulled from and pushed to firebase.
+    //these stats are used to calculate the values of derived stats (stats used in the game)
+    abstract class StatsData
     {
         protected int health = 0; //100
         protected int stamina = 0; //1
@@ -16,9 +18,7 @@ namespace CombatSystemComponent
         {
             get { return health == 0 || stamina == 0 || speed == 0 || strength == 0; }
         }
-        
 
-        //pull player
         public void PullPlayer()
         {
             DataManager.GetMaxHP(hp =>
@@ -43,7 +43,6 @@ namespace CombatSystemComponent
             //Debug.Log("Health: " + health + "Stamina: " + stamina); 
         }
 
-        //pull companion
         public void PullCompanion()
         {
             DataManager.GetCompStrength(st =>
@@ -57,7 +56,6 @@ namespace CombatSystemComponent
             });
         }
 
-        //push player
         public void PushPlayer()
         {
             DataManager.SetMaxHP(health);
@@ -84,11 +82,14 @@ namespace CombatSystemComponent
             return stamina;
         }
 
+        /// <summary>
+        /// Get the current speed value.
+        /// </summary>
+        /// <returns>Current speed int</returns>
         public int GetSpeed()
         {
             return speed;
         }
-
 
         /// <summary>
         /// Get the currect attack damage. 
@@ -99,12 +100,19 @@ namespace CombatSystemComponent
             return strength;
         }
 
-        public void Print()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns> The formated string representation of each stat. </returns>
+        public string ToString(string name = "")
         {
-            Debug.Log("health: " + health.ToString());
-            Debug.Log("stamina: " + stamina.ToString());
-            Debug.Log("strength: " + strength.ToString());
-            Debug.Log("speed: " + speed.ToString());
+            return
+                "\n" + name + " stats\n" +
+                "health: " + health.ToString() + "\n" +
+                "stamina: " + stamina.ToString() + "\n" +
+                "strength: " + strength.ToString() + "\n" +
+                "speed: " + speed.ToString() + "\n";
         }
     }
 }

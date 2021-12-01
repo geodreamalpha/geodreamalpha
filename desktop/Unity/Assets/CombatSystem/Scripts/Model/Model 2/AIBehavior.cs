@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace CombatSystemComponent
 {
-    [System.Serializable]
-    public class AIBehavior : HelperBase
+    //Manages the AI Decisions of characters in the game (including the companion)
+    class AIBehavior : HelperBase
     {
-        int peacefulDirection = 0;
+        int arbitraryDirection = 0;
 
-        Dictionary<string, Action> combatPool;
+        Dictionary<string, Action> commandPool;
 
         Timer commandTimer = new Timer(2f);
         Timer defaultTimer = new Timer(3f);
@@ -30,27 +30,31 @@ namespace CombatSystemComponent
 
             target = GetDefaultTarget();
 
-            #region Combat Pool Dictionary
-            combatPool = new Dictionary<string, Action>();
-            combatPool.Add("walkTo", () => Move(faceTarget, grabWalking));
-            combatPool.Add("walkFrom", () => Move(-faceTarget, grabWalking));
-            combatPool.Add("walkLeft", () => Move(-faceRightOfTarget, grabWalking));
-            combatPool.Add("walkRight", () => Move(faceRightOfTarget, grabWalking));
-            combatPool.Add("sprintTo", () => Move(faceTarget, grabSprinting));
-            combatPool.Add("sprintFrom", () => Move(-faceTarget, grabSprinting));
-            combatPool.Add("sprintLeft", () => Move(-faceRightOfTarget, grabSprinting));
-            combatPool.Add("sprintRight", () => Move(faceRightOfTarget, grabSprinting));
-            combatPool.Add("retarget", () => OnNearbyEnemies(0, 50, Retarget));
-            combatPool.Add("melee", Melee);
-            combatPool.Add("fireball", () => Projectile("Fireball"));
+            #region Initialize Command Pool Dictionary
+            commandPool = new Dictionary<string, Action>();
+            commandPool.Add("peaceful", () => Move(GetArbitraryDirection(), grabWalking));
+            commandPool.Add("none", () => CommandGroup.Command.None());
+            commandPool.Add("walkTo", () => Move(faceTarget, grabWalking));
+            commandPool.Add("walkFrom", () => Move(-faceTarget, grabWalking));
+            commandPool.Add("walkLeft", () => Move(-faceRightOfTarget, grabWalking));
+            commandPool.Add("walkRight", () => Move(faceRightOfTarget, grabWalking));
+            commandPool.Add("sprintTo", () => Move(faceTarget, grabSprinting));
+            commandPool.Add("sprintFrom", () => Move(-faceTarget, grabSprinting));
+            commandPool.Add("sprintLeft", () => Move(-faceRightOfTarget, grabSprinting));
+            commandPool.Add("sprintRight", () => Move(faceRightOfTarget, grabSprinting));
+            commandPool.Add("retarget", () => OnNearbyEnemies(0, 50, Retarget));
+            commandPool.Add("melee", Melee);
+            commandPool.Add("fireball", () => Projectile("Fireball"));
             #endregion
+
+            InitializeDefaultCommand();
 
             foreach (CommandGroup commandGroup in commandGroups)
             {
                 commandGroupQueue.Enqueue(commandGroup);
 
                 foreach (CommandGroup.Command command in commandGroup.commands)
-                    command.run = combatPool[command.name];
+                    command.run = commandPool[command.name];
             }
         }
 
@@ -58,10 +62,36 @@ namespace CombatSystemComponent
         void Update()
         {
             UpdateCharacterController();
-            OnDecision();
+            OnCombatDecision();
             CheckIfCharacterIsGrounded();
         }
 
+        //Initializers
+        protected virtual void InitializeDefaultCommand()
+        {
+            //default command for AI is peaceful command
+            CommandGroup peacefulGroup = new CommandGroup();
+            peacefulGroup.commands = new List<CommandGroup.Command>();
+            CommandGroup.Command noCommand = new CommandGroup.Command();
+            CommandGroup.Command peaceCommand = new CommandGroup.Command();
+
+            noCommand.run = commandPool["none"];
+            noCommand.proximity = 50;
+            peacefulGroup.commands.Add(noCommand);
+            peaceCommand.run = commandPool["peaceful"];
+            peaceCommand.proximity = 250;
+            peacefulGroup.commands.Add(peaceCommand);
+            commandGroupQueue.Enqueue(peacefulGroup);
+        }
+
+        //Action Helpers
+        protected override void Melee()
+        {
+            Rotate(faceTarget);
+            base.Melee();
+        }
+
+        //Make Decision Events
         protected override void OnCombatDecision()
         {
             commandTimer.Update();
@@ -69,49 +99,25 @@ namespace CombatSystemComponent
             {
                 commandTimer.Reset();
                 ResetDecisionValues();
-
-                if (commandGroupQueue.Peek().isAtMax)
-                {
-                    commandGroupQueue.Peek().ResetCounter();
-                    commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());
-                }
-
                 commandGroupQueue.Peek().ChooseCommand(TargetDistance());
-
-                if (!commandGroupQueue.Peek().hasCommand)
-                {
-                    Retarget(new Collider[] { });
-                    peacefulDirection = UnityEngine.Random.Range(0, 4);
-                    Move(directions[peacefulDirection], grabWalking);
-                }
-                    
+            }
+            if (commandGroupQueue.Peek().IsDoneOrHasNoCommandFor(TargetDistance()))
+            {
+                commandGroupQueue.Peek().Reset();
+                commandGroupQueue.Enqueue(commandGroupQueue.Dequeue());
+                commandTimer.Reset(float.MaxValue);
             }
         }
-
-        //Make Decision Events
-        protected override void OnPeacefulDecision()
-        {
-            defaultTimer.Update();
-            if (defaultTimer.isAtMax)
-            {
-                defaultTimer.Reset();
-                ResetDecisionValues();
-                OnNearbyEnemies(0, 40, Retarget);
-
-                if (target == null)
-                {
-                    peacefulDirection = UnityEngine.Random.Range(0, 4);
-                    Move(directions[peacefulDirection], grabWalking);
-                }
-                else
-                    commandGroupQueue.Peek().ChooseCommand(TargetDistance());
-            }           
-        }
-        
+      
         //Misc Helpers
-        protected float TargetDistance()
+        protected virtual float TargetDistance()
         {
-            return Vector3.Distance(controller.transform.position, target.position); ;
+            return Vector3.Distance(controller.transform.position, GetDefaultTarget().position); ;
+        }
+        protected Vector3 GetArbitraryDirection()
+        {
+            arbitraryDirection = UnityEngine.Random.Range(0, 4);
+            return directions[arbitraryDirection];
         }
     }
 }

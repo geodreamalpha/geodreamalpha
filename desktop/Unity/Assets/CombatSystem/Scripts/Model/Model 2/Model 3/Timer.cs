@@ -2,41 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct Timer 
+
+namespace CombatSystemComponent
 {
-    [SerializeField]
-    float maxTime;
-    float accumulator;
-    
-    public bool isAtMax
+    //Accumulates time based on the time that elapses since the last frame.  Can be reset when max value is reached
+    [System.Serializable]
+    public struct Timer
     {
-        get { return accumulator >= maxTime; }
-    }
+        [SerializeField]
+        float maxTime;
+        float accumulator;
 
-    public float getMaxTime
-    {
-        get { return maxTime; }
-    }
+        public bool isAtMax
+        {
+            get { return accumulator >= maxTime; }
+        }
 
-    public float getAccumulator
-    {
-        get { return accumulator; }
-    }
+        public float getMaxTime
+        {
+            get { return maxTime; }
+        }
 
-    public Timer(float maxTime, float startTime = 0)
-    {
-        this.maxTime = maxTime;
-        accumulator = startTime;
-    }
+        public float getAccumulator
+        {
+            get { return accumulator; }
+        }
 
-    public void Update()
-    {
-        accumulator += Time.deltaTime;
-    }
+        public Timer(float maxTime, float startTime = 0)
+        {
+            this.maxTime = maxTime;
+            accumulator = startTime;
+        }
 
-    public void Reset()
-    {
-        accumulator = 0;
+        public void Update()
+        {
+            accumulator += Time.deltaTime;
+        }
+
+        public void Reset(float value = 0)
+        {
+            accumulator = value;
+        }
     }
 }

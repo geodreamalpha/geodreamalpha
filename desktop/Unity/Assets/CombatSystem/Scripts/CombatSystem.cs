@@ -4,25 +4,23 @@ using UnityEngine;
 
 namespace CombatSystemComponent {
 
-    //Jake Aldridge 
+    //Jake Aldridge
+    //Tyler Anderson
+    //Facade class for Combat System Component
     public class CombatSystem : MonoBehaviour
     {
         [SerializeField]
         Transform player;
+        [SerializeField]
+        CharacterBase playerBase;
+        [SerializeField]
+        CharacterBase companionBase;
         [SerializeField]
         CombatSystemAssets assets;
         [SerializeField]
         MultiplierStats multiplierStats;
         EnemyGenerator enemyGenerator = new EnemyGenerator();
         static bool isStartUp = true;
-
-        //main camera objects
-        
-
-        //Note to Dr. Layman 
-        //Combat system will only provide the stats class as well as any particle effects and may not need.
-        //It does not involve any other classes, we have determined that the stats class object will be declared 
-        //For both the player and enemy classes instead of being managed by the combat system. 
 
         void Awake()
         {
@@ -60,21 +58,35 @@ namespace CombatSystemComponent {
             return "Hello from Component CombatSystem"; 
         }
 
+        //used for unit testing
         public float GetAReductionDamageValue(float offenseValue, float reducerValue)
         {
             return DerivedStats.GetReductionDamage(offenseValue, reducerValue);
         }
 
+        public static Vector3 GetGravity()
+        {
+            return CharacterBase.gravity;
+        }
+
         public float GetPlayerHealth()
         {
-            CharacterBase characterBase = player.root.gameObject.GetComponent<CharacterBase>();
-            return (characterBase.health / characterBase.gameStats.healthPoints) * 100f;
+            return (playerBase.health / playerBase.gameStats.healthPoints) * 100f;
         }
 
         public float GetPlayerStamina()
         {
-            CharacterBase characterBase = player.root.gameObject.GetComponent<CharacterBase>();
-            return (characterBase.stamina / characterBase.gameStats.staminaPoints) * 100f;
+            return (playerBase.stamina / playerBase.gameStats.staminaPoints) * 100f;
+        }
+
+        public string PrintPlayerStats()
+        {
+            return playerBase.levelStats.ToString();
+        }
+
+        public string PrintCompanionStats()
+        {
+            return companionBase.levelStats.ToString();
         }
         
         public static void ProperDestroy(GameObject obj, float time = 0)

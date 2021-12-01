@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace TerrainGeneratorComponent
 {
-    //
+    //Manages the seed selection and building world menus
     class SeedGUI : MonoBehaviour
     {
         SeedData seedData = new SeedData();

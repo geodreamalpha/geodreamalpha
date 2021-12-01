@@ -5,7 +5,8 @@ using System;
 
 namespace CombatSystemComponent
 {
-    public class ProjectileBehavior : MonoBehaviour
+    //controls projectiles in the game.  Also controls damage text that appears on the screen.
+    class ProjectileBehavior : MonoBehaviour
     {
         public GameObject sender;
 

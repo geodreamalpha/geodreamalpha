@@ -33,7 +33,6 @@ orbs:
 jobs:
   test:
     working_directory: ~/mobile/companion_app_project/
-
     executor:
       name: android/android-machine
       resource-class: large
@@ -41,6 +40,8 @@ jobs:
       - checkout 
       - android/start-emulator-and-run-tests:
           system-image: system-images;android-29;default;x86
+      - store_test_results:
+          path: test-results
 workflows:
   test:
     jobs:

@@ -31,6 +31,8 @@ jobs:
       resource-class: large
     steps:
       - checkout
+      - run: echo '$googleservices' > mobile/companion_app_project/app/google-services.json
+      - run: echo mobile/companion_app_project/app/google-services.json
       - android/start-emulator-and-run-tests:
           post-emulator-launch-assemble-command: cd mobile/companion_app_project/
           test-command: cd mobile/companion_app_project; ./gradlew connectedDebugAndroidTest
@@ -40,4 +42,6 @@ jobs:
 workflows:
   test:
     jobs:
-      - test
+      - test:    
+          context: 
+          - apiVariables 

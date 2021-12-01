@@ -12,5 +12,7 @@ jobs:
 
    steps:
      - checkout
+     - android/restore-gradle-cache
+     - android/restore-build-cache
      - run:
          command: ./gradlew build

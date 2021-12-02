@@ -32,7 +32,8 @@ public class StrengthMinigameActivity extends AppCompatActivity implements Navig
     private static final String TAG = "StrMinigameActivity";
     private FirebaseAuth mAuth;
     private boolean lifted = false;
-    private ImageView wolfPicture;
+    private ImageView companionPicture1;
+    private ImageView companionPicture2;
     private ProgressBar progressBar;
     private DocumentReference compStats;
 
@@ -90,7 +91,8 @@ public class StrengthMinigameActivity extends AppCompatActivity implements Navig
             }
         });
 
-        this.wolfPicture = findViewById(R.id.companion_image);
+        this.companionPicture1 = findViewById(R.id.companion_image_1);
+        this.companionPicture2 = findViewById(R.id.companion_image_2);
     }
 
     private void updateUI(Companion companion) {
@@ -103,11 +105,12 @@ public class StrengthMinigameActivity extends AppCompatActivity implements Navig
         this.current_lifts = Integer.parseInt(companion.getCurrentLifts());
         TextView lift_count = findViewById(R.id.lift_count);
         lift_count.setText(companion.getCurrentLifts());
-        this.progressBar.setProgress(Integer.parseInt(companion.getCurrentLifts()));
+        Log.d(TAG, "about to set lifts");
 
         TextView num_needed = findViewById(R.id.next_level);
         num_needed.setText(companion.getLiftsNeeded());
         this.progressBar.setMax(Integer.parseInt(companion.getLiftsNeeded()));
+        this.progressBar.setProgress(current_lifts);
     }
 
     @Override
@@ -167,7 +170,9 @@ public class StrengthMinigameActivity extends AppCompatActivity implements Navig
 
     public void OnBuffButtonPress(View view){
         if(this.lifted) {
-            this.wolfPicture.setImageResource(R.drawable.barbellfox1);
+            //this.wolfPicture.setImageResource(R.drawable.barbellfox1);
+            this.companionPicture1.setVisibility(View.VISIBLE);
+            this.companionPicture2.setVisibility(View.INVISIBLE);
             current_lifts++;
             progressBar.setProgress(current_lifts);
             TextView current_lifts_tv = findViewById(R.id.lift_count);
@@ -177,7 +182,9 @@ public class StrengthMinigameActivity extends AppCompatActivity implements Navig
             }
             this.lifted = false;
         } else {
-            this.wolfPicture.setImageResource(R.drawable.barbellfox2);
+            //this.wolfPicture.setImageResource(R.drawable.barbellfox2);
+            this.companionPicture1.setVisibility(View.INVISIBLE);
+            this.companionPicture2.setVisibility(View.VISIBLE);
             this.lifted = true;
         }
     }

@@ -6,12 +6,12 @@
         <menu>
              <item
                 android:id="@+id/logout"
-                android:icon="@android:drawable/sym_call_outgoing"
+                android:icon="@drawable/baseline_logout_white_24dp"
                 android:title="@string/logout"/>
 
             <item
                 android:id="@+id/navigate_to_user_homepage"
-                android:icon="@android:drawable/sym_action_email"
+                android:icon="@drawable/baseline_home_white_24dp"
                 android:title="@string/nav_homepage" />
         </menu>
     </item>
@@ -20,12 +20,12 @@
         <menu>
             <item
                 android:id="@+id/nav_str_minigame"
-                android:icon="@android:drawable/sym_call_outgoing"
+                android:icon="@drawable/baseline_fitness_center_white_24dp"
                 android:title="@string/nav_str_minigame"/>
 
             <item
                 android:id="@+id/nav_spd_challenge"
-                android:icon="@android:drawable/sym_action_email"
+                android:icon="@drawable/baseline_directions_walk_white_24dp"
                 android:title="@string/nav_spd_challenge"/>
         </menu>
     </item>

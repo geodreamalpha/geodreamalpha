@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomAppTheme">
+
         <activity android:name=".AboutGeoDreamActivity"></activity>
         <activity android:name=".UserHomepageActivity" />
         <activity android:name=".WalkingChallengeActivity" />

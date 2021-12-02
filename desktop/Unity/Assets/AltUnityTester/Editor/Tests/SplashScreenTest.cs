@@ -62,18 +62,4 @@ public class SplashScreenTest
         altUnityDriver.FindObject(By.NAME, "Reset Password Button").Click();
     }
 
-    //Tests user story #5
-    [Test]
-    public void GenerateWorldTest()
-    {
-	    altUnityDriver.LoadScene("TerrainGenerator/Scene/MenuScene");
-        altUnityDriver.FindObject(By.NAME, "Generate Button").Click();
-    }
-
-    // [Test]
-    // public void PlayerMovementTest()
-    // {
-    //     altUnityDriver.PressKeyAndWait(AltUnityKeyCode.W, 30);
-    // }
-
 }

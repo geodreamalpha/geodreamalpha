@@ -43,7 +43,7 @@ public class FirebaseTests
     [UnityTest]
     public IEnumerator SuccessfulSignUpTest()
     {
-        fb.SignUp("unit-test-1@geodream.alpha", "unittest1", res=>{
+        fb.SignUp("unit-testing-user@example.com", "unit-testing-password", res=>{
             TestData.success = res.Success;
         });
 

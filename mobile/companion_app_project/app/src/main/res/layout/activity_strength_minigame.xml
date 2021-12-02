@@ -7,10 +7,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <include
             layout="@layout/toolbar_main"
@@ -32,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
         <ImageView
-            android:id="@+id/companion_image"
+            android:id="@+id/companion_image_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -40,7 +50,22 @@
             android:maxHeight="150dp"
             android:layout_marginTop="20dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/barbellfox1"
+            android:src="@drawable/barbellfox1_downscaled"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/page_description"/>
+
+        <ImageView
+            android:id="@+id/companion_image_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="150dp"
+            android:maxHeight="150dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/barbellfox2_downscaled"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/page_description"/>
@@ -51,9 +76,9 @@
             android:layout_height="wrap_content"
             android:text="@string/companion_name"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="@id/companion_image"
-            app:layout_constraintEnd_toEndOf="@id/companion_image"
-            app:layout_constraintTop_toBottomOf="@id/companion_image"/>
+            app:layout_constraintStart_toStartOf="@id/companion_image_1"
+            app:layout_constraintEnd_toEndOf="@id/companion_image_1"
+            app:layout_constraintTop_toBottomOf="@id/companion_image_1"/>
 
         <TextView
             android:id="@+id/strength_label"
@@ -62,7 +87,7 @@
             android:text="@string/strength"
             android:layout_marginTop="50dp"
 
-            app:layout_constraintStart_toEndOf="@id/companion_image"
+            app:layout_constraintStart_toEndOf="@id/companion_image_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/page_description"
             app:layout_constraintVertical_chainStyle="packed"/>
@@ -75,7 +100,7 @@
             android:layout_marginRight="20dp"
             android:text="@string/temp_value"
             android:textSize="40sp"
-            app:layout_constraintStart_toEndOf="@id/companion_image"
+            app:layout_constraintStart_toEndOf="@id/companion_image_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/strength_label"
             app:layout_constraintVertical_chainStyle="packed"/>
@@ -97,7 +122,7 @@
             app:layout_constraintBottom_toTopOf="@id/next_level"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/lift_count_label"
-            app:layout_constraintTop_toBottomOf="@id/companion_image"
+            app:layout_constraintTop_toBottomOf="@id/companion_name_display"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
@@ -124,12 +149,17 @@
 
         <Button
             android:id="@+id/get_buff_button"
-            android:layout_width="250dp"
-            android:layout_height="225dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingStart="75dp"
+            android:paddingEnd="75dp"
+            android:paddingTop="90dp"
+            android:paddingBottom="90dp"
             android:text="@string/get_buff"
             android:onClick="OnBuffButtonPress"
-            app:layout_constraintTop_toBottomOf="@id/next_level"
-            app:layout_constraintBottom_toBottomOf="@id/lift_progressbar"
+            app:layout_constraintVertical_weight="4"
+            app:layout_constraintTop_toBottomOf="@id/next_level_label"
+            app:layout_constraintBottom_toTopOf="@id/lift_progressbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
@@ -139,6 +169,7 @@
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
             android:minWidth="300dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -148,6 +179,9 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

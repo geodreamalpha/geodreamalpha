@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
+        android:scrollY="-35dp"
         android:src="@drawable/companionicon"/>
 
     <LinearLayout
@@ -23,12 +24,6 @@
             android:textColor="@color/black"
             android:text="@string/companion_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="@string/username_display"/>
 
     </LinearLayout>
 </FrameLayout>

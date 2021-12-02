@@ -28,12 +28,12 @@
 
     <string name="homepage_temp_text">Welcome to the GeoDream Alpha Companion App!</string>
     <string name="username_display">username</string>
-    <string name="companion_name">companion name</string>
+    <string name="companion_name">Foxy McFoxface</string>
     <string name="str"><u><b>STR</b></u></string>
     <string name="spd"><u><b>SPD</b></u></string>
     <string name="strength"><u><b>STRENGTH</b></u></string>
     <string name="speed"><u><b>SPEED</b></u></string>
-    <string name="temp_value">666</string>
+    <string name="temp_value">1</string>
 
     <string name="nav_account_header">Account &amp; Homepage</string>
     <string name="nav_homepage">My Home</string>

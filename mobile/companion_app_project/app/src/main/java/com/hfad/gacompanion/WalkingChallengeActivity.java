@@ -4,14 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -20,7 +16,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -101,7 +96,7 @@ public class WalkingChallengeActivity extends AppCompatActivity implements Navig
             }
         });
 
-        this.wolfPicture = findViewById(R.id.companion_image);
+        this.wolfPicture = findViewById(R.id.companion_image_1);
 
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -126,11 +121,12 @@ public class WalkingChallengeActivity extends AppCompatActivity implements Navig
         this.current_steps = Integer.parseInt(companion.getCurrentSteps());
         TextView step_count = findViewById(R.id.step_count);
         step_count.setText(companion.getCurrentSteps());
-        this.progressBar.setProgress(Integer.parseInt(companion.getCurrentSteps()));
 
         TextView num_needed = findViewById(R.id.next_level);
         num_needed.setText(companion.getStepsNeeded());
         this.progressBar.setMax(Integer.parseInt(companion.getStepsNeeded()));
+        
+        this.progressBar.setProgress(Integer.parseInt(companion.getCurrentSteps()));
     }
 
     @Override

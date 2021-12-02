@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - enemy
+  - redProjectile
+  - allie
   layers:
   - Default
   - TransparentFX
@@ -11,12 +14,12 @@ TagManager:
   - 
   - Water
   - UI
-  - ground
+  - Ground
   - player
   - companion
-  - enemy
-  - 
-  - 
+  - oldEnemy
+  - Enemy
+  - Allie
   - 
   - 
   - 

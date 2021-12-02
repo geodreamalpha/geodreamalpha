@@ -33,7 +33,7 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
         <ImageView
-            android:id="@+id/companion_image"
+            android:id="@+id/companion_image_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -52,9 +52,9 @@
             android:layout_height="wrap_content"
             android:text="@string/companion_name"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="@id/companion_image"
-            app:layout_constraintEnd_toEndOf="@id/companion_image"
-            app:layout_constraintTop_toBottomOf="@id/companion_image"/>
+            app:layout_constraintStart_toStartOf="@id/companion_image_1"
+            app:layout_constraintEnd_toEndOf="@id/companion_image_1"
+            app:layout_constraintTop_toBottomOf="@id/companion_image_1"/>
 
         <TextView
             android:id="@+id/speed_label"
@@ -63,7 +63,7 @@
             android:text="@string/speed"
             android:layout_marginTop="50dp"
 
-            app:layout_constraintStart_toEndOf="@id/companion_image"
+            app:layout_constraintStart_toEndOf="@id/companion_image_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/speed_page_description"
             app:layout_constraintVertical_chainStyle="packed"/>
@@ -76,7 +76,7 @@
             android:layout_marginRight="20dp"
             android:text="@string/temp_value"
             android:textSize="40sp"
-            app:layout_constraintStart_toEndOf="@id/companion_image"
+            app:layout_constraintStart_toEndOf="@id/companion_image_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/speed_label"
             app:layout_constraintVertical_chainStyle="packed"/>
@@ -98,7 +98,7 @@
             app:layout_constraintBottom_toTopOf="@id/next_level"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/step_count_label"
-            app:layout_constraintTop_toBottomOf="@id/companion_image"
+            app:layout_constraintTop_toBottomOf="@id/companion_name_display"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
@@ -127,10 +127,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
+            android:paddingBottom="40dp"
             android:minWidth="300dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/companion_image"
+            app:layout_constraintTop_toBottomOf="@id/next_level_label"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 

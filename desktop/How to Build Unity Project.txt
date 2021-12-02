@@ -1,5 +1,3 @@
-Instructions for building Unity:
-
 The process of building Unity in developer mode is short.  All the dependencies needed from firebase and other asset libraries are already baked in.  
 Once you install a local copy of Unity from the main branch and load up the corresponding Unity project, everything will load/ download along with 
 the Unity editor itself.
@@ -19,7 +17,7 @@ complete.
 
 3) the seed menu will load.  In the input box (top box), type in the seed you would like.  For example: "0_0".
 
-4) the GameScene will load and you will be able to play the game.
+4) the GameScene will load and you can to play the game.
 
 
 These are some things to consider when troubleshooting:

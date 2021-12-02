@@ -100,6 +100,17 @@ namespace CombatSystemComponent
             return Vector3.Distance(controller.transform.position, target.position); ;
         }
         public override void TakeDamage(float damageAmount) { }
+        protected override void ApplyMeleeDamageToEvent(Collider collider)
+        {
+            if (collider.gameObject.GetComponent<CharacterBase>().health <= 0)
+            {
+                CharacterBase playerBase = GetDefaultTarget().root.gameObject.GetComponent<CharacterBase>();
+                playerBase.levelStats.AddHealthExp(5);
+                playerBase.levelStats.AddSpeedExp(5);
+                playerBase.levelStats.AddHealthExp(5);
+                playerBase.levelStats.AddHealthExp(5);
+            }
+        }
     }
 }
 

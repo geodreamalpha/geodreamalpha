@@ -148,8 +148,11 @@ namespace CombatSystemComponent
                 Instantiate(assets.GetMeleeHit(), enemy.ClosestPointOnBounds(transform.position), Quaternion.identity);
 
                 enemyStats.TakeDamage(damageAmount);
+
+                ApplyMeleeDamageToEvent(enemy);
             }
         }
+        protected virtual void ApplyMeleeDamageToEvent(Collider collider) { }
         public virtual void TakeDamage(float damageAmount)
         {
             health -= (int)damageAmount;

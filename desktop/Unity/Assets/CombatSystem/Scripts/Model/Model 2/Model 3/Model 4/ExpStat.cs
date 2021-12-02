@@ -15,9 +15,9 @@ namespace CombatSystemComponent
             get { return exp >= expToNextLevel; }
         }
 
-        public void Add()
+        public void Add(int exp)
         {
-            exp++;
+            this.exp += exp;
         }
 
         public void Reset()

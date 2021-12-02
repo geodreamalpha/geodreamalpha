@@ -12,9 +12,9 @@ namespace CombatSystemComponent
         ExpStat strengthLExp = new ExpStat();
         ExpStat speedExp = new ExpStat();
 
-        public void AddHealthExp()
+        public void AddHealthExp(int exp = 1)
         {
-            healthExp.Add();
+            healthExp.Add(exp);
             if (healthExp.isLevelIncreaseAvailable)
             {
                 healthExp.Reset();
@@ -22,9 +22,9 @@ namespace CombatSystemComponent
             }
         }
 
-        public void AddStaminaExp()
+        public void AddStaminaExp(int exp = 1)
         {
-            staminaExp.Add();
+            staminaExp.Add(exp);
             if (staminaExp.isLevelIncreaseAvailable)
             {
                 staminaExp.Reset();
@@ -32,9 +32,9 @@ namespace CombatSystemComponent
             }
         }
 
-        public void AddStrengthExp()
+        public void AddStrengthExp(int exp = 1)
         {
-            strengthLExp.Add();
+            strengthLExp.Add(exp);
             if (strengthLExp.isLevelIncreaseAvailable)
             {
                 strengthLExp.Reset();
@@ -42,9 +42,9 @@ namespace CombatSystemComponent
             }
         }
 
-        public void AddSpeedExp()
+        public void AddSpeedExp(int exp = 1)
         {
-            speedExp.Add();
+            speedExp.Add(exp);
             if (speedExp.isLevelIncreaseAvailable)
             {
                 speedExp.Reset();

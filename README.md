@@ -19,6 +19,10 @@ In this window, here are the settings you will need to run one particular test:
 
 You can select any single test, or multiple and they will all run.
 But it is advised that you do one at a time so you can see how the game responds.
+- In Unity, open Project window. Select Assests -> Main Menu.
+- Select "Play in Editor" under the Run menu on the right side of AltUnityTesterEditor
+- Tests under SeedMenuTests and SplashScreenTests are viable. Ignore GameModeTests.
+- Run one test at a time using "Run Selected Tests"
 
 
 ## Running Android Espresso tests

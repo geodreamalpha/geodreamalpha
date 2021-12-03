@@ -6,6 +6,9 @@ Quality Assurance - Nick Preston
 Developer - Jake Aldridge
 Developer - Blake Ottinger
 
+## Running unit tests
+In the main Unity window in the menu bar, select "Window>General>Test Runner". Then in that window, you will want to select the "Play Mode" tab near the top, thats where all our unit tests are. You can click run all for all of them to run or select a few or a group.
+
 ## Running end-to-end tests
 First, you will need to install AltUnityTester if you haven't already. Pulling from main is not enough for it to be installed on your machine. Go here and make sure to download and import the package: https://assetstore.unity.com/packages/tools/utilities/altunity-tester-ui-test-automation-112101
 - Add to Assets on webpage

@@ -50,7 +50,6 @@ namespace UserHit
 
             if (animate != null)
                 animate.Hit();
-            //animator.SetTrigger(grabHit);
         }
     }
 }

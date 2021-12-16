@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+using UserLifetime;
 using UserTargeting;
 using UserHit;
 using UserStats;
@@ -11,6 +12,7 @@ using UserMover;
 namespace UserProjectile
 {
     [RequireComponent(typeof(Targeting), typeof(Stats), typeof(Mover))]
+    [RequireComponent(typeof(Lifetime))]
     public class Projectile : MonoBehaviour
     {
         [SerializeField]
@@ -27,7 +29,6 @@ namespace UserProjectile
 
         void Start()
         {
-            Destroy(gameObject, lifeTime);
             targeting = GetComponent<Targeting>();
             stats = GetComponent<Stats>();
             mover = GetComponent<Mover>();

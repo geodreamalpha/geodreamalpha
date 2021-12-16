@@ -35,6 +35,8 @@ namespace UserMelee
 
         void DamageEnemy(Collider enemy)
         {
+            Instantiate(Resources.Load("Projectile/Spark", typeof(GameObject)), enemy.ClosestPointOnBounds(transform.position), Quaternion.identity);
+
             Hit enemyHit = enemy.GetComponent<Hit>();
 
             if (enemyHit != null)

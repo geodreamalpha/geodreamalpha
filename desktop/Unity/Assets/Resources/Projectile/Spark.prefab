@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1139375059739225446}
   - component: {fileID: 945398756149534156}
   - component: {fileID: 944439039924333944}
-  - component: {fileID: -238800011929935010}
   - component: {fileID: -4303693238152899362}
+  - component: {fileID: 6492715413036442920}
   m_Layer: 0
   m_Name: Spark
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1142333805530440808}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 5548340458635148922}
   m_Father: {fileID: 0}
@@ -4879,42 +4879,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &-238800011929935010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1142333805530440808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0fa7e80141bd40b537058a80b83e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sender: {fileID: 0}
-  impact: {fileID: 0}
-  lifetime:
-    maxTime: 1
-  target: {fileID: 0}
-  checkRate:
-    maxTime: 1
-  direction: {x: 0, y: 0, z: 0}
-  speed: 0
-  growth:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!82 &-4303693238152899362
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5011,6 +4975,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6492715413036442920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142333805530440808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0db9316454b0d74ebed51783ab04dc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 1
 --- !u!1001 &8809001345342008631
 PrefabInstance:
   m_ObjectHideFlags: 0

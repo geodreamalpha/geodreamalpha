@@ -5,24 +5,18 @@ using Cinemachine;
 
 namespace CombatSystemComponent
 {
-    //manages the unique camera behaviors of the game.
-    static class Cam
+    class Cam : MonoBehaviour
     {
-        static CinemachineBrain camBrain;
-        static CinemachineVirtualCamera camVirtual;
-        static CinemachineOrbitalTransposer camOrbital;
-        static CinemachineComposer camAim;
-        static CinemachineCollider camCollider;
+        CinemachineBrain camBrain;
+        CinemachineVirtualCamera camVirtual;
+        CinemachineOrbitalTransposer camOrbital;
+        CinemachineComposer camAim;
+        CinemachineCollider camCollider;
 
-        static Queue<float> zoomQueue = new Queue<float>();
-        static float zoomOffset;
+        Queue<float> zoomQueue = new Queue<float>();
+        float zoomOffset;
 
-        public static Vector3 getForward
-        {
-            get { return camBrain.transform.forward; }
-        }
-
-        public static void Initialize()
+        void Start()
         {
             camBrain = Camera.main.GetComponent<CinemachineBrain>();
             camVirtual = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
@@ -36,7 +30,7 @@ namespace CombatSystemComponent
             zoomOffset = -6;
         }
 
-        public static void Update()
+        void Update()
         {
             if (Time.timeScale > 0.5)
             {

@@ -27,6 +27,10 @@ namespace Spawner.UserAssets
             {
                 prototypes[i] = new DetailPrototype();
                 prototypes[i].prototypeTexture = ((Sprite)details[0]).texture;
+                prototypes[i].minWidth = 1f;
+                prototypes[i].maxWidth = 1.2f;
+                prototypes[i].minHeight = 0.6f;
+                prototypes[i].maxHeight = 0.8f;
             }
             return prototypes;
         }

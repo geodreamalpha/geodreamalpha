@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace UserBook
 {
-    public interface IPage
+    interface IPage
     {
-        public void Open();
+        public void Open(Book book);
     }
 }

@@ -4,19 +4,22 @@ using UnityEngine;
 
 using UserItem;
 
-public class Inventory : MonoBehaviour
+namespace UserInventory
 {
-    List<IItem> items;
-
-    // Start is called before the first frame update
-    void Start()
+    public class Inventory : MonoBehaviour
     {
+        List<IItem> items;
 
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

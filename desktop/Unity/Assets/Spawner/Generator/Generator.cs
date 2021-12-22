@@ -22,9 +22,9 @@ namespace Spawner.UserGenerator
                                                          new Variation(5, 1, 1, 1f, 10f, 26f),
                                                          new Variation(6, 6, 3, 1f, 36f, 18f) };
 
-        Variation[] detailVariations = new Variation[1] { new Variation(10, 20, 5, 1f, 10f, 7f) };
+        Variation[] detailVariations = new Variation[1] { new Variation(11, 8, 8, 1f, 10f, 2f) };
 
-        Variation[] treeVariations = new Variation[1] { new Variation(0, 1, 1, 0.01f, 0f, 20f) }; //0.0005
+        Variation[] treeVariations = new Variation[1] { new Variation(0, 4, 4, 0.01f, 20f, 3f) }; //0.0005
 
         Variation[] enemyVariations = new Variation[1] { new Variation(0, 8, 3, 0.00005f, 0f, 10f) };
 

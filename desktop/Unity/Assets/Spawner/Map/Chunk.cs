@@ -85,15 +85,15 @@ namespace Spawner.UserMap
 			data.SetTreeInstances(trees.ToArray(), true);
 			#endregion
 
-			#region Spawn Enemies
-			GameObject[] enemyObjs = assets.GetGameObject(Resources.LoadAll("Enemies", typeof(GameObject)));
-			while (enemies.Count > 0)
-			{
-				GameObject obj = GameObject.Instantiate(enemyObjs[enemies[0].index], enemies[0].position + new Vector3(0, 600, 0), Quaternion.identity);
-				enemies.RemoveAt(0);
-				snap.Add(obj.GetComponent<CharacterController>());
-			}
-            #endregion
+			//#region Spawn Enemies
+			//GameObject[] enemyObjs = assets.GetGameObject(Resources.LoadAll("Enemies", typeof(GameObject)));
+			//while (enemies.Count > 0)
+			//{
+				//GameObject obj = GameObject.Instantiate(enemyObjs[enemies[0].index], enemies[0].position + new Vector3(0, 600, 0), Quaternion.identity);
+				//enemies.RemoveAt(0);
+				//snap.Add(obj.GetComponent<CharacterController>());
+			//}
+            //#endregion
 
             #region Instantiate Terrain Gameobject
             terrainObject = Terrain.CreateTerrainGameObject(data);

@@ -2359,6 +2359,7 @@ MonoBehaviour:
     projectileCheck: 1
     projectileSpeed: 1
   health: 0
+  stamina: 0
 --- !u!114 &4342338411499206621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3873,7 +3874,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25e381a33d04932429a8bd13baaefaee, type: 2}
+  - {fileID: 2100000, guid: 23c6bacf640b9cd4cadf8033474b98d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

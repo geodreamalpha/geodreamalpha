@@ -14,7 +14,7 @@ namespace Spawner.UserAssets
             for (int i = 0; i < details.Length; i++)
             {
                 prototypes[i] = new TerrainLayer();
-                prototypes[i].diffuseTexture = ((TerrainLayer)details[0]).diffuseTexture;
+                prototypes[i].diffuseTexture = ((TerrainLayer)details[i]).diffuseTexture;
             }
             return prototypes;
         }
@@ -26,7 +26,7 @@ namespace Spawner.UserAssets
             for (int i = 0; i < details.Length; i++)
             {
                 prototypes[i] = new DetailPrototype();
-                prototypes[i].prototypeTexture = ((Sprite)details[0]).texture;
+                prototypes[i].prototypeTexture = ((Sprite)details[i]).texture;
                 prototypes[i].minWidth = 1f;
                 prototypes[i].maxWidth = 1.2f;
                 prototypes[i].minHeight = 0.6f;

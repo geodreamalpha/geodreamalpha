@@ -11,7 +11,7 @@ public class Firebase
     string FSAuthURL = "https://identitytoolkit.googleapis.com/v1/accounts";
     string FSBaseURL = $"{FSApiURL}projects/{ProjectID}/databases/(default)/documents/users/";
     string CurrUserId;
-    string API_KEY = "AIzaSyD3S-N_VOPv_zGVWOUgv2fPT0SgkSUzPaY";
+    string API_KEY = "";
 
     private Firebase() {}
 
